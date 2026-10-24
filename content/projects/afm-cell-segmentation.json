@@ -1,0 +1,166 @@
+{
+  "slug": "afm-cell-segmentation",
+  "order": 4,
+  "title": "AFM Tip-Cell Segmentation Pipeline",
+  "oneLiner": "Automated segmentation pipeline for AFM T-cell images. A probe-aware geometry rule selects the indented cell in crowded frames, scoring 0.813 Dice / 0.723 IoU on the held-out test set (n=39) with zero empty outputs. Ablation shows the selection rule contributes +0.65 Dice while model fine-tuning contributes +0.02.",
+  "timeframe": "Fall 2025",
+  "role": "Solo Researcher (Undergraduate)",
+  "organization": "Sulchek Lab, Georgia Tech",
+  "teamSize": 1,
+  "heroImage": "/evidence/afm-cell-segmentation/pipeline-strip.png",
+  "tags": [
+    "Biomedical Imaging",
+    "Image Segmentation",
+    "Machine Learning",
+    "Python",
+    "Cellpose",
+    "V&V",
+    "Research"
+  ],
+  "whatIOwnedSummary": "Owned the full pipeline end-to-end: dataset curation and quality control, stratified train/test split design, Cellpose fine-tuning, automatic cantilever tip detection, probe-aware cell selection logic, failure handling with structured fallback paths, per-frame QC artifact generation, and a verification framework with per-frame failure logging. Also audited and corrected my own evaluation protocol after finding that the originally reported metrics were computed on a set that included training frames; all numbers here are from a held-out test set under a single global threshold configuration. AFM images provided by graduate researcher at Sulchek Lab (Georgia Tech).",
+  "topMetrics": [
+    {
+      "label": "Mean Dice (held-out)",
+      "value": "0.813"
+    },
+    {
+      "label": "Mean IoU (held-out)",
+      "value": "0.723"
+    },
+    {
+      "label": "Held-out frames",
+      "value": "39"
+    }
+  ],
+  "claims": [
+    {
+      "title": "Designed probe-aware selection logic to pick the indented cell in crowded frames, and isolated its contribution by ablation",
+      "ownedScope": "A geometry rule that replaces confidence- or size-based instance selection. The cantilever tip location is detected automatically (with a manual probe-map fallback), candidate cell instances from the segmentation model are filtered by minimum area, and the instance nearest the probe by boundary distance is selected. If nothing survives, one softer-threshold retry runs; if that fails, a probe-anchored local crop fallback segments the neighborhood directly. The path taken (normal, retry, fallback) is written to JSON per frame.",
+      "requirementOrConstraint": "Select the tip-adjacent cell being indented, not the largest or highest-confidence cell, in frames where multiple large bystander cells are present. Never return an empty mask. Every frame that did not resolve on the normal path must be flagged for review rather than silently passed.",
+      "method": "Rightmost-dark-point heuristic for tip detection with a per-frame PROBE_MAP override; boundary-distance instance choice with a minimum-area filter; a single retry at a softer cellprob threshold; a local fallback segmenter cropped around the probe; per-frame JSON path logging. Contribution isolated with a 2x2 ablation (two models x two selection rules) on the held-out split.",
+      "resultMetric": "The rule is the dominant source of pipeline performance: 0.813 mean Dice with probe-aware selection versus 0.140 with a largest-cell baseline on the identical model and identical 39 held-out frames. Fine-tuning the model moves the same number by 0.024. Zero pred-empty frames across all configurations; one retry fired in 39 frames; every non-normal path flagged and logged.",
+      "evidenceRefs": [
+        "pipeline-strip",
+        "finetune-notebook"
+      ],
+      "limitations": "Tip detection assumes the cantilever is the rightmost dark feature and darker than background; it degrades on DN1 frames. Distance mode and the minimum-area value were chosen during development rather than derived on the training split alone, so mild contamination remains. Selection accuracy as its own metric (right cell chosen, yes or no) has not been computed separately from Dice. Untested on any data outside this dataset.\nReport right-cell selection rate as a standalone metric, independent of boundary quality. Run the rule on top of the lab's U-Net-with-contour-head model in a three-way comparison on the same labeled frames, since the rule is model-agnostic by construction.",
+      "interfacesTouched": [
+        "Preprocessing module → Cellpose model"
+      ]
+    },
+    {
+      "title": "Fine-tuned Cellpose-SAM on AFM T-cell frames and quantified its marginal contribution against an out-of-box baseline",
+      "ownedScope": "Cellpose-SAM fine-tuned on 177 training frames from a stratified, seeded 80/20 split across 8 experimental subsets (4 cell-culture days x 2 loading protocols), with resumable, checkpointed training.",
+      "requirementOrConstraint": "Original acceptance target: 0.90 mean Dice with zero empty outputs across all 8 subsets. Current standing against it, measured held-out: four of eight subsets meet 0.90; the overall mean is 0.813; the shortfall is localized to DN1 (0.761 rapid, 0.275 rate). Whether 0.90 is achievable at all is bounded by inter-annotator agreement on these images, which has not yet been measured.",
+      "method": "Seeded stratified split (177 train / 39 test). Corrected evaluation protocol: inference on the held-out split only, one global threshold configuration for every frame, no per-subset overrides, retry policy uniform across configurations. Contribution isolated with the same 2x2 ablation as Key Work 1.",
+      "resultMetric": "Fine-tuning contributes +0.024 mean Dice on held-out frames (0.813 versus 0.789 for out-of-box Cellpose-SAM under the same selection rule), consistent in direction across subsets but small. The practical implication: the pipeline may be able to run on the base model plus the selection rule, which would remove any need to distribute weights trained on lab data.",
+      "evidenceRefs": [
+        "finetune-notebook",
+        "qualitative-examples"
+      ],
+      "limitations": "Held-out n is 39 frames, four to five per subset, so subset means move substantially with single frames. DN1-rate fails at 0.275 under global thresholds. Global threshold values were chosen during development rather than re-derived on the training split alone. No donor, session, or microscope outside this dataset has been tested.\nMeasure the inter-annotator Dice ceiling by blind relabeling of a held-out subset. Re-derive thresholds using only the 177 training frames and apply to the test split once. Expand training with the lab's independently labeled ~200-cell set if those labels are boundary masks. Compare against the lab's U-Net-with-contour-head model on identical frames.",
+      "interfacesTouched": [
+        "Cellpose model → Probe-aware selection logic",
+        "Probe-aware selection logic → QC artifact writer"
+      ]
+    },
+    {
+      "title": "Built a per-frame verification framework, then used it to audit and correct my own evaluation protocol",
+      "ownedScope": "Every frame produces a reviewable overlay and mask. A per-frame JSON records the processing path (normal, retry, fallback) and the thresholds applied. Results are written to timestamped run folders with a persisted summary CSV, so any historical number can be traced to the exact run, frames, and configuration that produced it.",
+      "requirementOrConstraint": "Every frame reviewable without re-running inference. Every failure diagnosable from logs alone. Every reported number reconstructible after the fact from stored artifacts.",
+      "method": "Per-frame JSON path and threshold logging; timestamped run directories named by scope; aggregated worst-stem reports from logs; ablation summary persisted alongside each run's masks.",
+      "resultMetric": "The audit found that the originally reported metrics had been computed over all 216 frames, including the 177 the model trained on, with per-subset thresholds selected by inspecting results on those same frames. Because every run was stamped and every frame logged, the error was reconstructible from stored outputs without re-running inference. The evaluation was re-run held-out under one global configuration and re-reported at 0.813 Dice / 0.723 IoU (n=39); all public numbers were corrected.",
+      "evidenceRefs": [
+        "annotation-pipeline",
+        "finetune-notebook"
+      ],
+      "limitations": "The audit itself was manual: nothing in the pipeline automatically prevents an evaluation from reading frames that overlap the training split. QC artifacts have so far been manually reviewed by a single person.\nAdd an automated guard that asserts zero filename overlap between the training directory and any scored directory before an evaluation is allowed to run, so this class of error becomes structurally impossible rather than caught by audit.",
+      "interfacesTouched": [
+        "Probe-aware selection logic → QC artifact writer"
+      ]
+    }
+  ],
+  "outcome": "A working pipeline that returns one tip-cell mask per frame with zero empty outputs, at 0.813 Dice / 0.723 IoU on the held-out test set (n=39). Four of eight subsets meet the original 0.90 target; DN1-rate is the measured failure domain. The ablation showed the selection rule, not fine-tuning, carries the result.",
+  "interfaces": [
+    {
+      "from": "Raw AFM frame (.tif)",
+      "to": "Preprocessing module",
+      "type": "data",
+      "notes": "Grayscale load + percentile [2,98] intensity normalization; optional contrast normalization and morphological closing per subset config"
+    },
+    {
+      "from": "Preprocessing module",
+      "to": "Cellpose model",
+      "type": "data",
+      "notes": "Full AFM frame passed without cropping. Corrected evaluation applies a single global cellprob_threshold and flow_threshold to every frame; per-subset overrides were used in the original run and are retained only as a tuned upper bound, not as a deployable configuration."
+    },
+    {
+      "from": "Cellpose model",
+      "to": "Probe-aware selection logic",
+      "type": "software",
+      "notes": "Multi-instance integer label map passed to geometry rule; probe coordinates sourced from auto-detector or PROBE_MAP fallback"
+    },
+    {
+      "from": "Probe-aware selection logic",
+      "to": "QC artifact writer",
+      "type": "software",
+      "notes": "Single binary tip-cell mask + selected instance metadata; path taken (normal, retry, fallback) logged per frame to JSON"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "pipeline-strip",
+      "label": "Pipeline stage diagram",
+      "type": "diagram",
+      "url": "/evidence/afm-cell-segmentation/pipeline-strip.png",
+      "mimeType": "image/png",
+      "note": "5-panel strip: raw AFM frame → detected cantilever tip → Cellpose multi-instance masks → geometry-aware selection → final tip-cell mask."
+    },
+    {
+      "id": "qualitative-examples",
+      "label": "Segmentation quality examples",
+      "type": "diagram",
+      "url": "/evidence/afm-cell-segmentation/qualitative-examples.png",
+      "mimeType": "image/png",
+      "note": "6-panel grid of ground truth vs. predicted masks across good, borderline, and failure cases."
+    },
+    {
+      "id": "finetune-notebook",
+      "label": "Segmentation pipeline repo",
+      "type": "repo",
+      "url": "https://github.com/Jeremy-Kwok/afm-segmentation-pipeline",
+      "note": "Fine-tuning on ground truth masks, batch inference with probe-aware selection, and held-out Dice/IoU evaluation across 8 subsets."
+    },
+    {
+      "id": "annotation-pipeline",
+      "label": "Ground truth mask generation pipeline",
+      "type": "repo",
+      "url": "https://github.com/Jeremy-Kwok/afm-annotation-pipeline",
+      "note": "Converts human-drawn JSON annotations into binary ground truth masks and overlay images used for fine-tuning."
+    }
+  ],
+  "projectRisks": [
+    "DN1-rate is the measured failure domain: 0.275 mean Dice on held-out frames (n=4) under global thresholds, against approximately 0.87 for the remaining 35. This subset carried the heaviest per-subset threshold overrides in the original configuration, so its difficulty was previously masked rather than solved.",
+    "Performance without per-subset tuning is now measured rather than estimated. Under one global configuration the pipeline holds up on seven of eight subsets and fails on the eighth. Generalization to a new imaging session or microscope remains uncharacterized; no data outside this dataset has been tested.",
+    "Auto tip detection relies on a static rightmost-point heuristic and assumes the cantilever is darker than the background. Performance is consistent for DN2–DN4 but degrades on DN1 and would fail if cantilever geometry changed significantly.",
+    "Held-out n is 39 frames, four to five per subset. Subset-level numbers move substantially with a single frame and should be read as indicative, not precise."
+  ],
+  "lessons": [
+    {
+      "text": "In preparing this work for external review, I found that my originally reported metrics had been computed over the full dataset rather than the held-out split, so 177 of 216 scored frames were training data, and that per-subset thresholds had been selected by inspecting results on those same frames. I re-ran the evaluation on the 39 held-out frames under one global configuration and re-reported. Catching this myself, before anyone else relied on it, mattered more than the number did."
+    },
+    {
+      "text": "The dominant failure mode was cell selection, not segmentation — the model segmented correctly but chose the wrong cell. Identifying this shifted the design direction from backbone improvement to geometry-aware post-processing."
+    },
+    {
+      "text": "Per-frame path logging (normal, retry, fallback) made failure patterns immediately diagnosable without re-running inference. Structured logging is what separates a debuggable pipeline from a black box."
+    },
+    {
+      "text": "Per-subset threshold overrides are a structural workaround, and the ablation put a number on the cost: removing them exposes one subset that drops to 0.275 Dice. The overrides were compensating for a model with no domain understanding rather than fixing it. Domain conditioning or geometry-aware training is the correct architecture, not more manual knobs."
+    },
+    {
+      "text": "The ablation redirected what I would build next. Fine-tuning contributed +0.02 and the geometry rule contributed +0.65, which means effort belongs in selection and domain conditioning, not in the backbone. It also implies the pipeline may run on out-of-box Cellpose plus the rule, which would remove the need to distribute weights trained on lab data."
+    }
+  ],
+  "workType": "research"
+}

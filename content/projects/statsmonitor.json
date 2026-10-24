@@ -1,0 +1,189 @@
+{
+  "slug": "statsmonitor",
+  "order": 3,
+  "title": "StatsMonitor",
+  "oneLiner": "Daily post-market surveillance pipeline for a deployed robot fleet — turns raw controller telemetry into a severity-ranked, evidence-gated reliability watchlist.",
+  "timeframe": "Feb 2026 – Apr 2026",
+  "role": "Intern / Sole developer (end-to-end)",
+  "organization": "Mujin",
+  "teamSize": 1,
+  "heroImage": "/evidence/statsmonitor/system-context.png",
+  "tags": [
+    "Robotics",
+    "Reliability",
+    "Production System",
+    "Observability",
+    "Telemetry",
+    "Operations",
+    "Analytics",
+    "ETL"
+  ],
+  "whatIOwnedSummary": "Owned ingestion, raw/silver/gold tables, KPI dictionary, coverage semantics + trust gating, risk ranking/watchlist logic, and static report generation + operator runbook (public-safe representation; internals redacted).",
+  "topMetrics": [
+    {
+      "label": "Telemetry stat types",
+      "value": "5"
+    },
+    {
+      "label": "Telemetry history",
+      "value": "15",
+      "unit": "mo"
+    }
+  ],
+  "claims": [
+    {
+      "title": "Diagnosed a customer-reported production drop as a packaging defect breaking the vacuum seal, then authored an adopted SOP from the investigation",
+      "ownedScope": "The customer opened a support case reporting throughput problems at a specific controller. I worked the telemetry side of the joint investigation with a customer support teammate, using the StatsMonitor report I had built. After identifying the root cause, I authored the EOAT Reliability Watchlist Operating Guide that the customer support team adopted for handling future cases.",
+      "requirementOrConstraint": "",
+      "method": "I pulled up the StatsMonitor report's interactive analysis panel for the affected controller. I compared the controller's KPI trendlines from the week of the support case against a baseline window from one month earlier, when the same controller had no complaints. The KPIs I looked at were picks per hour, error-induced downtime share, and human interventions per 10k picks. I limited the comparison to the same controller across two time windows rather than cross-fleet, because customer sites handle different materials and direct cross-site comparisons aren't reliable. \nOnce I confirmed the metrics were degrading, I reviewed camera footage from the affected site and time period. The footage showed the gripper tearing the top of boxes that had a hole on the top face.",
+      "resultMetric": "Root cause identified as a packaging defect. The gripper was tearing the top of incoming boxes during pick attempts because a hole on the top face was breaking the vacuum seal. Findings reported to my manager and the customer support team. The EOAT Reliability Watchlist Operating Guide that came out of this work covers severity levels, watchlist categories, week-over-week trend badges, evidence-collection procedures, and escalation paths. The senior technical writer reviewed it, the customer support team adopted it, and I handed both the guide and its underlying pipeline off to a coworker before leaving the internship.",
+      "evidenceRefs": [
+        "system-context-diagram",
+        "operating-guide"
+      ],
+      "limitations": "StatsMonitor's KPI tables are aggregated by day, so the investigation couldn't narrow the failure window to specific hours or shifts. The camera cross-reference was a separate manual step. The pipeline doesn't integrate footage automatically. Remediation of the packaging itself was downstream of my work, since the customer support team handled the conversation with the customer. I don't have direct visibility into whether the customer changed their packaging spec."
+    },
+    {
+      "title": "Designed a composite reliability risk score with peer-relative normalization and automatic driver attribution, replacing the prior single-metric ranking",
+      "ownedScope": "The original ranking sorted controllers by a single metric (error-induced downtime per 10k picks). I replaced it with a composite risk score that combines three reliability signals, normalizes them across the active cohort, and auto-attributes the dominant driver to each flagged controller. The design decision was mine. I felt that with a fleet of controllers usually performing imperfectly for different reasons, the report needed to flag both what's wrong and which controller is the most severe relative to its peers, so the customer support team could act top-down rather than guessing where to start.",
+      "requirementOrConstraint": "",
+      "method": "The composite score combines three rates per 10k picks — error-pause time (weighted most heavily), pick errors, and human interventions — each min-max normalized across the eligible cohort in the current 7-day window before being weighted. The weights were tuned empirically: I started from an even-ish split and adjusted based on which metrics best signaled actual need for service, weighting error-pause time the most and human interventions the least. Driver attribution selects the largest unweighted normalized component for each controller, so the driver tells you which metric is most extreme relative to peers, not which contributes most to the composite. The driver maps directly to one of three watchlist categories: error-induced downtime, pick errors, and human interventions. The score only applies to controllers that pass three evidence gates: at least 5 days with required stats, at least 3 days with picks, and at least 15,000 picks in the 7-day window. Ungated controllers are excluded from risk scoring and surface separately under coverage_gap if they fall below the days-with-required threshold.",
+      "resultMetric": "The watchlist surfaces controllers in severity order, top-down. Each row tells the customer support team three things at a glance: how severe (color), what kind of issue triggered it (driver category), and what to investigate (the SOP-defined recommended action). Because the score is peer-relative, \"most extreme right now\" is the natural sort key, and the team doesn't have to compare absolute thresholds across controllers operating in different conditions.",
+      "evidenceRefs": [
+        "system-context-diagram",
+        "operating-guide"
+      ],
+      "limitations": "The score is peer-relative, so when the entire fleet performs similarly, the ranking distinguishes between controllers but the absolute risk level is unclear. The score cannot detect data quality issues on its own. Controllers can also report incorrect numbers after a corrupted update, which the pipeline surfaced but the score wouldn't have caught as suspicious. Separately, controllers can lose historical telemetry to hardware maintenance events. That risk reinforced an architectural decision I made early in the project: store the pipeline's processed data on the server side rather than relying on the controllers' local storage, so the dataset survives controller-level disruptions. The weights were tuned for the deployed fleet's failure patterns. A different fleet with different failure modes would likely need re-tuning."
+    },
+    {
+      "title": "Built a week-over-week trend detection layer that surfaces controllers getting progressively worse, with noise-floor gating to prevent low-volume false alerts",
+      "ownedScope": "The composite risk score answers \"which controller is the most severe right now?\" but it doesn't say anything about direction. A controller could be holding steady at high severity, or it could be deteriorating week over week, and the team would want to act differently in those two cases. I built a trend detection layer on top of the risk score that compares each controller's current 7-day window against the prior 7-day window across four reliability metrics, classifies each metric as worsening, rising, improving, or stable, and rolls them up into a single trend badge per controller. The detection layer is gated by per-metric noise floors so low-volume controllers don't generate spurious alerts.",
+      "requirementOrConstraint": "",
+      "method": "The trend layer compares two non-overlapping 7-day windows (current week vs the prior week) for four metrics: error-pause time, pick errors, human interventions, and downtime share. Each metric independently classifies as worsening, rising, improving, stable, or below noise floor. The controller-level summary takes the worst active signal across the four metrics, with one design choice worth calling out: the system is biased toward escalation. Worsening triggers above a 25 percent threshold, rising at 10 percent, but improvement is only flagged above a 25 percent reduction in the opposite direction, and an \"improving\" summary requires every active metric to be moving the right way. A single stable metric demotes the summary back to stable. The intent is that the trend layer should be quick to flag deterioration and slow to declare recovery, which matches how a customer support team would actually want to use it. Noise-floor gating uses per-metric thresholds reasoned from first principles. A metric where both windows are below the noise floor is excluded from the badge vote, since percentage changes on near-zero baselines aren't meaningful signal. A metric where either window broke through the floor stays active, so a real spike from quiet to loud isn't suppressed. The trend layer also has its own evidence check on the prior window: a controller with a coverage gap last week cannot get a trend badge this week, even if the current week is clean.",
+      "resultMetric": "The watchlist now surfaces two complementary signals per controller: severity (which controller is the worst right now) and trajectory (which controllers are deteriorating). The customer support team uses both together. A \"Degrading yellow\" controller can take priority over a \"stable red\" one because the trajectory tells the team which problems are still actively unfolding. The trend badge feeds the same SOP-driven escalation paths as the severity color, so a controller showing Degrading for two consecutive weeks triggers a defined escalation step in the operating guide.",
+      "evidenceRefs": [
+        "system-context-diagram",
+        "operating-guide"
+      ],
+      "limitations": "The trend logic assumes \"higher is worse\" for all four current metrics, which is true today but would mislabel a future metric where higher is better (throughput, uptime, etc.). Adding such a metric would require flipping the sign convention in the classifier. The system also can't distinguish between a real performance change and a known operational change, like a customer adding a new SKU or running a different shift pattern. The team has to bring that operational context to the trend signal."
+    },
+    {
+      "title": "Designed the pipeline to refuse silent assumptions about missing or thin data, surfacing telemetry-quality issues as first-class watchlist signals",
+      "ownedScope": "The principle I designed the pipeline around: missing data is not zero, and thin data is not the same as confirmed data. If a controller didn't report telemetry for a day, the pipeline should not silently produce a \"zero events, zero downtime\" picture that looks healthy. If a controller had so little activity that conclusions would be unreliable, the pipeline should not draw those conclusions. I built coverage tracking and evidence gating into the system from the beginning, and made data quality issues their own first-class watchlist signal rather than letting them disappear into clean-looking numbers.",
+      "requirementOrConstraint": "",
+      "method": "The pipeline tracks coverage independently from values. For each controller and each day, it records which raw stats were observed in the upstream feed, separate from what those stats parsed to. That separate ledger is what lets a reader tell whether a 0 means \"the robot was idle\" or \"no data was reported.\" A controller has to clear two thresholds before it appears in the performance ranking: enough days of required stats in the window, and enough total picks. Below those thresholds, the controller doesn't get a performance row, it gets a coverage_gap row instead, with red severity if telemetry was completely dark and yellow if it was partial. The coverage_gap row points at the data and infrastructure side rather than the EOAT side, so the team knows to check the connection, the stats export, and the pipeline schedule rather than the hardware. Rates are computed honestly over the days that did report, so a 5-day rate isn't silently scaled to look like a 7-day rate. The evidence gate is what protects the comparison: a partially-covered controller is excluded from peer ranking entirely rather than being misranked against fully-covered peers. The principle is documented inside the project as \"missing data is not zero, always consider coverage.\"",
+      "resultMetric": "The customer support team gets two clearly separated signals on each card. Severity (color and category) tells them whether the controller is unhealthy. Coverage tells them whether the data they're looking at can be trusted at all. A row of green and red squares on each card shows which days had required stats over the last 7 days, with a count below it. When a controller's data is unreliable, that surfaces as its own watchlist row pointing at the right team to investigate, not as a misleading performance signal. Time-breakdown bars and trend tables draw blanks rather than zeros where the data isn't there, so the report stays honest about what it knows.",
+      "evidenceRefs": [
+        "system-context-diagram",
+        "operating-guide"
+      ],
+      "limitations": "The current design treats data quality as a binary at the day level: either a day cleared the required-stats check or it didn't. The reality is more continuous, since some stats might have arrived partially. The system trades that nuance for legibility because the customer support team consumes a pass-fail visualization, not a confidence score. The thresholds (days of required stats, minimum picks in the window) are tuned for this fleet's reporting cadence and would likely need adjustment for a different cadence. The evidence gate also can't catch upstream data corruption where the stats are present but the values are wrong, since coverage tracks whether stats reported, not whether they're correct. That kind of issue requires a separate validation layer."
+    },
+    {
+      "title": "Built reliability into the nightly pipeline, then hardened it against failures observed in production",
+      "ownedScope": "The pipeline runs unattended on a production server every night and pulls real telemetry from a deployed fleet, so reliability had to be a first-class concern from the beginning. I designed it around hard timeouts on every network call, stepped backoff for individual controllers that fail, no external pip dependencies, and a layered bronze/silver/gold data store. Some of these I got right from the first version. Others I had to revise after specific failures in production showed me where the original design was wrong.",
+      "requirementOrConstraint": "",
+      "method": "The \"never hang\" guarantee is layered across three mechanisms. The telemetry API call has a SIGALRM-based hard timeout that raises and gets caught by the per-controller retry loop. The per-controller connection uses socket-level connection timeouts and a poll loop with a deadline. The whole nightly job is wrapped in a Bash timeout in the cron entry. Together, no single layer can hang the system. I learned this layered approach the hard way. In the early days of automating the per-controller connections, I had real trouble with connections that either silently failed or took too long to come up. The composite timeout structure was a direct response to those incidents.\n\nThe backfill runner has its own per-controller stepped backoff: 15 minutes after the first failure, 1 hour after the second, 6 hours after the third, 24 hours after the fourth. The state is persisted in a JSON file so a controller that failed yesterday is still in cooldown today before any pull is attempted. Backoff is necessary because controllers go offline for days at a time during physical maintenance, and without backoff the pipeline would hammer them on every run.\n\nThe pipeline has zero external pip dependencies in the core code. The only external code is the vendored API client, included as a git submodule rather than installed via pip. There's no requirements.txt, no pyproject.toml. This was a deliberate choice to minimize deployment friction and dependency drift, and to keep the surface area small enough that I could reason about and own the entire pipeline.\n\nThe data store is layered. Bronze (raw merged JSON per controller per day) is the canonical store. Silver (flattened CSVs) and gold (aggregated KPIs, the watchlist, the HTML report) are built from it downstream.\n\nThe data is persisted server-side rather than co-located with the controllers. That decision was in the architecture from the start, and got reinforced by observing that some controllers had lost historical telemetry to events outside the pipeline's control. Keeping the canonical store on the pipeline server insulates the historical record from controller-side disruptions.",
+      "resultMetric": "The pipeline runs nightly without intervention. Failures are non-fatal at the right granularity: a single bad controller is logged to a failure CSV and the rest of the run completes. Partial failures no longer silently advance state and create gaps in the historical record.",
+      "evidenceRefs": [
+        "system-context-diagram"
+      ],
+      "limitations": "The reliability properties were not all designed correctly on the first pass. An earlier version of the backfill runner advanced its cursor on partial failures, which created silent gaps in the historical archive. That bug shipped, was caught in production when I went to investigate why some days were missing telemetry, and the fix was to refuse cursor advancement on partial failures and queue the windows for retry instead."
+    },
+    {
+      "title": "Built the interactive analysis panel that turns the static watchlist into a real investigation tool, with side-by-side controller comparison and 15 months of historical context",
+      "ownedScope": "The watchlist tells the customer support team which controllers to look at. The interactive analysis panel is what lets them actually investigate. I designed and built it as the top section of the daily report: two side-by-side charts where the team can pick any controller, any date range, and any combination of three KPIs to compare two controllers visually or trace one controller's behavior over time. The panel is what made the diagnostic workflow possible. It's the first thing I pulled up to investigate the customer-reported throughput case in another contribution, and it's also what I used in a separate project to compare baseline against new-model suction cups during EOAT validation testing.",
+      "requirementOrConstraint": "",
+      "method": "The panel is built into the top of the HTML report. The team picks two controllers from dropdowns, optionally a date range, and toggles which of three KPIs to display: picks per hour, error-induced downtime share, and human interventions per 10k picks. The two controllers render as separate side-by-side charts rather than overlaid on the same axes. The reasoning was clutter: three KPIs is already six lines on a single chart, and overlaying two controllers would double that to twelve. Splitting into two charts keeps each one readable and leaves room for adding more KPIs later without crowding the comparison.\n\nA few design choices in the panel are worth calling out. The two charts share a global Y-axis maximum so a controller's spike doesn't visually rescale just because the comparison controller is mostly flat. The team can compare absolute magnitude across charts directly. Hover is synchronized across both charts: hovering any date highlights the same date on the other chart, so you can read the same point in time on both at once. I added that after the first version of the panel because using it on one controller at a time defeated the purpose of side-by-side comparison.\n\nThe panel handles three time granularities. Daily for short-window investigation, weekly toggleable when the team wants to see the trajectory over a few weeks without daily noise, and monthly automatically when the date range exceeds about 90 days. Past that range, daily lines become unreadable, and the team typically doesn't need day-resolution context that far back anyway. The bucketing math is correct: rates are computed from bucket totals (sum of picks divided by sum of active hours), not from averages of daily rates. The math actually matters here because averaging daily rates is the classic mistake that bias-shifts the result.\n\nThe panel respects the same coverage gating as the rest of the pipeline. Days that didn't pass the required-stats check render as gaps in the daily charts, drawn as dashed faded segments rather than smoothed-through interpolations. The chart says \"we don't have data for this day\" instead of pretending to.\n\nThe panel is about 1,000 lines of vanilla JavaScript application code, with Chart.js handling the rendering. I chose Chart.js because it's lightweight, has no build step, and works in a single-file HTML report opened locally. The whole panel is one file plus the report's HTML scaffolding, with no framework, no bundler, and no build pipeline.",
+      "resultMetric": "The customer support team has both halves of a diagnostic system: an alert layer (the watchlist) that tells them which controllers to look at, and an investigation layer (the panel) that lets them actually look. The team has used the side-by-side comparison feature to compare two gripper systems against each other directly. The panel was also portable enough to carry into a separate project, where I used it during EOAT validation testing to compare a baseline suction cup against a new model under field conditions over multiple weeks.",
+      "evidenceRefs": [
+        "report-demo"
+      ],
+      "limitations": "The panel works for the small fleet it was built around: a curated set of controllers chosen for active deployment and accessible telemetry. A few controllers are explicitly excluded from the dropdowns for known reasons (data-quality or telemetry-access issues). The panel doesn't currently support arbitrary multi-controller comparison, only pairwise. For a larger fleet, the dropdown UX would need to be rethought, probably with grouping or filtering. The 90-day auto-switch to monthly buckets means very long-range queries lose day-resolution detail entirely. That's the right call for readability but means there's no way to look at one specific day from many months back without manually narrowing the range."
+    },
+    {
+      "title": "Authored an operating guide for the watchlist as part of my handoff, and the customer support team adopted it for ongoing use",
+      "ownedScope": "Building the pipeline and the watchlist wasn't enough on its own. The team that would actually use it day to day is the customer support team, not the engineers, and they needed a written guide for how to read the report, what each severity color and category meant, what action to take in each case, and when to escalate. I wrote that guide as part of my handoff before leaving the internship. The system survives my departure because there's now an institutional document that captures the diagnostic process, not just the code.",
+      "requirementOrConstraint": "",
+      "method": "The guide is a 7-section operating procedure that walks the customer support team through the watchlist: what it is, how severity is determined, what each watchlist category means and what to investigate, how to read week-over-week trend badges, how to read a single watchlist card step by step, how to use the interactive analysis panel for deeper investigation, and the escalation paths for different situations. It also includes a quick reference of the key thresholds the system uses internally so the team understands why a controller is flagged in a particular state.\n\nThe structure follows how the team actually uses the report. Section 5, \"Reading a Watchlist Card,\" is a six-step procedure: check severity and trend badge, read the trigger reason, read the recommended action, check the owner field to know which team handles this category, review the evidence to collect before closing or escalating, and use the visualizations for context. The intent was to give a customer support specialist a deterministic playbook instead of leaving them to interpret the report on their own.\n\nThe escalation paths section names specific situations and the team they should be routed to: red severity for two consecutive days goes to the controls team within 24 hours, persistent coverage gaps go to data and infrastructure, two consecutive weeks of degrading trend goes to the service team and site contact, pick error spikes go to the EOAT and service teams, and so on. This is the part of the document that turns the watchlist from a dashboard into a process: the report flags the issue, the SOP routes the response.\n\nThe senior technical writer within the company reviewed the draft, gave a few formatting suggestions, and signed off. I revised based on the suggestions and finalized.",
+      "resultMetric": "The guide was adopted by the customer support team. My coworker mentioned wanting to put it up on a monitor in the office so the team can see all the controllers at once during their day. The guide is one of two things that made the system actually transferable when I left: the second was the codebase itself. I handed both to a coworker before my last day and made sure the pipeline was running on his end. The system continues to surface anomalies on its own daily, and the team has a written playbook for what to do with them.",
+      "evidenceRefs": [
+        "operating-guide"
+      ],
+      "limitations": "The technical writer review was relatively light, focused on formatting rather than deep content review. The guide hasn't yet been tested across a wide enough range of real cases to know whether the recommended actions and escalation paths cover every scenario the team encounters. The thresholds documented in the quick reference are tuned for the current fleet and would need updating if the fleet composition or operating conditions change significantly. The guide also assumes the reader already knows the basic vocabulary of the warehouse robot system; it's not a pure introduction to the system for someone with no context."
+    }
+  ],
+  "outcome": "Running nightly and unattended at handoff. The customer support team adopted the watchlist and its operating guide, and the report's analysis panel was used to diagnose a customer-reported throughput drop as a packaging defect. I handed the pipeline and the guide to a coworker and confirmed it was running on their end before my last day.",
+  "interfaces": [
+    {
+      "from": "Robot telemetry API (GraphQL)",
+      "to": "Bronze: raw JSON store",
+      "type": "data",
+      "notes": "Per-controller, per-day pulls of multiple stat types via a vendored API client. Each controller-day produces one merged JSON file. Provenance preserved via generatedAt timestamp on every file. Failures logged to a per-stat failure CSV rather than aborting the run."
+    },
+    {
+      "from": "Bronze: raw JSON store",
+      "to": "Silver: tidy CSV store",
+      "type": "data",
+      "notes": "Incremental flatten transforms nested controller-day JSONs into one row per (controller, day, stat). State-file tracking ensures only dirty or re-pulled files get re-flattened. Coverage signal preserved as a separate ledger so missing data stays distinguishable from zero-event days downstream."
+    },
+    {
+      "from": "Silver: tidy CSV store",
+      "to": "Gold: KPI tables + watchlist",
+      "type": "data",
+      "notes": "Daily KPIs computed (picks/hour, error-induced downtime share, interventions per 10k picks, pick-outcome and error-category distributions) per controller-day. Composite risk score and week-over-week trend classification computed over 7-day windows with evidence gating. Coverage gaps surface as their own watchlist category. Outputs include both ops-facing (watchlist) and debug tables for traceability."
+    },
+    {
+      "from": "Gold: KPI tables + watchlist",
+      "to": "Single-file HTML report",
+      "type": "process",
+      "notes": "Static HTML report rendered from gold tables, including the interactive analysis panel for self-service investigation. Daily refresh. Deployment-agnostic: the renderer writes to a known path, and the team layered hosting on top with no code changes."
+    },
+    {
+      "from": "Operating guide (handoff doc)",
+      "to": "Customer support team workflow",
+      "type": "process",
+      "notes": "The EOAT Reliability Watchlist Operating Guide translates the system's outputs into a deterministic playbook: severity actions, watchlist category investigations, trend-badge interpretation, escalation paths to specific teams, and key thresholds. Adopted by the customer support team during my handoff."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "system-context-diagram",
+      "label": "System context diagram",
+      "type": "diagram",
+      "url": "/evidence/statsmonitor/system-context.png",
+      "mimeType": "image/png",
+      "note": "C4 level 1: StatsMonitor pulls 5 stat types per controller per day from the robot telemetry API and produces the watchlist the customer support team reads."
+    },
+    {
+      "id": "operating-guide",
+      "label": "EOAT Reliability Watchlist Operating Guide",
+      "type": "report",
+      "note": "Seven-section operating procedure: severity, watchlist categories, trend badges, reading a card, the analysis panel, and escalation paths. Internal; not publicly released."
+    },
+    {
+      "id": "report-demo",
+      "label": "Report demo: illustrative UI, synthetic data, simplified logic",
+      "type": "other",
+      "url": "https://jeremy-statsmonitor-demo.netlify.app",
+      "note": "A public stand-in for the report and its analysis panel. Not the production report and not real fleet data."
+    }
+  ],
+  "projectRisks": [
+    "Pipeline depends on the upstream telemetry API contract staying stable. There's no contract-test layer that would catch a schema change before a daily run breaks.",
+    "Composite weights, evidence gates, and noise floors are tuned for the current fleet's failure patterns. They don't auto-adapt as the fleet grows or the customer mix changes.",
+    "Canonical bronze archive lives on a single host with no off-server backup, so a disk or server loss would take the history with it."
+  ],
+  "lessons": [
+    {
+      "text": "\"Most severe right now\" needs more than one dimension when the operator is triaging multiple imperfect controllers at once. A composite score with driver attribution beats a single-metric ranking when failure modes are heterogeneous."
+    },
+    {
+      "text": "Data quality has to be a first-class signal in any system that drives decisions. Zero on a chart can't mean \"no events\" and \"no data\" interchangeably without misleading the reader."
+    },
+    {
+      "text": "Production reliability comes from iteration as much as upfront design. Several of the most important reliability features in the pipeline came from patching real failures, not from getting everything right on the first pass."
+    }
+  ],
+  "workType": "internship"
+}

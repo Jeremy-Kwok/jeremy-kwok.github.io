@@ -1,0 +1,182 @@
+{
+  "slug": "eoat-supplier-change-qualification",
+  "order": 2,
+  "title": "EOAT Supplier Change Qualification",
+  "oneLiner": "Sole-authored a 2-phase qualification protocol (bench characterization plus warehouse A/B observation) for an EOAT supplier change on a deployed warehouse robotics fleet. Its pre-set decision criteria caught a durability failure at one site before a fleet-wide swap.",
+  "timeframe": "Jan 2026 - Apr 2026",
+  "role": "Test Plan Author / Phase 1 Executor",
+  "organization": "Mujin",
+  "teamSize": 1,
+  "heroImage": "/evidence/eoat-supplier-change-qualification/methodology.png",
+  "tags": [
+    "Validation Methodology",
+    "Supplier Qualification",
+    "Risk Management",
+    "Post-Market Surveillance",
+    "Acceptance Criteria",
+    "Failure Mode Analysis",
+    "EOAT",
+    "Robotics",
+    "Bench Testing",
+    "A/B Testing"
+  ],
+  "whatIOwnedSummary": "Sole authorship of the 13-page qualification plan. I designed every test in both phases. The plan was reviewed and approved by my manager and a senior technical writer; it was not co-authored. I personally executed Phase 1 bench characterization across 5 surface types and an extended weight envelope, designed the decision logic and acceptance gates, designed the failure-mode triage protocol and Service Log structure, and added two new metrics to the fleet's surveillance pipeline as part of the qualification work. Phase 1 findings were communicated to the team running Phase 2. The field A/B started at a customer distribution center during my last week, and Mujin's on-site team carried it through after my internship ended. Vendor relationship and sample procurement were institutional, not in my scope.",
+  "topMetrics": [
+    {
+      "label": "Plan Length",
+      "value": "13",
+      "unit": "pages"
+    },
+    {
+      "label": "Test Phases",
+      "value": "2"
+    },
+    {
+      "label": "Surface Conditions Tested",
+      "value": "5"
+    },
+    {
+      "label": "Field decision",
+      "value": "No-swap"
+    }
+  ],
+  "claims": [
+    {
+      "title": "Authored 2-phase qualification methodology for an EOAT supplier change",
+      "ownedScope": "",
+      "requirementOrConstraint": "The team needed a defensible, pre-specified protocol for evaluating whether to swap the incumbent cup supplier for a candidate vendor on production grippers. Without a structured plan, a 90-day field evaluation would generate data that couldn't be cleanly translated into adopt, reject, or limited-deployment decisions. The plan also needed to surface envelope failure modes on the bench before exposing the customer site to a long observational window.",
+      "method": "I authored a 2-phase plan covering single-cup bench characterization (Phase 1) and warehouse A/B observation across 30, 60, and 90-day checkpoints (Phase 2). I designed every test in both phases. The plan defines test envelopes (multi-weight, multi-surface, slip sheet), measurement procedures, intervention triggers, the failure-mode summary format, and the decision logic mapping Phase 2 outcomes to adopt, reject, or limited-deployment recommendations.",
+      "resultMetric": "The plan was issued, reviewed, and used as the protocol for the field A/B at a customer distribution center, which started during my last week. Within about two weeks the candidate cups cracked and wore down. Mujin's on-site team applied the plan after my internship ended, and its pre-set decision criteria called the result a no-swap. The staged structure kept a durability failure to one site instead of a fleet-wide rollout.",
+      "evidenceRefs": [
+        "triage-decision-tree",
+        "methodology-diagram"
+      ],
+      "limitations": "The System Configurations table includes intentional placeholders for the candidate vendor's specifications (lip style, diameter, filter pairing). The candidate vendor was expected to populate those fields, but it leaves the issued plan structurally incomplete on its own. Some procedure refinements emerged during execution (extended weight envelope on tight stretch-wrap during Phase 1) and aren't reflected in the issued document. The plan specifies decision logic and metric set but doesn't name the analyst or analysis tooling; in practice that role was filled informally by the team owning post-test analysis.\nPhase 1 was short-duration static testing with no cyclic wear test, so the cracking and wear first appeared in the field.\nSource clean incumbent baseline cups for direct Phase 1 bench A/B in the next iteration, and add a cyclic wear test to Phase 1. Tighten must-win thresholds with priors from the incumbent's historical wear and intervention data once that baseline is compiled."
+    },
+    {
+      "title": "Specified risk-proportionate decision logic and acceptance gates",
+      "ownedScope": "",
+      "requirementOrConstraint": "A 90-day Phase 2 evaluation needs a non-political, auditable rule for translating outcomes into a decision. Without a pre-specified gate, comparable performance can lead to indefinite deferral or vendor-relationship-driven adoption rather than data-driven adoption. The rule needed to handle clean-win, clean-loss, and mixed cases, with thresholds chosen before data collection and metrics that capture both safety and productivity dimensions.",
+      "method": "I designed the gate as a two-condition rule: a must-not-worsen condition on the customer-facing safety metric (piece loss rate, normalized to picks) against the incumbent baseline, plus a must-win condition requiring the candidate to demonstrate a pre-specified improvement threshold on at least one of four metrics (pick issues rate, order cycle issues rate, direct robot throughput, downtime per intervention). I defined the mixed-result case (candidate better on some, worse on others) as a fallback to limited deployment under explicitly defined conditions, which avoids forcing a binary decision when the data doesn't support one. Two of the four must-win metrics didn't yet exist as standard outputs in the fleet's surveillance pipeline when I scoped the plan, so I added them. The metric set co-evolved between the qualification protocol and the underlying surveillance infrastructure.",
+      "resultMetric": "A defensible decision rule the team could apply without subjective negotiation between vendor preference and data. In the field run, the rule called the candidate a no-swap after its cups cracked and wore down within about two weeks. Two metrics defined in the plan were added to fleet monitoring as standard outputs and remain available for future qualification work, not just this one.",
+      "evidenceRefs": [
+        "methodology-diagram"
+      ],
+      "limitations": "The must-win threshold was chosen on engineering judgment, not derived from incumbent baseline variance. In practice, \"meaningful improvement\" should probably be calibrated to the noise floor in the incumbent's natural per-window metric variance, which would require pre-trial baseline data collection. The must-win rule is OR-gated across four metrics, so a single metric crossing the threshold can justify adoption even if other metrics are flat or marginally worse. This is a design choice, but it's a real edge case of the rule structure. Cost-of-vendor-switch isn't represented in the gates; the rule is performance-only.\nCalibrate the must-win threshold against the incumbent's natural per-window variance once a pre-trial baseline window is collected. Consider an AND condition or a weighted score across the four must-win metrics if OR-gating produces ambiguous adoption recommendations in future qualifications. Add a cost-of-switch dimension if the rule is reused for higher-cost component swaps."
+    },
+    {
+      "title": "Designed the failure-mode triage and intervention protocol",
+      "ownedScope": "",
+      "requirementOrConstraint": "Without runtime rules, customer-site interventions during the 90-day field run would be ad-hoc and non-comparable across grippers. The decision gate at the 90-day mark is only as good as the maintenance burden data feeding it, which means the field protocol needs structured triage that classifies failure modes (cup damage, filter clogging, blow-off solenoid fault) into pre-specified actions and a logging protocol that produces aggregable maintenance burden data.",
+      "method": "I designed a backpressure-based diagnostic procedure to distinguish cup tears from filter clogging from blow-off solenoid faults. The procedure activates the blow-off channels for a zone of cups, seals the cup mouths, and checks for backpressure buildup; failure to build pressure routes to the next inspection step. I tied the procedure to a fixed pick-count and time-elapsed cadence so the test runs without judgment calls during the field window. I designed the replacement decision tree so a cleaning event, a filter replacement, or a full cup swap each map to specific observed conditions, which keeps Service Log entries comparable across the two grippers in the A/B comparison. I structured the Service Log itself with timestamp, intervention type, and downtime minutes so the data aggregates cleanly into the rate-normalized intervention and downtime metrics that feed the decision gate.",
+      "resultMetric": "The triage protocol is in the issued plan. The Service Log template shipped to the customer site with the plan as part of the field deployment package for the A/B.",
+      "evidenceRefs": [
+        "triage-decision-tree",
+        "methodology-diagram"
+      ],
+      "limitations": "The blow-off cadence parameters were chosen on engineering judgment and informal priors from the incumbent's wear patterns, not back-tested rigorously against historical Service Log data. The blow-off diagnostic itself wasn't validated against a known-fault gripper before deployment; design intent is sound but field calibration is a next step. The decision tree assumes failure modes are observable on scheduled inspection; intermittent failures (e.g., partial seals under specific surface conditions) may not present at inspection windows.\nValidate the blow-off diagnostic against known-fault grippers (intentionally torn cup, intentionally clogged filter) to characterize false-negative and false-positive rates. Calibrate cadence parameters against real field wear data. Add intermittent-failure detection (per-cup vacuum-trace anomaly detection) if telemetry resolution supports it."
+    },
+    {
+      "title": "Executed Phase 1 single-cup characterization; surfaced a surface-conditional failure mode",
+      "ownedScope": "",
+      "requirementOrConstraint": "Phase 2 commits the customer site to a long observational window with the candidate cup on a production gripper. Bench characterization needs to surface envelope failure modes (surface-conditional retention loss, weight-envelope limits) before the customer site is exposed to them, or Phase 2 risks discovering failure modes the rig should have caught.",
+      "method": "I ran the Phase 1 bench tests over roughly 2 days. For each surface and weight combination, I placed the cup on the package, activated vacuum, lifted manually, and held the assembly airborne for the planned duration. I recorded steady vacuum at seal and at the scheduled check intervals during the hold, and I noted any slip, seal break, or drop. I ran 2 to 3 trials per cell on the standard surfaces. For the tight stretch-wrap surface, I extended the weight envelope past the planned cap because I wanted to characterize the failure mode rather than stop at a procedural boundary. Manufactured-weight packages weren't available at the higher weights, so I used real product samples in the target weight range, which preserves real-surface conditions at the cost of slightly off-grid weight points.",
+      "resultMetric": "Clean pass on corrugate (new and damaged) and slip sheet across the standard envelope. Documented surface-conditional failure on loose stretch-wrap: vacuum decay outside the acceptance threshold and drop events observed. Marginal performance on tight stretch-wrap above the planned weight cap, with lift failure at the highest tested weight. Finding was communicated to the team running Phase 2 at the customer site. The team monitored for the failure mode during field testing, though Phase 2 is observational and the customer controls SKU mix, so the finding didn't drive an operational change at the customer site.",
+      "evidenceRefs": [
+        "methodology-diagram"
+      ],
+      "limitations": "Incumbent baseline cup wasn't bench-tested due to clean-cup unavailability. Comparative bench inference was reserved for Phase 2 by design (Phase 1 characterizes the candidate against absolute acceptance criteria; the A/B happens at the system level), but a clean baseline would have made the loose-stretch-wrap finding interpretable as a regression vs. shared property. Pull-off force wasn't measured directly; the airborne static retention test substituted as the primary acceptance criterion, which captures retention but not the maximum load before seal break. Single-cup static testing doesn't replicate multi-cup load sharing or robot motion dynamics; the issued plan acknowledges this scope boundary explicitly.\nRe-run Phase 1 with a clean incumbent baseline cup for direct A/B at the bench level. Add pull-off force measurement to the procedure. Run partial-zone multi-cup characterization on a gripper before any future field deployment to determine whether the loose-stretch-wrap failure mode is masked by adjacent cups."
+    }
+  ],
+  "outcome": "The field A/B ran at a customer distribution center starting in my last week. Within about two weeks the candidate cups cracked and wore down. Mujin's on-site team applied the plan after my internship ended, and its pre-set decision criteria called it a no-swap. Two metrics from the plan were added to fleet monitoring. The staged plan caught a durability failure at one site before a fleet-wide swap.",
+  "interfaces": [
+    {
+      "from": "Phase 1 bench rig",
+      "to": "Phase 1 data spreadsheet",
+      "type": "data",
+      "notes": "Vacuum traces across surfaces and weights, recorded manually during airborne hold"
+    },
+    {
+      "from": "Test Plan",
+      "to": "Customer-site Phase 2 team",
+      "type": "process",
+      "notes": "Plan, Service Log template, and inspection cadence shipped together as the deployment package"
+    },
+    {
+      "from": "Phase 2 grippers",
+      "to": "Fleet monitoring",
+      "type": "data",
+      "notes": "Per-pick-normalized fault metrics and throughput; two metrics defined in the plan were added to fleet monitoring"
+    },
+    {
+      "from": "Customer site Service Log",
+      "to": "Decision gate analysis",
+      "type": "data",
+      "notes": "Maintenance interventions and downtime, aggregated to rate-normalized metrics for the 90-day decision"
+    },
+    {
+      "from": "Phase 1 finding (loose stretch-wrap failure mode)",
+      "to": "Phase 2 monitoring team",
+      "type": "process",
+      "notes": "Communicated as known risk; team monitored during field testing without operational change at the customer site"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "methodology-diagram",
+      "label": "Methodology diagram",
+      "type": "diagram",
+      "url": "/evidence/eoat-supplier-change-qualification/methodology.png",
+      "mimeType": "image/png",
+      "note": "Bench characterization (Phase 1) feeds envelope failure modes into the team running Phase 2 (warehouse A/B observation across 30, 60, and 90-day checkpoints). The decision gate applies the pre-specified rule structure."
+    },
+    {
+      "id": "triage-decision-tree",
+      "label": "Triage decision tree",
+      "type": "diagram",
+      "url": "/evidence/eoat-supplier-change-qualification/triage-decision-tree.png",
+      "mimeType": "image/png",
+      "note": "Maps observed cup and filter conditions to specific intervention actions (clean, replace filter, swap cup), keeping Service Log entries comparable across grippers in the A/B comparison."
+    },
+    {
+      "id": "qualification-plan",
+      "label": "Qualification plan",
+      "type": "report",
+      "note": "13-page sole-authored plan with explicit decision logic, acceptance criteria, intervention triggers, and failure-mode summary template. Internal; not publicly released."
+    },
+    {
+      "id": "phase-1-bench-data",
+      "label": "Phase 1 bench data",
+      "type": "test_data",
+      "note": "Vacuum traces across 5 surface types and the extended weight envelope. Internal; not publicly released."
+    }
+  ],
+  "projectRisks": [
+    "Phase 1 was candidate-only, static, and short-duration against absolute acceptance criteria. It could not show durability; the cracking and wear surfaced only in the field.",
+    "Plan was authored without baseline historical data on the incumbent supplier; thresholds were chosen on engineering judgment, which is acceptable for a v1 protocol but should be tightened in v2 with actual baseline variance data.",
+    "Plan deliberately leaves vendor specifications as placeholders for the candidate vendor to populate. Intentional, but creates reproducibility gaps for someone reading the plan in isolation.",
+    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the surveillance pipeline expansion.",
+    "Bench characterization was candidate-only against absolute acceptance criteria. Comparative bench inference requires a clean baseline cup, which wasn't sourced in this iteration."
+  ],
+  "lessons": [
+    {
+      "text": "The staged plan caught a durability failure at one site before a fleet-wide swap. A bench-then-field structure with criteria fixed in advance turns a bad candidate into a contained, documented no-swap instead of a fleet problem."
+    },
+    {
+      "text": "Source clean baseline cups during plan authorship, not during execution. Phase 1 would have been more interpretable as a regression detector with a paired baseline run rather than a candidate-only characterization."
+    },
+    {
+      "text": "Validate bespoke diagnostics (the blow-off backpressure check) against known-fault hardware before deploying them as production protocols. The procedure is sound in principle but field calibration would catch false-negative modes early."
+    },
+    {
+      "text": "Specify the analyst and analysis tooling explicitly in the plan, not just the metrics. The Stats API export path was implicit in this iteration; a successor inheriting the plan wouldn't know that the surveillance pipeline is the intended consumer."
+    },
+    {
+      "text": "The metric-set co-evolution between this plan and the surveillance pipeline is a leverage pattern worth replicating: define qualification metrics that survive a single trial and become permanent infrastructure, rather than throwaway one-offs."
+    },
+    {
+      "text": "For v2: add pull-off force measurement (not substituted by airborne hold), add partial-zone multi-cup characterization (catches load-sharing-masked failures before Phase 2), and convert the open-ended Section 6 vendor-input section into a structured vendor feedback loop with documented input."
+    }
+  ],
+  "workType": "internship"
+}

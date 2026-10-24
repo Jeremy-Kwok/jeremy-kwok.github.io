@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: white;
+  color: theme(colors.zinc.900);
+  /* Geist first, or the webfont loaded in layout.tsx is downloaded and never
+     used. next/font already inserts its own metric-matched "Geist Fallback"
+     (built on local Arial) inside this variable, so the tail below only fires
+     on a machine that has no Arial at all. */
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
