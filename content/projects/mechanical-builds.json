@@ -1,0 +1,57 @@
+{
+  "slug": "mechanical-builds",
+  "order": 5,
+  "title": "Mechanical builds",
+  "oneLiner": "BlockParty, a team-built fully autonomous robot that won the Best Design Award in ME 2110, plus the pneumatic systems on two high school FRC robots and deputy lead on the swerve drivetrain.",
+  "role": "BlockParty team member; FRC Director of Pneumatics",
+  "tags": [
+    "Mechanical Design",
+    "Pneumatics",
+    "Fabrication",
+    "Arduino",
+    "Swerve Drive",
+    "Robotics"
+  ],
+  "whatIOwnedSummary": "BlockParty: Team project. Rather than owning one subsystem, I rotated across design, fabrication, and testing in each judged sprint. FRC: The pneumatics on both robots. On the drivetrain I was deputy lead, and I trained newer members on swerve module assembly.",
+  "topMetrics": [
+    {
+      "label": "BlockParty",
+      "value": "Best Design Award"
+    },
+    {
+      "label": "FRC robots, pneumatics owned",
+      "value": "2"
+    }
+  ],
+  "claims": [
+    {
+      "title": "BlockParty (ME 2110 Creative Decisions & Design, Jan–May 2025): team-built a fully autonomous robot that won the Best Design Award",
+      "ownedScope": "",
+      "requirementOrConstraint": "Three judged sprints building toward a fully autonomous robot.",
+      "method": "Generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
+      "resultMetric": "Won the Best Design Award. The robot runs fully autonomously.",
+      "evidenceRefs": [],
+      "limitations": ""
+    },
+    {
+      "title": "FRC pneumatics, Excelsior and Jim (High school, 2022–2023): Director of Pneumatics",
+      "ownedScope": "",
+      "requirementOrConstraint": "",
+      "method": "Installed the compressors, set pressure and flow regulators so each mechanism got the right force and piston extension speed, added manual and automatic release valves for safety, and routed the tubing so every mechanism got the supply it needed.",
+      "resultMetric": "Owned the pneumatic systems on two robots end to end.",
+      "evidenceRefs": [],
+      "limitations": ""
+    },
+    {
+      "title": "FRC drivetrain, Excelsior and Jim (High school, 2022–2023): deputy lead on the swerve drivetrain",
+      "ownedScope": "",
+      "requirementOrConstraint": "",
+      "method": "Assembled and tested swerve modules.",
+      "resultMetric": "Trained a rookie to build the rest of the swerve modules.",
+      "evidenceRefs": [],
+      "limitations": ""
+    }
+  ],
+  "outcome": "BlockParty won the Best Design Award in ME 2110 and runs fully autonomously. On FRC, I owned the pneumatics on both robots and trained a rookie to finish the swerve modules.",
+  "evidence": []
+}

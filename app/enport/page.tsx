@@ -44,7 +44,7 @@ const STACK = [
 const LEARNED = [
   "Design around the question the reader actually asks. Resumes, LinkedIn and personal sites all fail the same question (what did you do, and how do you prove it?), and building the format backwards from that question is what made it work.",
   "On team projects, attribution is the hard part. Deciding who gets credit for shared work took more design rounds than any rendering or storage problem.",
-  "A shared link is a contract. Once a URL is on a resume or in a recruiter email, renaming it breaks every copy. That's why the project pages on this site keep their Enport slugs.",
+  "A shared link is a contract. Once a URL is on a resume or in a recruiter email, renaming it breaks every copy. Project pages that came from Enport keep their original slugs.",
   "Scope is a design input when you build alone. A locked stack, a written spec for each slice of work, and a build that must pass before anything ships kept a one-person product shippable.",
 ];
 
