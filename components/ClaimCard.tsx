@@ -1,5 +1,5 @@
 import type { Claim, EvidenceItem } from "@/lib/schema";
-import EvidenceTypeChip from "@/components/EvidenceTypeChip";
+import EvidenceRefLinks from "@/components/EvidenceRefLinks";
 
 // Read-only adaptation of Enport's EvidenceCard. The result is always
 // visible; the supporting detail sits in a native <details> so the page
@@ -22,9 +22,6 @@ function Field({ label, text, preLine = false }: { label: string; text: string; 
 }
 
 export default function ClaimCard({ claim, index, evidenceById }: ClaimCardProps) {
-  const linked = claim.evidenceRefs
-    .map((ref) => evidenceById.get(ref))
-    .filter((e): e is EvidenceItem => !!e);
   const hasDetails =
     claim.ownedScope.trim() !== "" ||
     claim.requirementOrConstraint.trim() !== "" ||
@@ -40,20 +37,7 @@ export default function ClaimCard({ claim, index, evidenceById }: ClaimCardProps
         <p className="text-sm text-zinc-700 leading-relaxed">{claim.resultMetric}</p>
       </div>
 
-      {linked.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-3">
-          {linked.map((ev) => (
-            <a
-              key={ev.id}
-              href={`#evidence-${ev.id}`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-2 py-0.5 text-xs hover:border-zinc-400 transition-colors max-w-full"
-            >
-              <EvidenceTypeChip type={ev.type} />
-              <span className="text-zinc-600 truncate">{ev.label}</span>
-            </a>
-          ))}
-        </div>
-      )}
+      <EvidenceRefLinks refs={claim.evidenceRefs} evidenceById={evidenceById} className="mt-3" />
 
       {hasDetails && (
         <details className="group mt-4">

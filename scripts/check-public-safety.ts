@@ -7,6 +7,11 @@ import path from "node:path";
 // numbers. Names that are themselves sensitive (customers, sites) go in a
 // gitignored .denylist.local, one per line, so the list is never committed.
 //
+// PDFs that get published (everything under public/, or every PDF in an
+// explicit target folder) are text-extracted and fail on a phone number or a
+// denylisted name. A PDF with no extractable text fails too, since a blank or
+// image-only file can't be checked at all.
+//
 // Usage: tsx scripts/check-public-safety.ts [dir]   (default: repo root)
 
 const root = process.cwd();
@@ -32,6 +37,29 @@ const RULES: { name: string; pattern: RegExp }[] = [
   { name: "Mujin repository link", pattern: /(github|gitlab|bitbucket)\.[a-z.]+\/mujin|mujin[a-z0-9.-]*\/[a-z0-9_.-]+\.git\b|git\.mujin/i },
   { name: "retired AFM metric (use 0.813 Dice / 0.723 IoU)", pattern: /0\.889/ },
 ];
+
+// North American formats: 917-555-0123, (917) 555-0123, 917.555.0123,
+// +1 917 555 0123. Ten bare digits are not matched.
+const PHONE = /(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]?\d{3}[\s.-]\d{4}\b/;
+
+async function pdfText(file: string): Promise<string> {
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const task = pdfjs.getDocument({
+    data: new Uint8Array(fs.readFileSync(file)),
+    verbosity: 0,
+  });
+  const doc = await task.promise;
+  let text = "";
+  for (let n = 1; n <= doc.numPages; n++) {
+    const content = await (await doc.getPage(n)).getTextContent();
+    for (const item of content.items) {
+      if ("str" in item) text += item.str + (item.hasEOL ? "\n" : "");
+    }
+    text += "\n";
+  }
+  await task.destroy();
+  return text;
+}
 
 function loadDenylist(): string[] {
   const file = path.join(root, ".denylist.local");
@@ -85,11 +113,42 @@ for (const file of files) {
   });
 }
 
-if (problems.length > 0) {
-  console.error(`Public-safety check failed (${problems.length}):\n  ${problems.join("\n  ")}`);
-  process.exit(1);
-}
-console.log(
-  `Public-safety check passed: ${files.length} files under ${path.relative(root, target) || "."}` +
-    (denylist.length ? `, ${denylist.length} denylisted names` : ", no .denylist.local")
+const pdfs = files.filter(
+  (f) =>
+    path.extname(f).toLowerCase() === ".pdf" &&
+    (target !== root || path.relative(root, f).startsWith(`public${path.sep}`))
 );
+
+async function checkPdfs(): Promise<void> {
+  for (const file of pdfs) {
+    const rel = path.relative(root, file);
+    let text: string;
+    try {
+      text = await pdfText(file);
+    } catch (err) {
+      problems.push(`${rel}: PDF could not be read (${err instanceof Error ? err.message : String(err)})`);
+      continue;
+    }
+    if (text.replace(/\s/g, "") === "") {
+      problems.push(`${rel}: PDF has no extractable text, so it cannot be checked`);
+      continue;
+    }
+    if (PHONE.test(text)) problems.push(`${rel}: phone number in PDF text`);
+    const lower = text.toLowerCase();
+    for (const term of denylist) {
+      if (lower.includes(term.toLowerCase())) problems.push(`${rel}: denylisted name in PDF text`);
+    }
+  }
+}
+
+checkPdfs().then(() => {
+  if (problems.length > 0) {
+    console.error(`Public-safety check failed (${problems.length}):\n  ${problems.join("\n  ")}`);
+    process.exit(1);
+  }
+  console.log(
+    `Public-safety check passed: ${files.length} files under ${path.relative(root, target) || "."}` +
+      (pdfs.length ? `, ${pdfs.length} PDF${pdfs.length === 1 ? "" : "s"} text-checked` : "") +
+      (denylist.length ? `, ${denylist.length} denylisted names` : ", no .denylist.local")
+  );
+});

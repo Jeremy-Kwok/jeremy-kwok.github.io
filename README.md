@@ -28,7 +28,7 @@ npm run build    # validates content, scans for secrets, exports to out/
 |---|---|
 | Domain (canonical URLs, Open Graph) | `SITE_URL` in `lib/site.ts` |
 | Intro, target roles, contact links | `lib/site.ts` |
-| Resume | `public/resume.pdf` |
+| Resume | `public/Jeremy-Kwok-Resume.pdf` (`RESUME_PATH` in `lib/site.ts`) |
 | Enport story | `app/enport/page.tsx` |
 
 ## Public-safety check

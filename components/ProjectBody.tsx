@@ -1,12 +1,14 @@
 import type { Project, EvidenceItem } from "@/lib/schema";
 import WorkTypeBadge from "@/components/WorkTypeBadge";
 import ClaimCard from "@/components/ClaimCard";
+import DecisionPath from "@/components/DecisionPath";
 import InterfacesTable from "@/components/InterfacesTable";
 import EvidenceList from "@/components/EvidenceList";
 
 // The read-only half of Enport's ProjectPreview: same section order and the
 // same Tailwind classes, with every edit, roster, highlight and upload
-// branch removed. Outcome is new and sits right after the work it reports on.
+// branch removed. Outcome is new and sits right after the work it reports on;
+// the decision path is new too and sits between the overview and the claims.
 
 const ACRONYM_TAGS: Record<string, string> = {
   'cad': 'CAD', 'ml': 'ML', 'fea': 'FEA', 'pcb': 'PCB', 'ros': 'ROS',
@@ -93,6 +95,13 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
         <h2 className="text-xl font-semibold text-zinc-900 mb-3">What I owned</h2>
         <p className="text-sm sm:text-base text-zinc-700 leading-relaxed">{project.whatIOwnedSummary}</p>
       </section>
+
+      {project.path && project.path.length > 0 && (
+        <section id="path" className="mt-12">
+          <h2 className="text-xl font-semibold text-zinc-900 mb-6">Decision path</h2>
+          <DecisionPath steps={project.path} evidenceById={evidenceById} />
+        </section>
+      )}
 
       <section id="claims" className="mt-12">
         <h2 className="text-xl font-semibold text-zinc-900 mb-6">

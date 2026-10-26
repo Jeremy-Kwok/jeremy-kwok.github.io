@@ -30,7 +30,7 @@ export default function ResumePage() {
         >
           Open resume (PDF)
         </a>
-        <a href={RESUME_PATH} download className="text-blue-600 hover:underline">
+        <a href={RESUME_PATH} download="Jeremy-Kwok-Resume.pdf" className="text-blue-600 hover:underline">
           Download
         </a>
       </div>

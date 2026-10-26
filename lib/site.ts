@@ -13,11 +13,12 @@ export const INTRO =
 export const TARGET_ROLES =
   'Mechanical, mechatronics, and test engineering roles in robotics and medical devices.';
 
-export const RESUME_PATH = '/resume.pdf';
+// Public copy (no phone number). The build warns if it is missing.
+export const RESUME_PATH = '/Jeremy-Kwok-Resume.pdf';
 
-// TODO(jeremy): fill in. Entries left blank are not rendered.
+// Entries left blank are not rendered.
 export const CONTACT = {
-  email: '',
-  linkedin: '',
-  github: '',
+  email: 'jeremykwok917@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/thejeremykwok',
+  github: 'https://github.com/Jeremy-Kwok',
 };

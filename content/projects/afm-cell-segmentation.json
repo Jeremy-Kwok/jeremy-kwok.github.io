@@ -18,6 +18,45 @@
     "Research"
   ],
   "whatIOwnedSummary": "Owned the full pipeline end-to-end: dataset curation and quality control, stratified train/test split design, Cellpose fine-tuning, automatic cantilever tip detection, probe-aware cell selection logic, failure handling with structured fallback paths, per-frame QC artifact generation, and a verification framework with per-frame failure logging. Also audited and corrected my own evaluation protocol after finding that the originally reported metrics were computed on a set that included training frames; all numbers here are from a held-out test set under a single global threshold configuration. AFM images provided by graduate researcher at Sulchek Lab (Georgia Tech).",
+  "path": [
+    {
+      "stage": "Data split",
+      "decision": "Built a seeded, stratified 80/20 split (177 train / 39 test) across all 8 experimental subsets."
+    },
+    {
+      "stage": "Failure diagnosis",
+      "decision": "Shifted effort from backbone improvement to geometry-aware post-processing.",
+      "why": "The model segmented correctly but chose the wrong cell."
+    },
+    {
+      "stage": "Selection rule",
+      "decision": "Selected the instance nearest the detected cantilever tip by boundary distance, instead of the largest or highest-confidence cell.",
+      "why": "The target is the tip-adjacent cell being indented.",
+      "evidenceIds": ["pipeline-strip"]
+    },
+    {
+      "stage": "Failure handling",
+      "decision": "Added one softer-threshold retry and a probe-anchored crop fallback, with the path taken (normal, retry, fallback) logged per frame.",
+      "why": "Never return an empty mask, and flag every non-normal frame for review.",
+      "evidenceIds": ["finetune-notebook"]
+    },
+    {
+      "stage": "Evaluation correction",
+      "decision": "Found that my original metrics included the 177 training frames, re-ran the evaluation on the 39 held-out frames under one global configuration, and corrected all public numbers.",
+      "why": "Stamped runs and per-frame logs made the error reconstructible from stored outputs.",
+      "evidenceIds": ["finetune-notebook"]
+    },
+    {
+      "stage": "Ablation",
+      "decision": "Isolated each contribution with a 2x2 ablation (two models x two selection rules) on the held-out split: the selection rule added +0.65 Dice and fine-tuning +0.02, reaching 0.813 Dice / 0.723 IoU on the 39 held-out frames.",
+      "evidenceIds": ["finetune-notebook"]
+    },
+    {
+      "stage": "Next direction",
+      "decision": "Pointed further work at selection and domain conditioning rather than the backbone.",
+      "why": "The ablation showed the rule, not fine-tuning, carries the result."
+    }
+  ],
   "topMetrics": [
     {
       "label": "Mean Dice (held-out)",

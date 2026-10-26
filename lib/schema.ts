@@ -72,6 +72,16 @@ export const ClaimSchema = z.strictObject({
   interfacesTouched: z.array(z.string()).optional(),
 });
 
+// One step of a project's decision path: what was decided at each stage, in
+// order. Optional fields are omitted rather than left as empty strings.
+export const PathStepSchema = z.strictObject({
+  stage: NonBlank,
+  decision: NonBlank,
+  why: NonBlank.optional(),
+  when: NonBlank.optional(),
+  evidenceIds: z.array(z.string()).optional(),
+});
+
 export const LessonSchema = z.strictObject({
   text: NonBlank,
 });
@@ -106,6 +116,8 @@ export const ProjectSchema = z
     heroImage: EvidenceUrl.optional(),
     tags: z.array(NonBlank),
     whatIOwnedSummary: NonBlank,
+    // Rendered between the overview and the claims; hidden when absent.
+    path: z.array(PathStepSchema).min(1).optional(),
     topMetrics: z.array(TopMetricSchema).min(1),
     claims: z.array(ClaimSchema).min(1),
     // What happened in the end: the one-paragraph answer to "so did it work?"
@@ -133,11 +145,19 @@ export const ProjectSchema = z
         }
       });
     });
+    project.path?.forEach((step, i) => {
+      step.evidenceIds?.forEach((ref, j) => {
+        if (!ids.has(ref)) {
+          ctx.addIssue({ code: 'custom', path: ['path', i, 'evidenceIds', j], message: `no evidence with id "${ref}"` });
+        }
+      });
+    });
   });
 
 // TypeScript types
 export type EvidenceItem = z.infer<typeof EvidenceItemSchema>;
 export type Interface = z.infer<typeof InterfaceSchema>;
 export type Claim = z.infer<typeof ClaimSchema>;
+export type PathStep = z.infer<typeof PathStepSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type TopMetric = z.infer<typeof TopMetricSchema>;

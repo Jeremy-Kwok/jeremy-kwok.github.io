@@ -21,6 +21,47 @@
     "A/B Testing"
   ],
   "whatIOwnedSummary": "Sole authorship of the 13-page qualification plan. I designed every test in both phases. The plan was reviewed and approved by my manager and a senior technical writer; it was not co-authored. I personally executed Phase 1 bench characterization across 5 surface types and an extended weight envelope, designed the decision logic and acceptance gates, designed the failure-mode triage protocol and Service Log structure, and added two new metrics to the fleet's surveillance pipeline as part of the qualification work. Phase 1 findings were communicated to the team running Phase 2. The field A/B started at a customer distribution center during my last week, and Mujin's on-site team carried it through after my internship ended. Vendor relationship and sample procurement were institutional, not in my scope.",
+  "path": [
+    {
+      "stage": "Protocol structure",
+      "decision": "Split the qualification into Phase 1 single-cup bench characterization and a Phase 2 warehouse A/B observation with 30, 60, and 90-day checkpoints.",
+      "why": "Surface envelope failure modes on the bench before exposing the customer site to a long observational window.",
+      "evidenceIds": ["methodology-diagram"]
+    },
+    {
+      "stage": "Decision gate",
+      "decision": "Fixed a two-condition gate before data collection: piece loss rate must not worsen against the incumbent, and the candidate must win on at least one of four pre-specified metrics.",
+      "why": "So the result could be called adopt, reject, or limited deployment without negotiating vendor preference against data.",
+      "evidenceIds": ["methodology-diagram"]
+    },
+    {
+      "stage": "Metrics",
+      "decision": "Added two of the four must-win metrics to the fleet's surveillance pipeline as standard outputs.",
+      "why": "They didn't exist yet when the plan was scoped."
+    },
+    {
+      "stage": "Field triage",
+      "decision": "Designed a backpressure diagnostic and a replacement decision tree on a fixed pick-count and time cadence, logged to a structured Service Log.",
+      "why": "Keep interventions comparable across the two grippers in the A/B.",
+      "evidenceIds": ["triage-decision-tree"]
+    },
+    {
+      "stage": "Bench execution",
+      "decision": "Extended Phase 1 tight stretch-wrap testing past the planned weight cap and documented the loose stretch-wrap failure mode as a known risk going into Phase 2.",
+      "why": "Characterize the failure rather than stop at a procedural boundary. Phase 2 then ran the customer's normal line speed and package mix, not a targeted test of one surface.",
+      "evidenceIds": ["phase-1-bench-data"]
+    },
+    {
+      "stage": "Field setback",
+      "decision": "The candidate cups cracked and wore down within about two weeks of the field A/B; Mujin's on-site team applied the plan's pre-set criteria after my internship ended and called a no-swap.",
+      "why": "The staged structure kept the durability failure to one site instead of a fleet-wide swap."
+    },
+    {
+      "stage": "Next iteration",
+      "decision": "Add a cyclic wear test to Phase 1 and source clean incumbent baseline cups for a direct bench A/B.",
+      "why": "Phase 1 was static and short-duration, so the wear first appeared in the field."
+    }
+  ],
   "topMetrics": [
     {
       "label": "Plan Length",

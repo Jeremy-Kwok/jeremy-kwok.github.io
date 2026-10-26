@@ -20,6 +20,44 @@
     "Optics"
   ],
   "whatIOwnedSummary": "Optical specification and coverage geometry, mechanical design and registration scheme, capture software and operator console, procurement and vendor selection, network diagnosis, and the handoff documentation set.",
+  "path": [
+    {
+      "stage": "Need discovery",
+      "decision": "Took sample photos of returned columns, which Reliability confirmed showed what they needed, then measured the plate thickness in pixels on those samples to work out the resolution the station required."
+    },
+    {
+      "stage": "Scope tradeoff",
+      "decision": "Reliability wanted every face captured (front, back, and sides); Operations wanted as little delay as possible.",
+      "why": "Captured the front face only, the most accessible face and the one with the most critical information."
+    },
+    {
+      "stage": "Requirement to optics",
+      "decision": "Translated the 0.1 mm requirement into 53 µm/px, using a 5 MP sensor, 35 mm lens, and a ±13 mm depth-of-field standoff window.",
+      "evidenceIds": ["showcase-poster"]
+    },
+    {
+      "stage": "Architecture",
+      "decision": "Chose five fixed cameras over one motorized camera.",
+      "why": "Captures the column in one shot with no added time per unit, no drift, and no single point of failure.",
+      "evidenceIds": ["showcase-poster"]
+    },
+    {
+      "stage": "Environment and mechanical",
+      "decision": "Handled dust and tint with controlled lighting and a color card in frame; held framing within ±2.9 mm without touching production tooling.",
+      "evidenceIds": ["showcase-poster"]
+    },
+    {
+      "stage": "Software and verification",
+      "decision": "Built the capture app with automated focus and exposure checks and per-unit override logs; verified gap-free five-camera coverage by script and tracked open items in the V&V record.",
+      "evidenceIds": ["showcase-poster", "commissioning-package"]
+    },
+    {
+      "stage": "Commissioning and handoff",
+      "decision": "Traced a camera-discovery failure to a single corporate firewall rule and delivered the exception package and commissioning runbook.",
+      "why": "Lesson learned, bring IT in during week one.",
+      "evidenceIds": ["commissioning-package"]
+    }
+  ],
   "topMetrics": [
     {
       "label": "Optical Resolution",
