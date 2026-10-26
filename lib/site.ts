@@ -1,9 +1,9 @@
 // Site-wide constants. Change the domain here and every canonical URL and
 // Open Graph tag follows.
 
-// TODO(jeremy): replace with the real domain. Must be an absolute https URL;
-// "https://[your-domain]" is not a parseable URL, so a placeholder stands in.
-export const SITE_URL = 'https://example.com';
+// TODO(jeremy): switch to the custom domain once it's set up. Must be an
+// absolute https URL.
+export const SITE_URL = 'https://Jeremy-Kwok.github.io';
 
 export const SITE_NAME = 'Jeremy Kwok';
 
