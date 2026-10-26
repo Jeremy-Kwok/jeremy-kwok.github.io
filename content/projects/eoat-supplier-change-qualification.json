@@ -25,7 +25,7 @@
     {
       "stage": "Protocol structure",
       "decision": "Split the qualification into Phase 1 single-cup bench characterization and a Phase 2 warehouse A/B observation with 30, 60, and 90-day checkpoints.",
-      "why": "Surface envelope failure modes on the bench before exposing the customer site to a long observational window.",
+      "why": "Find failure modes on the bench before exposing the customer site to a long field window.",
       "evidenceIds": ["methodology-diagram"]
     },
     {

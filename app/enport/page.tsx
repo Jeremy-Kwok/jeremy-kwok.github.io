@@ -21,8 +21,9 @@ export const metadata: Metadata = {
   },
 };
 
-// TODO(jeremy): write this. The section stays hidden while it is empty.
-const WHY_I_STOPPED = "";
+// The section stays hidden while this is empty.
+const WHY_I_STOPPED =
+  "Enport wasn't gaining enough traction to justify more of my time, and the harder problem turned out to be distribution, not the product. Students rarely pay for tools, and selling to schools means long, budget-driven buying cycles. I also realized I wanted to put my time into a different problem, one closer to robotics. The biggest lesson I took away: figure out who pays versus who uses, and how you'll reach them before building far. Enport's claims-and-evidence format lives on in this site.";
 
 // Drafted from the Enport README for Jeremy to edit. Facts only: what the
 // product was, how it was built, and what the build taught.
