@@ -4,6 +4,7 @@
   "title": "Mechanical builds",
   "oneLiner": "BlockParty, a team-built fully autonomous robot that won the Best Design Award in ME 2110, plus the pneumatic systems on two high school FRC robots and deputy lead on the swerve drivetrain.",
   "role": "BlockParty team member; FRC Director of Pneumatics",
+  "heroImage": "/evidence/mechanical-builds/excelsior.jpg",
   "tags": [
     "Mechanical Design",
     "Pneumatics",
@@ -30,7 +31,7 @@
       "requirementOrConstraint": "Three judged sprints building toward a fully autonomous robot.",
       "method": "Generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
       "resultMetric": "Won the Best Design Award. The robot runs fully autonomously.",
-      "evidenceRefs": [],
+      "evidenceRefs": ["blockparty-poster"],
       "limitations": ""
     },
     {
@@ -39,7 +40,7 @@
       "requirementOrConstraint": "",
       "method": "Installed the compressors, set pressure and flow regulators so each mechanism got the right force and piston extension speed, added manual and automatic release valves for safety, and routed the tubing so every mechanism got the supply it needed.",
       "resultMetric": "Owned the pneumatic systems on two robots end to end.",
-      "evidenceRefs": [],
+      "evidenceRefs": ["excelsior"],
       "limitations": ""
     },
     {
@@ -48,10 +49,35 @@
       "requirementOrConstraint": "",
       "method": "Assembled and tested swerve modules.",
       "resultMetric": "Trained a rookie to build the rest of the swerve modules.",
-      "evidenceRefs": [],
+      "evidenceRefs": ["jim"],
       "limitations": ""
     }
   ],
   "outcome": "BlockParty won the Best Design Award in ME 2110 and runs fully autonomously. On FRC, I owned the pneumatics on both robots and trained a rookie to finish the swerve modules.",
-  "evidence": []
+  "evidence": [
+    {
+      "id": "excelsior",
+      "label": "Excelsior (2022)",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/excelsior.jpg",
+      "mimeType": "image/jpeg",
+      "note": "Excelsior (2022): the pneumatic system I owned, with storage tanks, tubing, and cylinders."
+    },
+    {
+      "id": "jim",
+      "label": "Jim (2023)",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/jim.jpg",
+      "mimeType": "image/jpeg",
+      "note": "Jim (2023) in competition."
+    },
+    {
+      "id": "blockparty-poster",
+      "label": "ME 2110 final poster",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-poster.jpg",
+      "mimeType": "image/jpeg",
+      "note": "ME 2110 final poster from our four-person team: mechanisms, design approach, and fabrication."
+    }
+  ]
 }
