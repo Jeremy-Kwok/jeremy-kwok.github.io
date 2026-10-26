@@ -42,6 +42,16 @@ export default function HomePage() {
           claims-and-evidence format.
         </p>
       </section>
+
+      <section className="mt-16">
+        <h2 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider mb-3">Outside work</h2>
+        <p className="text-base text-zinc-500">
+          Outside of engineering, I&rsquo;m also currently learning how to fly a plane (working toward my
+          private pilot license), flying a few times a week. I also wrote a small Python script to grab
+          open lesson slots, because coordinating availabilities between myself, the planes, and my CFI
+          can be a lot of bookkeeping.
+        </p>
+      </section>
     </div>
   );
 }
