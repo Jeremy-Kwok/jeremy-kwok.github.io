@@ -1,26 +1,20 @@
 {
   "slug": "eoat-supplier-change-qualification",
   "order": 2,
-  "title": "EOAT Supplier Change Qualification",
-  "oneLiner": "Sole-authored a 2-phase qualification protocol (bench characterization plus warehouse A/B observation) for an EOAT supplier change on a deployed warehouse robotics fleet. Its pre-set decision criteria caught a durability failure at one site before a fleet-wide swap.",
-  "timeframe": "Jan 2026 - Apr 2026",
-  "role": "Test Plan Author / Phase 1 Executor",
+  "title": "Vacuum Cup Validation for a Robot Gripper",
+  "oneLiner": "Qualified a replacement vacuum cup for a 63-cup robot gripper: bench tests on a force/vacuum jig, then a field A/B I led at a 24/7 distribution center. The plan’s pre-set criteria caught a durability failure and called a no-swap before any fleet-wide rollout.",
+  "timeframe": "Jan 2026 – Apr 2026",
+  "role": "Test plan author and test lead",
   "organization": "Mujin",
   "teamSize": 1,
   "heroImage": "/evidence/eoat-supplier-change-qualification/methodology.png",
   "tags": [
-    "Validation Methodology",
-    "Supplier Qualification",
-    "Risk Management",
-    "Post-Market Surveillance",
-    "Acceptance Criteria",
-    "Failure Mode Analysis",
-    "EOAT",
-    "Robotics",
-    "Bench Testing",
-    "A/B Testing"
+    "Test Planning",
+    "Bench & Field Testing",
+    "Failure Analysis",
+    "Robotics"
   ],
-  "whatIOwnedSummary": "Sole authorship of the 13-page qualification plan. I designed every test in both phases. The plan was reviewed and approved by my manager and a senior technical writer; it was not co-authored. I personally executed Phase 1 bench characterization across 5 surface types and an extended weight envelope, designed the decision logic and acceptance gates, designed the failure-mode triage protocol and Service Log structure, and added two new metrics to the fleet's surveillance pipeline as part of the qualification work. Phase 1 findings were communicated to the team running Phase 2. The field A/B started at a customer distribution center during my last week, and Mujin's on-site team carried it through after my internship ended. Vendor relationship and sample procurement were institutional, not in my scope.",
+  "whatIOwnedSummary": "I wrote the 13-page qualification plan on my own and designed every test in both phases; my manager and a senior technical writer reviewed and approved it. I ran the Phase 1 bench tests on a force/vacuum jig with KEYENCE pressure sensing, across five surface conditions and an extended weight envelope. I designed the decision logic and acceptance gates, the failure-mode triage protocol and the Service Log, and added two new metrics to fleet monitoring as part of the qualification. I led the Phase 2 field test at a 24/7 customer distribution center; after my internship ended, Mujin's on-site team carried it to the decision. The vendor relationship and sample procurement were outside my scope.",
   "path": [
     {
       "stage": "Protocol structure",
@@ -36,7 +30,7 @@
     },
     {
       "stage": "Metrics",
-      "decision": "Added two of the four must-win metrics to the fleet's surveillance pipeline as standard outputs.",
+      "decision": "Added two of the four must-win metrics to the fleet monitoring pipeline as standard outputs.",
       "why": "They didn't exist yet when the plan was scoped."
     },
     {
@@ -64,30 +58,32 @@
   ],
   "topMetrics": [
     {
-      "label": "Plan Length",
-      "value": "13",
-      "unit": "pages"
-    },
-    {
-      "label": "Test Phases",
-      "value": "2"
-    },
-    {
-      "label": "Surface Conditions Tested",
-      "value": "5"
-    },
-    {
-      "label": "Field decision",
+      "label": "Field call, before any fleet rollout",
       "value": "No-swap"
+    },
+    {
+      "label": "Bench load range, 5 surface conditions",
+      "value": "2–10",
+      "unit": "lb"
+    },
+    {
+      "label": "Vacuum decay gate over a 10 s hold",
+      "value": "≤10",
+      "unit": "%"
+    },
+    {
+      "label": "Until the field test caught what the bench missed",
+      "value": "~2",
+      "unit": "wk"
     }
   ],
   "claims": [
     {
-      "title": "Authored 2-phase qualification methodology for an EOAT supplier change",
+      "title": "Wrote a two-phase qualification plan for a gripper vacuum cup supplier change",
       "ownedScope": "",
       "requirementOrConstraint": "The team needed a defensible, pre-specified protocol for evaluating whether to swap the incumbent cup supplier for a candidate vendor on production grippers. Without a structured plan, a 90-day field evaluation would generate data that couldn't be cleanly translated into adopt, reject, or limited-deployment decisions. The plan also needed to surface envelope failure modes on the bench before exposing the customer site to a long observational window.",
       "method": "I authored a 2-phase plan covering single-cup bench characterization (Phase 1) and warehouse A/B observation across 30, 60, and 90-day checkpoints (Phase 2). I designed every test in both phases. The plan defines test envelopes (multi-weight, multi-surface, slip sheet), measurement procedures, intervention triggers, the failure-mode summary format, and the decision logic mapping Phase 2 outcomes to adopt, reject, or limited-deployment recommendations.",
-      "resultMetric": "The plan was issued, reviewed, and used as the protocol for the field A/B at a customer distribution center, which started during my last week. Within about two weeks the candidate cups cracked and wore down. Mujin's on-site team applied the plan after my internship ended, and its pre-set decision criteria called the result a no-swap. The staged structure kept a durability failure to one site instead of a fleet-wide rollout.",
+      "resultMetric": "The plan was issued, reviewed, and used as the protocol for the field A/B I led at a 24/7 customer distribution center. Within about two weeks the candidate cups cracked and wore down. Mujin's on-site team applied the plan after my internship ended, and its pre-set decision criteria called the result a no-swap. The staged structure kept a durability failure to one site instead of a fleet-wide rollout.",
       "evidenceRefs": [
         "triage-decision-tree",
         "methodology-diagram"
@@ -98,7 +94,7 @@
       "title": "Specified risk-proportionate decision logic and acceptance gates",
       "ownedScope": "",
       "requirementOrConstraint": "A 90-day Phase 2 evaluation needs a non-political, auditable rule for translating outcomes into a decision. Without a pre-specified gate, comparable performance can lead to indefinite deferral or vendor-relationship-driven adoption rather than data-driven adoption. The rule needed to handle clean-win, clean-loss, and mixed cases, with thresholds chosen before data collection and metrics that capture both safety and productivity dimensions.",
-      "method": "I designed the gate as a two-condition rule: a must-not-worsen condition on the customer-facing safety metric (piece loss rate, normalized to picks) against the incumbent baseline, plus a must-win condition requiring the candidate to demonstrate a pre-specified improvement threshold on at least one of four metrics (pick issues rate, order cycle issues rate, direct robot throughput, downtime per intervention). I defined the mixed-result case (candidate better on some, worse on others) as a fallback to limited deployment under explicitly defined conditions, which avoids forcing a binary decision when the data doesn't support one. Two of the four must-win metrics didn't yet exist as standard outputs in the fleet's surveillance pipeline when I scoped the plan, so I added them. The metric set co-evolved between the qualification protocol and the underlying surveillance infrastructure.",
+      "method": "I designed the gate as a two-condition rule: a must-not-worsen condition on the customer-facing safety metric (piece loss rate, normalized to picks) against the incumbent baseline, plus a must-win condition requiring the candidate to demonstrate a pre-specified improvement threshold on at least one of four metrics (pick issues rate, order cycle issues rate, direct robot throughput, downtime per intervention). I defined the mixed-result case (candidate better on some, worse on others) as a fallback to limited deployment under explicitly defined conditions, which avoids forcing a binary decision when the data doesn't support one. Two of the four must-win metrics didn't yet exist as standard outputs in the fleet monitoring pipeline when I scoped the plan, so I added them. The metric set co-evolved between the qualification protocol and the monitoring pipeline underneath it.",
       "resultMetric": "A defensible decision rule the team could apply without subjective negotiation between vendor preference and data. In the field run, the rule called the candidate a no-swap after its cups cracked and wore down within about two weeks. Two metrics defined in the plan were added to fleet monitoring as standard outputs and remain available for future qualification work, not just this one.",
       "evidenceRefs": [
         "methodology-diagram"
@@ -121,21 +117,21 @@
       "title": "Executed Phase 1 single-cup characterization; surfaced a surface-conditional failure mode",
       "ownedScope": "",
       "requirementOrConstraint": "Phase 2 commits the customer site to a long observational window with the candidate cup on a production gripper. Bench characterization needs to surface envelope failure modes (surface-conditional retention loss, weight-envelope limits) before the customer site is exposed to them, or Phase 2 risks discovering failure modes the rig should have caught.",
-      "method": "I ran the Phase 1 bench tests over roughly 2 days. For each surface and weight combination, I placed the cup on the package, activated vacuum, lifted manually, and held the assembly airborne for the planned duration. I recorded steady vacuum at seal and at the scheduled check intervals during the hold, and I noted any slip, seal break, or drop. I ran 2 to 3 trials per cell on the standard surfaces. For the tight stretch-wrap surface, I extended the weight envelope past the planned cap because I wanted to characterize the failure mode rather than stop at a procedural boundary. Manufactured-weight packages weren't available at the higher weights, so I used real product samples in the target weight range, which preserves real-surface conditions at the cost of slightly off-grid weight points.",
+      "method": "I ran the Phase 1 bench tests over roughly 2 days on a force/vacuum jig with a KEYENCE digital pressure sensor. For each surface and each weight from 2 to 10 lb, I sealed the cup on the package, recorded the steady vacuum and the pull-off force, then lifted the vacuum module, cup and package for a 10-second airborne hold, recording vacuum at 5 and 10 seconds and noting any slip, seal break, or drop. A pass meant a continuous seal with no more than 10% vacuum decay from the initial steady level. I ran 2 to 3 trials per cell on the standard surfaces. For the tight stretch-wrap surface, I extended the weight envelope past the planned cap because I wanted to characterize the failure mode rather than stop at a procedural boundary. Manufactured-weight packages weren't available at the higher weights, so I used real product samples in the target weight range, which preserves real-surface conditions at the cost of slightly off-grid weight points.",
       "resultMetric": "Clean pass on corrugate (new and damaged) and slip sheet across the standard envelope. Documented surface-conditional failure on loose stretch-wrap: vacuum decay outside the acceptance threshold and drop events observed. Marginal performance on tight stretch-wrap above the planned weight cap, with lift failure at the highest tested weight. Finding was communicated to the team running Phase 2 at the customer site. The team monitored for the failure mode during field testing, though Phase 2 is observational and the customer controls SKU mix, so the finding didn't drive an operational change at the customer site.",
       "evidenceRefs": [
         "methodology-diagram"
       ],
-      "limitations": "Incumbent baseline cup wasn't bench-tested due to clean-cup unavailability. Comparative bench inference was reserved for Phase 2 by design (Phase 1 characterizes the candidate against absolute acceptance criteria; the A/B happens at the system level), but a clean baseline would have made the loose-stretch-wrap finding interpretable as a regression vs. shared property. Pull-off force wasn't measured directly; the airborne static retention test substituted as the primary acceptance criterion, which captures retention but not the maximum load before seal break. Single-cup static testing doesn't replicate multi-cup load sharing or robot motion dynamics; the issued plan acknowledges this scope boundary explicitly.\nRe-run Phase 1 with a clean incumbent baseline cup for direct A/B at the bench level. Add pull-off force measurement to the procedure. Run partial-zone multi-cup characterization on a gripper before any future field deployment to determine whether the loose-stretch-wrap failure mode is masked by adjacent cups."
+      "limitations": "Incumbent baseline cup wasn't bench-tested due to clean-cup unavailability. Comparative bench inference was reserved for Phase 2 by design (Phase 1 characterizes the candidate against absolute acceptance criteria; the A/B happens at the system level), but a clean baseline would have made the loose-stretch-wrap finding interpretable as a regression vs. shared property. Single-cup static testing doesn't replicate multi-cup load sharing or robot motion dynamics; the issued plan acknowledges this scope boundary explicitly.\nRe-run Phase 1 with a clean incumbent baseline cup for direct A/B at the bench level. Run partial-zone multi-cup characterization on a gripper before any future field deployment to determine whether the loose-stretch-wrap failure mode is masked by adjacent cups."
     }
   ],
-  "outcome": "The field A/B ran at a customer distribution center starting in my last week. Within about two weeks the candidate cups cracked and wore down. Mujin's on-site team applied the plan after my internship ended, and its pre-set decision criteria called it a no-swap. Two metrics from the plan were added to fleet monitoring. The staged plan caught a durability failure at one site before a fleet-wide swap.",
+  "outcome": "I led the field A/B at a 24/7 customer distribution center. Within about two weeks the candidate cups cracked and wore down. After my internship ended, Mujin's on-site team applied the plan, and its pre-set decision criteria called it a no-swap. Two metrics from the plan were added to fleet monitoring. The staged plan caught a durability failure at one site before a fleet-wide swap.",
   "interfaces": [
     {
       "from": "Phase 1 bench rig",
       "to": "Phase 1 data spreadsheet",
       "type": "data",
-      "notes": "Vacuum traces across surfaces and weights, recorded manually during airborne hold"
+      "notes": "KEYENCE vacuum readings and pull-off force across surfaces and weights, recorded per trial"
     },
     {
       "from": "Test Plan",
@@ -189,14 +185,14 @@
       "id": "phase-1-bench-data",
       "label": "Phase 1 bench data",
       "type": "test_data",
-      "note": "Vacuum traces across 5 surface types and the extended weight envelope. Internal; not publicly released."
+      "note": "KEYENCE vacuum readings and pull-off force across 5 surface conditions, 2 to 10 lb, and the extended weight envelope. Internal; not publicly released."
     }
   ],
   "projectRisks": [
     "Phase 1 was candidate-only, static, and short-duration against absolute acceptance criteria. It could not show durability; the cracking and wear surfaced only in the field.",
     "Plan was authored without baseline historical data on the incumbent supplier; thresholds were chosen on engineering judgment, which is acceptable for a v1 protocol but should be tightened in v2 with actual baseline variance data.",
     "Plan deliberately leaves vendor specifications as placeholders for the candidate vendor to populate. Intentional, but creates reproducibility gaps for someone reading the plan in isolation.",
-    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the surveillance pipeline expansion.",
+    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the fleet monitoring expansion.",
     "Bench characterization was candidate-only against absolute acceptance criteria. Comparative bench inference requires a clean baseline cup, which wasn't sourced in this iteration."
   ],
   "lessons": [
@@ -210,13 +206,13 @@
       "text": "Validate bespoke diagnostics (the blow-off backpressure check) against known-fault hardware before deploying them as production protocols. The procedure is sound in principle but field calibration would catch false-negative modes early."
     },
     {
-      "text": "Specify the analyst and analysis tooling explicitly in the plan, not just the metrics. The Stats API export path was implicit in this iteration; a successor inheriting the plan wouldn't know that the surveillance pipeline is the intended consumer."
+      "text": "Specify the analyst and analysis tooling explicitly in the plan, not just the metrics. The Stats API export path was implicit in this iteration; a successor inheriting the plan wouldn't know that the fleet monitoring pipeline is the intended consumer."
     },
     {
-      "text": "The metric-set co-evolution between this plan and the surveillance pipeline is a leverage pattern worth replicating: define qualification metrics that survive a single trial and become permanent infrastructure, rather than throwaway one-offs."
+      "text": "The metric-set co-evolution between this plan and the fleet monitoring pipeline is a leverage pattern worth replicating: define qualification metrics that survive a single trial and become permanent infrastructure, rather than throwaway one-offs."
     },
     {
-      "text": "For v2: add pull-off force measurement (not substituted by airborne hold), add partial-zone multi-cup characterization (catches load-sharing-masked failures before Phase 2), and convert the open-ended Section 6 vendor-input section into a structured vendor feedback loop with documented input."
+      "text": "For v2: add a cyclic wear test, add partial-zone multi-cup characterization (catches load-sharing-masked failures before Phase 2), and convert the open-ended Section 6 vendor-input section into a structured vendor feedback loop with documented input."
     }
   ],
   "workType": "internship"
