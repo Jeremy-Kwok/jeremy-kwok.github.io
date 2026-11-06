@@ -16,7 +16,9 @@ import path from "node:path";
 
 const root = process.cwd();
 const target = path.resolve(root, process.argv[2] ?? ".");
-const SKIP_DIRS = new Set(["node_modules", ".git", ".next", "out"]);
+// cad-source/ is the gitignored drop folder for STEP files (npm run cad); it never
+// reaches git or the site, and the scan of out/ still catches anything that leaks.
+const SKIP_DIRS = new Set(["node_modules", ".git", ".next", "out", "cad-source"]);
 const SELF = path.join(root, "scripts", "check-public-safety.ts");
 const TEXT_EXT = new Set([
   ".ts", ".tsx", ".js", ".mjs", ".cjs", ".json", ".md", ".css", ".html",
@@ -37,6 +39,13 @@ const RULES: { name: string; pattern: RegExp }[] = [
   { name: "Mujin repository link", pattern: /(github|gitlab|bitbucket)\.[a-z.]+\/mujin|mujin[a-z0-9.-]*\/[a-z0-9_.-]+\.git\b|git\.mujin/i },
   { name: "retired AFM metric (use 0.813 Dice / 0.723 IoU)", pattern: /0\.889/ },
 ];
+
+// Source CAD never ships: the site gets renders made by `npm run cad`
+// (a video, a poster and a mesh-only GLB), never the editable model.
+const CAD_SOURCE_EXT = new Set([
+  ".step", ".stp", ".iges", ".igs", ".sldprt", ".sldasm", ".slddrw", ".f3d", ".f3z",
+  ".x_t", ".x_b", ".ipt", ".iam", ".catpart", ".catproduct", ".3dm", ".jt", ".brep",
+]);
 
 // North American formats: 917-555-0123, (917) 555-0123, 917.555.0123,
 // +1 917 555 0123. Ten bare digits are not matched.
@@ -96,6 +105,10 @@ for (const file of files) {
   const base = path.basename(file);
   if (base.startsWith(".env")) {
     problems.push(`${rel}: env files are not allowed in this repo`);
+    continue;
+  }
+  if (CAD_SOURCE_EXT.has(path.extname(file).toLowerCase())) {
+    problems.push(`${rel}: source CAD files must not be in this repo or the site (render it with npm run cad instead)`);
     continue;
   }
   if (file === SELF || base === ".denylist.local" || base === "package-lock.json") continue;
