@@ -57,6 +57,19 @@ function formatMb(bytes: number): string {
   return bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
+/**
+ * On the very first play, start from `playFrom` (the match, say) rather than the
+ * top of the loop. A never-loaded video can't seek yet, so wait for its metadata.
+ */
+function startAtPlayFrom(video: HTMLVideoElement, playFrom: number, started: boolean) {
+  if (started || playFrom <= 0 || video.currentTime > 0.05) return;
+  const seek = () => {
+    if (video.currentTime < 0.5) video.currentTime = playFrom;
+  };
+  if (video.readyState >= 1) seek();
+  else video.addEventListener("loadedmetadata", seek, { once: true });
+}
+
 /** Which chapter is on screen at second t, if any. */
 function chapterAt(chapters: CadPublic["chapters"], t: number) {
   return chapters.find((c) => t >= c.start && t < c.end + 0.05) ?? null;
@@ -84,6 +97,8 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
   const handledRequest = useRef<number | null>(null);
   /** End of a requested chapter in the video: playback stops there so the mechanism stays on screen. */
   const rangeEndRef = useRef<number | null>(null);
+  /** Whether the video has ever played; until it has, the poster is what's on screen. */
+  const startedRef = useRef(false);
 
   const [mode, setMode] = useState<Mode>("video");
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -115,14 +130,17 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
     if (reducedMotion || userPaused) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) video.play().catch(() => {});
+        if (entry.isIntersecting) {
+          startAtPlayFrom(video, cad.playFrom, startedRef.current);
+          video.play().catch(() => {});
+        }
         else video.pause();
       },
       { threshold: 0.35 }
     );
     io.observe(video);
     return () => io.disconnect();
-  }, [mode, reducedMotion, userPaused]);
+  }, [mode, reducedMotion, userPaused, cad.playFrom]);
 
   // The caption and the chapter follow the video. React skips the re-render when neither changed.
   useEffect(() => {
@@ -234,7 +252,9 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
     // A paused video shows whole frames; start the 3D view on the one on screen,
     // not between frames, or fast-moving parts visibly jump at the handoff.
     const fps = cad.video.fps;
-    startTimeRef.current = video ? Math.floor(video.currentTime * fps + 1e-3) / fps : 0;
+    // Before the video has ever played, the poster is on screen: open on its moment.
+    startTimeRef.current =
+      video && startedRef.current ? Math.floor(video.currentTime * fps + 1e-3) / fps : cad.posterTime;
     setError(null);
     setProgress(null);
     setMode("loading");
@@ -258,6 +278,7 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
     rangeEndRef.current = null;
     if (video.paused) {
       setUserPaused(false);
+      startAtPlayFrom(video, cad.playFrom, startedRef.current);
       video.play().catch(() => {});
     } else {
       setUserPaused(true);
@@ -314,7 +335,10 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
           disablePictureInPicture
           disableRemotePlayback
           aria-label={cad.description}
-          onPlay={() => setVideoPlaying(true)}
+          onPlay={() => {
+            startedRef.current = true;
+            setVideoPlaying(true);
+          }}
           onPause={() => setVideoPlaying(false)}
         />
 

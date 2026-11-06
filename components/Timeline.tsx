@@ -13,6 +13,12 @@ import { useHydrated } from "@/lib/useHydrated";
 // the page, so nothing here is required to read the content.
 
 const ROW_H = 40; // label + gap + 14px bar + breathing room
+/** Rough width of one label character (13px Archivo at the label width) and the plot's
+ *  narrowest width (the 960px chart minus the lane column), for label room on phones. */
+const LABEL_CHAR_PX = 6.6;
+const CHART_AXIS_MIN_PX = 848;
+/** Space kept between a sliding label and the next bar on its row. */
+const LABEL_GAP_PX = 12;
 const LANE_PAD = 10;
 
 interface TimelineProps {
@@ -159,6 +165,16 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
                 >
                   {pl.items.map((p) => {
                     const isSel = p.item.id === selected.id;
+                    // Room for the label to slide right as the chart scrolls: up to where the
+                    // next bar on this row begins (so labels never overlap), and no further
+                    // than about one label-width past its own bar (so it never floats far from it).
+                    const nextLeft = Math.min(
+                      100,
+                      ...pl.items.filter((q) => q.row === p.row && q.left > p.left).map((q) => q.left)
+                    );
+                    const labelPct = (p.item.label.length * LABEL_CHAR_PX * 100) / CHART_AXIS_MIN_PX;
+                    const gapPct = (LABEL_GAP_PX * 100) / CHART_AXIS_MIN_PX;
+                    const roomPct = Math.max(gapPct, Math.min(nextLeft - p.left - gapPct, p.width + labelPct));
                     return (
                       <button
                         key={p.item.id}
@@ -180,15 +196,25 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
                           height: ROW_H - 6,
                         }}
                       >
+                        {/* Sticky labels: when a long bar starts off-screen to the left (the
+                            chart opens scrolled to the latest years), its label slides along to
+                            stay readable just right of the lane names. The track is click-through;
+                            the label itself still selects its bar. */}
                         <span
-                          className={`block whitespace-nowrap font-label text-[13px] leading-4 text-ink transition-opacity duration-150 motion-reduce:transition-none ${
-                            isSel ? "font-extrabold underline underline-offset-2" : "font-semibold group-hover:underline"
-                          } ${dimLane ? "opacity-60" : ""} group-focus-visible:underline group-focus-visible:decoration-link group-focus-visible:decoration-2`}
+                          aria-hidden="true"
+                          className="pointer-events-none absolute left-0 top-0 block h-4"
+                          style={{ width: `${(roomPct / p.width) * 100}%` }}
                         >
-                          {p.item.label}
+                          <span
+                            className={`pointer-events-auto sticky left-[calc(var(--lane-col)+6px)] block w-fit whitespace-nowrap font-label text-[13px] leading-4 text-ink transition-opacity duration-150 motion-reduce:transition-none ${
+                              isSel ? "font-extrabold underline underline-offset-2" : "font-semibold group-hover:underline"
+                            } ${dimLane ? "opacity-60" : ""} group-focus-visible:underline group-focus-visible:decoration-link group-focus-visible:decoration-2`}
+                          >
+                            {p.item.label}
+                          </span>
                         </span>
                         <span
-                          className={`relative mt-1.5 block h-3.5 transition-opacity duration-150 motion-reduce:transition-none ${
+                          className={`relative mt-[22px] block h-3.5 transition-opacity duration-150 motion-reduce:transition-none ${
                             dimLane ? "opacity-20" : ""
                           } ${isSel ? "outline-2 outline-offset-2 outline-ink" : ""} group-focus-visible:ring-2 group-focus-visible:ring-link group-focus-visible:ring-offset-[5px] group-focus-visible:ring-offset-panel`}
                         >

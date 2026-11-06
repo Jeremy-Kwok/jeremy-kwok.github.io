@@ -1,8 +1,8 @@
 {
   "pipeline": 5,
-  "renderHash": "140284f7d80770797aa2ad5fe251be99f970696364e05603da509dcf8f0ac428",
+  "renderHash": "df0de882c06d1cd525a74c3594f2daf19ca09babfed6345c392c3d4c4c1d7825",
   "sourceSha256": "5c4a3c549827ad672f414ab05a363977ef84cea356aa95f268f3a7bd361dbe28",
-  "generated": "2026-11-06T21:06:52.294Z",
+  "generated": "2026-11-06T21:29:35.826Z",
   "video": {
     "file": "loop.mp4",
     "width": 1280,
@@ -72,7 +72,7 @@
       "end": 8.372
     },
     {
-      "label": "Dog bone sling",
+      "label": "Dog bone release",
       "start": 8.372,
       "end": 9.119
     },

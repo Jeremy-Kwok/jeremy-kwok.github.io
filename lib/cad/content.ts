@@ -4,7 +4,7 @@ import path from 'node:path';
 import { z } from 'zod';
 import { CAD_LAB, CAD_PROJECTS } from '@/content/cad';
 import { CadMetaSchema, CadProjectSchema, type CadMeta, type CadProject, type CadPublic } from '@/lib/cad/schema';
-import { chapters, duration, timelineProblems } from '@/lib/cad/phases';
+import { chapters, duration, posterTime, timelineProblems } from '@/lib/cad/phases';
 
 // The one place CAD showcase settings and renders are checked, like
 // lib/aboutContent.ts for /about. Pages call it during `next build`,
@@ -199,6 +199,8 @@ export function toPublic(entry: CadEntry): CadPublic | null {
     poster: `${urlBase}${meta.poster.file}${v}`,
     model: meta.model ? { src: `${urlBase}${meta.model.file}${v}`, bytes: meta.model.bytes } : null,
     project,
+    playFrom: chapters(project).find((c) => c.label === project.playFrom)?.start ?? 0,
+    posterTime: posterTime(project),
     chapters: chapters(project).map((c) => {
       // A focused chapter takes its first group's color; the build takes the first group's (the base).
       const isBuild = project.timeline[0]?.kind === 'build' && c.start === 0;

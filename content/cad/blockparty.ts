@@ -63,7 +63,7 @@ export const BLOCKPARTY_CAD: CadProjectInput = {
     { label: 'Ground ore arms', match: '/(ground_ore_collector|ore-collector-upper-base|wire-spool|small-motor-spool)[^/]*$/', color: ORE },
     { label: 'Pneumatics', match: '/(piston|coupler nut|160234|186096|348166|3583 |359874|8030308)[^/]*$/', color: PNEUMATICS },
     { label: 'Bag arm', match: '/(bag-arm|end-crystal-arm|end-effector)[^/]*$/', color: BAG },
-    { label: 'Dog bone sling', match: '/(solenoid|release|mdfmount|swingarm|\/pin-)[^/]*$/', color: RELEASE },
+    { label: 'Dog bone release', match: '/(solenoid|release|mdfmount|swingarm|\/pin-)[^/]*$/', color: RELEASE },
     { label: 'Arduino', match: '/arduino[^/]*$/', color: ELECTRONICS },
   ],
   // Not the robot: the competition field, a mob game piece, and the end crystal on its stand.
@@ -123,13 +123,13 @@ export const BLOCKPARTY_CAD: CadProjectInput = {
     },
     { id: 'ore-elbow-right', label: 'Ground ore arms', type: 'revolute', axis: 'y', pivot: [80, 97, -1565], initial: -88, parts: [RIGHT_FOREARM] },
 
-    // Dog bone sling: a rubber-banded arm (the red swing arm and its latch tab)
+    // Dog bone release: a rubber-banded arm (the red swing arm and its latch tab)
     // pivots on the front pin; the solenoid pin passes through the tab. When it
     // pulls back, the band snaps the arm around and flings the dog bone.
-    { id: 'release-pin', label: 'Dog bone sling', type: 'prismatic', axis: 'z', parts: ['solenoidpin'] },
+    { id: 'release-pin', label: 'Dog bone release', type: 'prismatic', axis: 'z', parts: ['solenoidpin'] },
     {
       id: 'sling',
-      label: 'Dog bone sling',
+      label: 'Dog bone release',
       type: 'revolute',
       axis: 'x',
       pivot: [-41, 304, -399],
@@ -154,6 +154,10 @@ export const BLOCKPARTY_CAD: CadProjectInput = {
     },
     { id: 'bag-hoop', label: 'Bag arm', type: 'revolute', axis: 'x', pivot: [0, 402, -844], parts: ['secondary-bag-arm'] },
   ],
+
+  // First play starts at the match, on the assembled robot the poster shows, not
+  // on a bare base plate; the loop then runs explode, rebuild and back around.
+  playFrom: 'Launch and ore arms',
 
   // The robot is long front to back (Z), so look from the side to let it fill the 16:10 frame.
   camera: { azimuth: 64, elevation: 22, sway: 12, zoom: 1.12 },
@@ -192,11 +196,11 @@ export const BLOCKPARTY_CAD: CadProjectInput = {
 
     // Step 2 (register_dog_bone_timer): the lock lets go, the solenoid pin pulls
     // back, and the band snaps the sling around, with a small bounce.
-    { kind: 'move', seconds: 0.15, joints: { 'release-pin': 22 }, label: 'Dog bone sling', focus: ['Dog bone sling'] },
-    { kind: 'move', seconds: 0.22, joints: { sling: -160 }, ease: 'out', focus: ['Dog bone sling'] },
-    { kind: 'move', seconds: 0.14, joints: { sling: -142 }, focus: ['Dog bone sling'] },
-    { kind: 'move', seconds: 0.14, joints: { sling: -150 }, focus: ['Dog bone sling'] },
-    { kind: 'hold', seconds: 0.7, focus: ['Dog bone sling'] },
+    { kind: 'move', seconds: 0.15, joints: { 'release-pin': 22 }, label: 'Dog bone release', focus: ['Dog bone release'] },
+    { kind: 'move', seconds: 0.22, joints: { sling: -160 }, ease: 'out', focus: ['Dog bone release'] },
+    { kind: 'move', seconds: 0.14, joints: { sling: -142 }, focus: ['Dog bone release'] },
+    { kind: 'move', seconds: 0.14, joints: { sling: -150 }, focus: ['Dog bone release'] },
+    { kind: 'hold', seconds: 0.7, focus: ['Dog bone release'] },
 
     // Step 3 (animate_bag, at 20 s): a short tug, a jitter to settle the bag,
     // then the flip: the whole arm swings up with the hoop still folded under

@@ -214,6 +214,9 @@ export function timelineProblems(project: CadProject): { errors: string[]; warni
     }
   });
   const total = duration(project.timeline);
+  if (project.playFrom !== undefined && !chapters(project).some((c) => c.label === project.playFrom)) {
+    errors.push(`playFrom "${project.playFrom}" isn't a chapter (have: ${chapters(project).map((c) => c.label).join(', ')})`);
+  }
   if (project.posterAt !== undefined && project.posterAt > total) {
     errors.push(`posterAt ${project.posterAt}s is past the end of the timeline (${total}s)`);
   }

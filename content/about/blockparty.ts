@@ -31,12 +31,12 @@ export const MECHANISMS: Mechanism[] = [
   },
   {
     id: 'orient',
-    cadChapter: 'Dog bone sling',
-    name: 'Field orientation',
+    cadChapter: 'Dog bone release',
+    name: 'Dog bone release',
     image: '/about/blockparty_orient.jpg',
     alt: 'Close-up render of two toggle switches and a dial on the robot frame',
-    title: 'Orientation from two switches and a dial',
-    text: 'Two switches and a dial encode which way the field is facing, so the code can work out the delay to release the dog bone in the right zone.',
+    title: 'A sling, timed by two switches and a dial',
+    text: 'A rubber-banded sling holds the dog bone until a solenoid pin lets it go. Two switches and a dial encode which way the field is facing, so the code can work out when to fire and land the dog bone in the right zone.',
   },
   {
     id: 'fab',

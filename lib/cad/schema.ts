@@ -149,6 +149,8 @@ export const CadProjectSchema = z.strictObject({
   timeline: z.array(StepSchema).min(1),
   /** Second of the timeline used for the poster image. Defaults to the end of the first build. */
   posterAt: z.number().min(0).optional(),
+  /** Chapter label the video starts from the first time it plays (say, skipping the build). */
+  playFrom: z.string().min(1).optional(),
 });
 
 export type CadProjectInput = z.input<typeof CadProjectSchema>;
@@ -206,6 +208,9 @@ export interface CadPublic {
   poster: string;
   model: { src: string; bytes: number } | null;
   project: CadProject;
+  /** Second the video starts from on its first play, and the poster's moment (where 3D opens before any play). */
+  playFrom: number;
+  posterTime: number;
   chapters: CadChapter[];
   /** Build steps in seconds, for the "3 Floors" caption. */
   steps: CadBuildStep[];
