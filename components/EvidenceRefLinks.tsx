@@ -23,7 +23,7 @@ export default function EvidenceRefLinks({ refs, evidenceById, className = "" }:
         <a
           key={ev.id}
           href={`#evidence-${ev.id}`}
-          className="inline-flex items-center gap-1.5 rounded-full border border-zinc-300 bg-white px-2 py-0.5 text-xs hover:border-zinc-400 transition-colors max-w-full"
+          className="inline-flex max-w-full items-center gap-1.5 border border-hairline bg-panel px-1.5 py-0.5 text-xs transition-colors hover:border-ink"
         >
           <EvidenceTypeChip type={ev.type} />
           <span className="text-zinc-600 truncate">{ev.label}</span>

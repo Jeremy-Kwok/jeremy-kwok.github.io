@@ -1,3 +1,4 @@
+import { responsiveImage } from "@/lib/images";
 import type { EvidenceItem } from "@/lib/schema";
 import { detectFormatKind } from "@/lib/evidenceRender";
 import { safeExternalUrl } from "@/lib/externalUrl";
@@ -31,12 +32,13 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
               <figure
                 key={item.id}
                 id={`evidence-${item.id}`}
-                className="border border-zinc-200 rounded-md overflow-hidden bg-zinc-50 scroll-mt-20"
+                className="border border-hairline overflow-hidden bg-panel scroll-mt-20"
               >
-                <a href={href} target="_blank" rel="noopener noreferrer" className="block bg-white">
+                <a href={href} target="_blank" rel="noopener noreferrer" className="block bg-panel">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={href}
+                    {...responsiveImage(href)}
+                    sizes="(min-width: 960px) 430px, (min-width: 640px) 50vw, 100vw"
                     alt={item.label}
                     loading="lazy"
                     className="w-full aspect-video object-contain"

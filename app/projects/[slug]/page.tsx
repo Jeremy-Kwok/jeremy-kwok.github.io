@@ -12,14 +12,31 @@ export function generateStaticParams() {
   return loadProjects().map((p) => ({ slug: p.slug }));
 }
 
+// Search results and link previews show about 155 characters. Keep whole
+// sentences that fit, so a description never stops halfway through a figure
+// like "0.813 Dice / 0.7…"; only a first sentence longer than that is cut, at a
+// word boundary.
+const DESCRIPTION_MAX = 155;
+
+function shareDescription(text: string): string {
+  if (text.length <= DESCRIPTION_MAX) return text;
+  // A sentence ends at . ! or ? followed by a space, so "0.813" stays whole.
+  let kept = '';
+  for (const s of text.split(/(?<=[.!?])\s+/)) {
+    const next = kept ? `${kept} ${s}` : s;
+    if (next.length > DESCRIPTION_MAX) break;
+    kept = next;
+  }
+  if (kept) return kept;
+  return text.slice(0, DESCRIPTION_MAX - 1).replace(/\s+\S*$/, '').replace(/[,;:]$/, '') + '…';
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return { title: 'Project not found' };
 
-  // Same 155-character clip Enport uses for share descriptions.
-  const raw = project.oneLiner;
-  const description = raw.length <= 155 ? raw : raw.slice(0, 155).replace(/\s+\S*$/, '') + '…';
+  const description = shareDescription(project.oneLiner);
   const url = `/projects/${slug}/`;
   const image = ogImage(slug, project.title);
 
@@ -50,8 +67,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) notFound();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
-      <ProjectBody project={project} />
+    <div className="px-4 sm:px-8 py-10 sm:py-12">
+      <div className="mx-auto max-w-(--page-max)">
+        <ProjectBody project={project} />
+      </div>
     </div>
   );
 }

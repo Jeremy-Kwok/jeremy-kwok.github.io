@@ -10,8 +10,9 @@ export const SITE_NAME = 'Jeremy Kwok';
 export const INTRO =
   'Mechanical engineer (Georgia Tech, Dec 2026) who builds hardware, and the software and test systems that prove it works.';
 
+// The short version, for the homepage. The full one is "Looking for" on /about.
 export const TARGET_ROLES =
-  'Mechanical, mechatronics, and test engineering roles in robotics and medical devices.';
+  'Full-time mechanical, mechatronics or test engineering roles in robotics and medical devices, after I graduate in December 2026. Open to relocating.';
 
 // Public copy (no phone number). The build warns if it is missing.
 export const RESUME_PATH = '/Jeremy-Kwok-Resume.pdf';

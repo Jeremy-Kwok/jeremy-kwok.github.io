@@ -10,9 +10,8 @@ export default function SiteHeader() {
           {SITE_NAME}
         </Link>
         <nav className="flex items-center gap-3.5 max-[359px]:gap-2 sm:gap-6 font-label text-[15px] max-[359px]:text-[14px] font-semibold text-zinc-500">
-          <NavLink href="/#projects">Projects</NavLink>
           <NavLink href="/about/">About</NavLink>
-          <NavLink href="/enport/">Enport</NavLink>
+          <NavLink href="/#projects">Projects</NavLink>
           <NavLink href="/resume/">Resume</NavLink>
         </nav>
       </div>
