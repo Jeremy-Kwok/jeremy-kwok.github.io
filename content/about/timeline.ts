@@ -34,7 +34,7 @@ export const ITEMS: TimelineItem[] = [
     lane: 'school',
     segments: [['2024-08', '2026-12']],
     milestone: true,
-    label: 'Georgia Tech: B.S. Mechanical Engineering, CS minor',
+    label: 'Georgia Tech: B.S. ME, CS minor',
     title: 'Georgia Tech',
     dates: 'Aug 2024 – Dec 2026',
     description:
@@ -46,7 +46,7 @@ export const ITEMS: TimelineItem[] = [
     segments: [['2026-08', '2026-12']],
     label: 'Capstone',
     title: 'Senior capstone',
-    dates: 'Fall 2026 – Dec 2026',
+    dates: 'Aug – Dec 2026',
     description:
       'A training and guidance platform for preparing IVF medications. I do all of the CAD. Before we designed anything, I ran customer discovery (interviews and surveys) to find the problems people were actually running into. As the prototype develops, I keep interviewing and surveying potential customers to check that our solution still targets that problem and to find product-market fit.',
   },
@@ -74,10 +74,10 @@ export const ITEMS: TimelineItem[] = [
     title: 'Mujin, product development intern',
     dates: 'Jan – Apr 2026',
     description:
-      'Shipped three things in 15 weeks: StatsMonitor (controller telemetry, reliability KPIs and a weekly risk watchlist for the support team), a tool that bundles one incident’s logs and video from a single form, and a bench-plus-field validation plan for a suction cup vendor change.',
+      'Wrote the plan to qualify a replacement vacuum cup on a 63-cup depalletizing gripper: bench tests on a force/vacuum jig with KEYENCE pressure sensing, then an A/B field comparison I led at a 24/7 customer distribution center. The field phase caught a durability failure the bench missed, and the pre-set criteria called a no-swap before any fleet rollout. I also built StatsMonitor, a fleet reliability pipeline covering 13 controllers at 6 customer sites, whose daily KPI report and ranked watchlist the service team uses to decide which units get attention first.',
     links: [
+      { text: 'Read about the vacuum cup validation', href: '/projects/eoat-supplier-change-qualification/' },
       { text: 'Read about StatsMonitor', href: '/projects/statsmonitor/' },
-      { text: 'Read about the EOAT qualification', href: '/projects/eoat-supplier-change-qualification/' },
     ],
   },
   {
@@ -85,10 +85,10 @@ export const ITEMS: TimelineItem[] = [
     lane: 'work',
     segments: [['2026-06', '2026-08']],
     label: 'Bloom Energy',
-    title: 'Bloom Energy, mechanical engineering intern',
+    title: 'Bloom Energy, repair & overhaul / engineering intern',
     dates: 'Jun – Aug 2026',
     description:
-      'Built IRIS, a five-camera station that photographs every returned fuel-cell column before teardown, checks each image for focus and lighting, and files it under the unit serial. I came up with several possible designs, presented them to my manager with a recommendation, then priced the hardware in three tiers and recommended one. From there I handled the optics, mechanical design, software and procurement.',
+      'Designed and built IRIS, Bloom’s first machine vision inspection station for returned fuel cell columns: five cameras capture burns and field damage before teardown, and each image is checked for focus and exposure and filed under the unit serial. I came up with several possible designs, presented them to my manager with a recommendation, and priced the hardware in three tiers. From there I owned the optics, mechanical design, capture software, procurement and testing, and handed the station off to operations eight weeks after starting.',
     links: [{ text: 'Read about IRIS', href: '/projects/iris-integrated-reliability-imaging-system/' }],
   },
 
@@ -113,7 +113,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Develop for Good, engineering and product manager',
     dates: 'Apr 2023 – Mar 2024',
     description:
-      'Co-led a team of ten that brought Readeezy Literacy’s digital library for struggling teen and older readers to smartphones: redesigned the pages, made the reading activities work on mobile, and cut duplicate code by 28%.',
+      'Led two project teams. On the first, I co-led a team of ten that brought Readeezy Literacy’s digital library for struggling teen and older readers to smartphones: redesigned the pages, made the reading activities work on mobile, and cut duplicate code by 28%.',
     quote: {
       text: '“…outstanding in keeping everyone on task and maintaining a positive and supportive environment.”',
       by: 'Maria Cleary, President of Readeezy Literacy, in Develop for Good’s March 2024 newsletter',
@@ -146,7 +146,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Develop for Good, product lead',
     dates: 'Apr 2024 – Dec 2025',
     description:
-      'Directed 7 project teams building software for nonprofits, including two more Readeezy projects: an AI reading companion prototype and a single reading-settings toggle. Reviewed 300+ program applications and trained 100+ student managers to lead their teams.',
+      'Directed 7 project teams building software for nonprofits, including two more Readeezy projects: an AI reading companion prototype and a single reading-settings toggle. Assessed 600+ program applications and trained 150+ student managers in product management.',
   },
 
   // Research
@@ -158,7 +158,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Sulchek Lab, undergraduate research',
     dates: 'Jun 2025 – Dec 2026',
     description:
-      'Built an AFM tip-cell segmentation pipeline that reaches 0.813 mean Dice on held-out data. Continuing through graduation.',
+      'Now: I own the damage analysis for a 397-indentation AFM dataset (102 T cells over four post-thaw days). Achieved indentation load and rate, not the commanded setpoints, explain several times more stiffness variance than the day measured, and my cell-detection pipeline lifted one day’s target detection from 62% to 96%. Before that, in fall 2025, I built an AFM tip-cell segmentation pipeline that reaches 0.813 mean Dice on held-out data.',
     links: [{ text: 'Read about the segmentation pipeline', href: '/projects/afm-cell-segmentation/' }],
   },
 
@@ -171,7 +171,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'FRC robotics, StuyPulse',
     dates: '2022 – Jun 2023',
     description:
-      'Director of Pneumatics on Stuyvesant’s FRC team through high school graduation: designed the robot’s pneumatics subsystem, kept it leak-free through the season, and taught newer members how it worked.',
+      'Director of Pneumatics on Stuyvesant’s FRC team through high school graduation: designed and maintained the pneumatic systems on two robots, Excelsior and Jim. I was also second in command on the swerve drivetrain: some of the CAD, building swerve modules and one-piece bumpers, fabrication, and teaching rookies to build the rest.',
     links: [{ text: 'Read about the mechanical builds', href: '/projects/mechanical-builds/' }],
   },
   {

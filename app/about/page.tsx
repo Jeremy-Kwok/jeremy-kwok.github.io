@@ -17,21 +17,20 @@ import { ogImage } from "@/lib/ogCard";
 // spots the spec left for him.
 
 const LEAD =
-  "I’m a mechanical engineering student at Georgia Tech (CS minor), graduating in December 2026 and based in Brooklyn.";
+  "I’m a mechanical engineering student at Georgia Tech (CS minor), graduating in December 2026. I’m in Atlanta through December, then New York.";
 
 const INTRO =
-  "I didn’t go straight into industry internships. My first years I built things in other ways: leading student software teams for nonprofits, consulting for a semester, and doing research in a bio lab. Then I came back to hardware. What I like most now is taking a problem the whole way through: ideation, evaluating possible solutions, prototyping and fabrication, then verifying and validating it once it’s built.";
+  "This year has been hardware: at Mujin I qualified a replacement vacuum cup for a robot gripper, from bench tests to a field trial, and at Bloom Energy I designed and built a five-camera inspection station for returned fuel cell columns. Before that I built things in other ways: leading student software teams for nonprofits, consulting for a semester, and research in a bio lab, which I still do. What I like most is taking a problem the whole way through: ideation, evaluating possible solutions, prototyping and fabrication, then verifying and validating it once it’s built.";
 
 const LATELY: { lead: string; text: string }[] = [
   {
     lead: "Capstone.",
     text: "A training and guidance platform for preparing IVF medications. I do all of the CAD and run our customer discovery, interviewing and surveying potential customers to check we’re solving the right problem as the prototype develops.",
   },
-  { lead: "Research.", text: "AFM cell segmentation in the Sulchek Lab." },
-  { lead: "Flying.", text: "Learning to fly out of PDK a few times a week, working toward a private pilot license." },
+  { lead: "Research.", text: "Damage analysis for an AFM dataset of T cells in the Sulchek Lab." },
   {
-    lead: "Interested in.",
-    text: "Robotics and hardware, especially small teams where one engineer owns a system from the first requirement to how it holds up in the field.",
+    lead: "Looking for.",
+    text: "Full-time mechanical, mechatronics or test engineering work in robotics or medical devices after I graduate in December, especially on a small team where one engineer owns a system from the first requirement to how it holds up in the field. Open to relocating for the right role, ideally to a city like New York or Boston.",
   },
 ];
 
