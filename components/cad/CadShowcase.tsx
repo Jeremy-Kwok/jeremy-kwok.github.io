@@ -27,6 +27,17 @@ function usePrefersReducedMotion(): boolean {
   );
 }
 
+/**
+ * Data Saver (Chrome on Android) or a 2G connection: don't start a 3 MB video
+ * on scroll. Play still works. Browsers without the Network Information API
+ * report false.
+ */
+function savesData(): boolean {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } })
+    .connection;
+  return !!connection && (connection.saveData === true || /(^|-)2g$/.test(connection.effectiveType ?? ""));
+}
+
 // Border color is kept out of the shared classes: two border colors on one
 // element resolve by stylesheet order, not class order, so the chapter
 // highlight would silently lose.
@@ -122,12 +133,13 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
     video.pause();
   }, [mode, reducedMotion]);
 
-  // Otherwise the video plays while it's on screen, unless the visitor paused it.
+  // Otherwise the video plays while it's on screen, unless the visitor paused it
+  // or is saving data.
   useEffect(() => {
     const video = videoRef.current;
     if (!video || mode !== "video") return;
     video.muted = true;
-    if (reducedMotion || userPaused) return;
+    if (reducedMotion || userPaused || savesData()) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
