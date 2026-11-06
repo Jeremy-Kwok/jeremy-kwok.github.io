@@ -82,6 +82,8 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
   const returnFocusRef = useRef(false);
   const frameRef = useRef<HTMLDivElement>(null);
   const handledRequest = useRef<number | null>(null);
+  /** End of a requested chapter in the video: playback stops there so the mechanism stays on screen. */
+  const rangeEndRef = useRef<number | null>(null);
 
   const [mode, setMode] = useState<Mode>("video");
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -127,6 +129,14 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
     const video = videoRef.current;
     if (!video || mode !== "video") return;
     let raf = requestAnimationFrame(function tick() {
+      const end = rangeEndRef.current;
+      if (end !== null && !video.paused && video.currentTime >= end) {
+        // A requested chapter has played: hold on its last frame. Play continues from here.
+        rangeEndRef.current = null;
+        video.pause();
+        video.currentTime = Math.max(0, end - 0.02);
+        setUserPaused(true);
+      }
       setVideoStep(stepIndexAt(cad.steps, video.currentTime));
       setVideoChapter(chapterAt(cad.chapters, video.currentTime)?.label ?? null);
       raf = requestAnimationFrame(tick);
@@ -206,6 +216,7 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
     if (!video) return;
     // A click is a request to watch, even with reduced motion preferred.
     setUserPaused(false);
+    rangeEndRef.current = chapter.end;
     const seek = () => {
       video.currentTime = chapter.start + 0.001;
     };
@@ -217,6 +228,7 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
   }, [request, mode, cad.chapters, reducedMotion]);
 
   const enterExplore = () => {
+    rangeEndRef.current = null;
     const video = videoRef.current;
     video?.pause();
     // A paused video shows whole frames; start the 3D view on the one on screen,
@@ -243,6 +255,7 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
   const toggleVideo = () => {
     const video = videoRef.current;
     if (!video) return;
+    rangeEndRef.current = null;
     if (video.paused) {
       setUserPaused(false);
       video.play().catch(() => {});
