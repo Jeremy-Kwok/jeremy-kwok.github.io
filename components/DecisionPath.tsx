@@ -18,7 +18,8 @@ export default function DecisionPath({ steps, evidenceById }: DecisionPathProps)
           {i < steps.length - 1 && (
             <span aria-hidden="true" className="absolute left-3.5 top-8 bottom-1 w-px bg-zinc-200" />
           )}
-          <span className="flex-shrink-0 w-7 h-7 rounded-full border border-zinc-300 bg-white text-xs font-semibold text-zinc-700 flex items-center justify-center">
+          {/* Numbered like a drawing's balloons, the one place the theme keeps circles. */}
+          <span className="flex size-7 flex-shrink-0 items-center justify-center rounded-full border-2 border-accent bg-panel font-label text-[13px] font-bold tabular-nums text-accent">
             {i + 1}
           </span>
           <div className="min-w-0 flex-1 pt-1">

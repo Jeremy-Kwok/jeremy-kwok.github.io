@@ -2,32 +2,32 @@
   "slug": "statsmonitor",
   "order": 3,
   "title": "StatsMonitor",
-  "oneLiner": "Daily post-market surveillance pipeline for a deployed robot fleet — turns raw controller telemetry into a severity-ranked, evidence-gated reliability watchlist.",
+  "oneLiner": "A daily reliability pipeline for 13 robot controllers at 6 customer sites: raw telemetry in, a ranked watchlist out for the customer support team. I built it alone, end to end: about 5,800 lines of Python, with daily and weekly views, running unattended at handoff.",
   "timeframe": "Feb 2026 – Apr 2026",
-  "role": "Intern / Sole developer (end-to-end)",
+  "role": "Sole developer",
   "organization": "Mujin",
   "teamSize": 1,
   "heroImage": "/evidence/statsmonitor/system-context.png",
   "tags": [
-    "Robotics",
     "Reliability",
-    "Production System",
-    "Observability",
-    "Telemetry",
-    "Operations",
-    "Analytics",
-    "ETL"
+    "Data Pipelines",
+    "Python",
+    "Robotics"
   ],
-  "whatIOwnedSummary": "Owned ingestion, raw/silver/gold tables, KPI dictionary, coverage semantics + trust gating, risk ranking/watchlist logic, and static report generation + operator runbook (public-safe representation; internals redacted).",
+  "whatIOwnedSummary": "All of it: telemetry ingestion, the layered data store, the KPI definitions, coverage tracking and evidence gating, the risk score and watchlist logic, the daily report and its analysis panel, and the operating guide the customer support team works from. Internal details are left out of this page.",
   "topMetrics": [
     {
-      "label": "Telemetry stat types",
-      "value": "5"
+      "label": "Controllers across 6 customer sites",
+      "value": "13"
     },
     {
       "label": "Telemetry history",
       "value": "15",
       "unit": "mo"
+    },
+    {
+      "label": "Lines of Python, sole developer",
+      "value": "5.8k"
     }
   ],
   "claims": [
@@ -159,7 +159,7 @@
       "id": "operating-guide",
       "label": "EOAT Reliability Watchlist Operating Guide",
       "type": "report",
-      "note": "Seven-section operating procedure: severity, watchlist categories, trend badges, reading a card, the analysis panel, and escalation paths. Internal; not publicly released."
+      "note": "Seven-section operating procedure: what the watchlist is, severity, watchlist categories, trend badges, reading a card, the analysis panel, and escalation paths, plus a quick reference of thresholds. Internal; not publicly released."
     },
     {
       "id": "report-demo",

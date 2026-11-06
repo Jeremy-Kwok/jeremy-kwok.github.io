@@ -5,6 +5,7 @@ import { loadAbout } from "../lib/aboutContent";
 import { cadPublic, loadCadEntries } from "../lib/cad/content";
 import { timelineProblems } from "../lib/cad/phases";
 import { RESUME_PATH } from "../lib/site";
+import { loadResumeImage } from "../lib/resumeContent";
 
 // Adapted from Enport's scripts/validate-projects.ts. Runs as `prebuild` for
 // a readable error before Next starts; `next build` would fail on the same
@@ -46,6 +47,13 @@ try {
       }
     }
   }
+} catch (err) {
+  console.error(err instanceof Error ? err.message : String(err));
+  failed = true;
+}
+try {
+  const resume = loadResumeImage();
+  console.log(resume ? `Resume image is current (${resume.variants.length} sizes).` : "Resume image not rendered yet; /resume/ shows the PDF buttons only (npm run images).");
 } catch (err) {
   console.error(err instanceof Error ? err.message : String(err));
   failed = true;

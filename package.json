@@ -10,7 +10,8 @@
     "lint": "eslint",
     "validate": "tsx scripts/validate-content.ts",
     "check:safety": "tsx scripts/check-public-safety.ts",
-    "cad": "tsx scripts/cad/build.ts"
+    "cad": "tsx scripts/cad/build.ts",
+    "images": "tsx scripts/images.ts"
   },
   "dependencies": {
     "next": "16.1.6",

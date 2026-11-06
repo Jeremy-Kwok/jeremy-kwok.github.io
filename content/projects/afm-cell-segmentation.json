@@ -2,20 +2,17 @@
   "slug": "afm-cell-segmentation",
   "order": 4,
   "title": "AFM Tip-Cell Segmentation Pipeline",
-  "oneLiner": "Automated segmentation pipeline for AFM T-cell images. A probe-aware geometry rule selects the indented cell in crowded frames, scoring 0.813 Dice / 0.723 IoU on the held-out test set (n=39) with zero empty outputs. Ablation shows the selection rule contributes +0.65 Dice while model fine-tuning contributes +0.02.",
+  "oneLiner": "A pipeline that finds the indented T cell in crowded AFM frames: 0.813 Dice / 0.723 IoU on 39 held-out frames, with zero empty outputs. A probe-aware selection rule does most of the work. In the ablation it adds +0.67 Dice over picking the largest cell, while fine-tuning the model adds +0.02.",
   "timeframe": "Fall 2025",
-  "role": "Solo Researcher (Undergraduate)",
+  "role": "Undergraduate researcher (solo)",
   "organization": "Sulchek Lab, Georgia Tech",
   "teamSize": 1,
   "heroImage": "/evidence/afm-cell-segmentation/pipeline-strip.png",
   "tags": [
     "Biomedical Imaging",
-    "Image Segmentation",
     "Machine Learning",
     "Python",
-    "Cellpose",
-    "V&V",
-    "Research"
+    "Image Segmentation"
   ],
   "whatIOwnedSummary": "Owned the full pipeline end-to-end: dataset curation and quality control, stratified train/test split design, Cellpose fine-tuning, automatic cantilever tip detection, probe-aware cell selection logic, failure handling with structured fallback paths, per-frame QC artifact generation, and a verification framework with per-frame failure logging. Also audited and corrected my own evaluation protocol after finding that the originally reported metrics were computed on a set that included training frames; all numbers here are from a held-out test set under a single global threshold configuration. AFM images provided by graduate researcher at Sulchek Lab (Georgia Tech).",
   "path": [
@@ -48,7 +45,7 @@
     },
     {
       "stage": "Ablation",
-      "decision": "Isolated each contribution with a 2x2 ablation (two models x two selection rules) on the held-out split: the selection rule added +0.65 Dice and fine-tuning +0.02, reaching 0.813 Dice / 0.723 IoU on the 39 held-out frames.",
+      "decision": "Isolated each contribution with a 2x2 ablation (two models x two selection rules) on the held-out split: the selection rule added +0.67 Dice (0.813 against 0.140 for largest-cell selection) and fine-tuning +0.02, reaching 0.813 Dice / 0.723 IoU on the 39 held-out frames.",
       "evidenceIds": ["finetune-notebook"]
     },
     {
@@ -91,7 +88,7 @@
       "title": "Fine-tuned Cellpose-SAM on AFM T-cell frames and quantified its marginal contribution against an out-of-box baseline",
       "ownedScope": "Cellpose-SAM fine-tuned on 177 training frames from a stratified, seeded 80/20 split across 8 experimental subsets (4 cell-culture days x 2 loading protocols), with resumable, checkpointed training.",
       "requirementOrConstraint": "Original acceptance target: 0.90 mean Dice with zero empty outputs across all 8 subsets. Current standing against it, measured held-out: four of eight subsets meet 0.90; the overall mean is 0.813; the shortfall is localized to DN1 (0.761 rapid, 0.275 rate). Whether 0.90 is achievable at all is bounded by inter-annotator agreement on these images, which has not yet been measured.",
-      "method": "Seeded stratified split (177 train / 39 test). Corrected evaluation protocol: inference on the held-out split only, one global threshold configuration for every frame, no per-subset overrides, retry policy uniform across configurations. Contribution isolated with the same 2x2 ablation as Key Work 1.",
+      "method": "Seeded stratified split (177 train / 39 test). Corrected evaluation protocol: inference on the held-out split only, one global threshold configuration for every frame, no per-subset overrides, retry policy uniform across configurations. Contribution isolated with the same 2x2 ablation as the selection rule above.",
       "resultMetric": "Fine-tuning contributes +0.024 mean Dice on held-out frames (0.813 versus 0.789 for out-of-box Cellpose-SAM under the same selection rule), consistent in direction across subsets but small. The practical implication: the pipeline may be able to run on the base model plus the selection rule, which would remove any need to distribute weights trained on lab data.",
       "evidenceRefs": [
         "finetune-notebook",
@@ -198,7 +195,7 @@
       "text": "Per-subset threshold overrides are a structural workaround, and the ablation put a number on the cost: removing them exposes one subset that drops to 0.275 Dice. The overrides were compensating for a model with no domain understanding rather than fixing it. Domain conditioning or geometry-aware training is the correct architecture, not more manual knobs."
     },
     {
-      "text": "The ablation redirected what I would build next. Fine-tuning contributed +0.02 and the geometry rule contributed +0.65, which means effort belongs in selection and domain conditioning, not in the backbone. It also implies the pipeline may run on out-of-box Cellpose plus the rule, which would remove the need to distribute weights trained on lab data."
+      "text": "The ablation redirected what I would build next. Fine-tuning contributed +0.02 and the geometry rule contributed +0.67, which means effort belongs in selection and domain conditioning, not in the backbone. It also implies the pipeline may run on out-of-box Cellpose plus the rule, which would remove the need to distribute weights trained on lab data."
     }
   ],
   "workType": "research"

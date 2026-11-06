@@ -2,22 +2,17 @@
   "slug": "iris-integrated-reliability-imaging-system",
   "order": 1,
   "title": "IRIS: Integrated Reliability Imaging System",
-  "oneLiner": "A five-camera inspection station that photographs every returned fuel cell column before teardown destroys the physical evidence of how it arrived from the field.",
-  "timeframe": "Jun 2026 - Aug 2026",
-  "role": "Project Owner",
+  "oneLiner": "A five-camera inspection station designed to photograph every returned fuel cell column before teardown destroys the evidence of its field condition. I designed and built it, then handed it off to operations; the numbers here are the design targets it was built to hit.",
+  "timeframe": "Jun 2026 – Aug 2026",
+  "role": "Project owner",
+  "organization": "Bloom Energy",
   "teamSize": 1,
   "heroImage": "/evidence/iris-integrated-reliability-imaging-system/showcase-poster.png",
   "tags": [
     "Machine Vision",
+    "Optics",
     "Mechanical Design",
-    "CAD",
-    "Python",
-    "FastAPI",
-    "GigE Vision",
-    "Test & Validation",
-    "Procurement",
-    "Technical Documentation",
-    "Optics"
+    "Python"
   ],
   "whatIOwnedSummary": "Optical specification and coverage geometry, mechanical design and registration scheme, capture software and operator console, procurement and vendor selection, network diagnosis, and the handoff documentation set.",
   "path": [
@@ -32,45 +27,40 @@
     },
     {
       "stage": "Requirement to optics",
-      "decision": "Translated the 0.1 mm requirement into 53 µm/px, using a 5 MP sensor, 35 mm lens, and a ±13 mm depth-of-field standoff window.",
-      "evidenceIds": ["showcase-poster"]
+      "decision": "Translated the 0.1 mm requirement into a 53 µm/px design target, using a 5 MP sensor, 35 mm lens, and a ±13 mm depth-of-field standoff window."
     },
     {
       "stage": "Architecture",
       "decision": "Chose five fixed cameras over one motorized camera.",
-      "why": "Captures the column in one shot with no added time per unit, no drift, and no single point of failure.",
-      "evidenceIds": ["showcase-poster"]
+      "why": "Captures the column in one shot with no added time per unit, no drift, and no single point of failure."
     },
     {
       "stage": "Environment and mechanical",
-      "decision": "Handled dust and tint with controlled lighting and a color card in frame; held framing within ±2.9 mm without touching production tooling.",
-      "evidenceIds": ["showcase-poster"]
+      "decision": "Handled dust and tint with controlled lighting and a color card in frame; designed the registration to hold framing within ±2.9 mm without touching production tooling."
     },
     {
       "stage": "Software and verification",
-      "decision": "Built the capture app with automated focus and exposure checks and per-unit override logs; verified gap-free five-camera coverage by script and tracked open items in the V&V record.",
-      "evidenceIds": ["showcase-poster", "commissioning-package"]
+      "decision": "Built the capture app with automated focus and exposure checks and per-unit override logs; verified gap-free five-camera coverage by script and tracked open items in the V&V record."
     },
     {
       "stage": "Commissioning and handoff",
       "decision": "Traced a camera-discovery failure to a single corporate firewall rule and delivered the exception package and commissioning runbook.",
-      "why": "Lesson learned, bring IT in during week one.",
-      "evidenceIds": ["commissioning-package"]
+      "why": "Lesson learned: bring IT in during week one."
     }
   ],
   "topMetrics": [
     {
-      "label": "Optical Resolution",
+      "label": "Optical resolution (design target)",
       "value": "53",
       "unit": "µm/px"
     },
     {
-      "label": "Framing Budget, No Fixturing",
+      "label": "Framing budget, no fixturing (design)",
       "value": "±2.9",
       "unit": "mm"
     },
     {
-      "label": "Full-Face Coverage, 5 Cameras",
+      "label": "Coverage gaps across 5 cameras (design)",
       "value": "0",
       "unit": "gaps"
     }
@@ -99,7 +89,7 @@
       "limitations": "Coverage confirmed in geometry only, never checked against a physical column with cameras mounted.\nConfirm the layout holds across column variants with differing module counts."
     },
     {
-      "title": "Held framing to ±2.9 mm with no contact to production tooling",
+      "title": "Designed the registration to hold framing within ±2.9 mm with no contact to production tooling",
       "ownedScope": "",
       "requirementOrConstraint": "Framing had to stay inside the ±13 mm standoff window set by the optics, across carts that vary unit to unit, without adding fixturing or slowing teardown.",
       "method": "Since a station that touches production tooling risks being shifted or damaged in daily use, I designed the registration to be entirely workpiece-referenced. Vertical position comes from a live-view band on a self-locking crank, depth from a projected laser gap cue, and rotation is set by eye to a band. I measured position variation across production carts and stacked the contributions into a worst-case framing budget.",
@@ -132,7 +122,7 @@
       "limitations": "The handoff has never been exercised. Nobody has brought the station up using only the documentation, so gaps in it are unknown.\nHave the incoming owner do a dry run from the runbook alone and record every point where they get stuck."
     }
   ],
-  "outcome": "The capture software runs end to end: a full unit goes from serial entry to a focus- and exposure-gated capture in a browser, verified at one, two, and five cameras on simulated and USB camera backends. Commissioning on the line was blocked by a corporate firewall rule on the managed station PC that stopped camera discovery. I traced it to the specific rule and delivered an exception package and runbook before handoff.",
+  "outcome": "Built and handed off to operations eight weeks after the project started. The capture software runs end to end: a full unit goes from serial entry to a focus- and exposure-gated capture in a browser, verified at one, two, and five cameras on simulated and USB camera backends. Commissioning on the line was blocked by a corporate firewall rule on the managed station PC that stopped camera discovery. I traced it to the specific rule and delivered an exception package and runbook before handoff, so the resolution, framing and coverage figures above remain design targets rather than measurements from the line.",
   "interfaces": [
     {
       "from": "Camera (x5)",

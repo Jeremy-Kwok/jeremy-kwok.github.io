@@ -68,7 +68,7 @@ export default function EnportPage() {
         Engineering students do complex team work (Formula SAE, robotics, rocketry, capstone,
         research labs), but resumes, LinkedIn and personal sites can&rsquo;t answer the question
         recruiters actually ask: <em>what did you specifically do, and how do you prove it?</em> I
-        built <a href="https://enport.dev" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Enport</a> to
+        built <a href="https://www.enport.dev" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Enport</a> to
         answer it. The <Link href="/#projects" className="text-blue-600 hover:underline">project pages on this site</Link> use
         its format.
       </p>
