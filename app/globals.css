@@ -1,20 +1,123 @@
 @import "tailwindcss";
 
+/* ── Theme tokens ("Drawing Set") ────────────────────────────────────────
+   The one place the site's look is defined. Values come from the /about spec
+   (docs/about/ABOUT_PAGE_SPEC.md, "Visual tokens"). Use these semantic names
+   in new code: bg-paper, bg-panel, text-ink, text-ink-2, border-rule,
+   border-hairline, text-link, text-accent, font-display, font-label.
+   Contrast (WCAG): ink 16:1 and ink-2 7.1:1 on paper; link 5.7:1; accent
+   4.75:1 (balloons, lines, large text); accent-text 5.9:1 for small red text.
+   rule and hairline are for lines only, never text. */
+@theme {
+  --color-paper: #f1f2f1;
+  --color-panel: #fbfbfa;
+  --color-ink: #141719;
+  --color-ink-2: #4a5257;
+  --color-rule: #8e969a;
+  --color-hairline: #d3d7d8;
+  --color-hairline-2: #e2e5e5;
+  --color-link: #2b5fa6;
+  --color-accent: #c23b22;
+  --color-accent-text: #a8331d;
+
+  /* ── Bridge for pages not yet moved to the tokens above ───────────────
+     The homepage and project pages still use Tailwind's zinc/blue classes,
+     rounded corners and shadows. Remapping those scales here puts them on
+     the same paper, ink and square-cornered look without touching their
+     files. Delete this block once those components use semantic tokens.
+     zinc-400 is darkened on purpose: the stock #a1a1aa failed AA (2.6:1). */
+  --color-zinc-50: #fbfbfa;
+  --color-zinc-100: #e2e5e5;
+  --color-zinc-200: #d3d7d8;
+  --color-zinc-300: #b4bbbe;
+  --color-zinc-400: #5e666b;
+  --color-zinc-500: #4a5257;
+  --color-zinc-600: #3a4146;
+  --color-zinc-700: #2a3034;
+  --color-zinc-800: #1d2124;
+  --color-zinc-900: #141719;
+  --color-blue-600: #2b5fa6;
+  --color-blue-700: #234e89;
+  /* Work-type badges are white 10px text on these fills. The stock shades
+     were 2.5–3.7:1; these are ≥5:1 (WCAG AA). */
+  --color-emerald-600: #047857;
+  --color-sky-500: #0369a1;
+  --color-amber-500: #b45309;
+  /* Small chip and heading text on tinted fills: Limitations heading on
+     orange-50 and the photo evidence chip on green-100 (both were < 4.5:1). */
+  --color-orange-600: #c2410c;
+  --color-green-700: #166534;
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius: 0;
+  --shadow: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Archivo (variable, wdth 62–125) is loaded by next/font in app/layout.tsx. */
+  --font-sans: var(--font-archivo), Arial, Helvetica, sans-serif;
+}
+
+/* Headings: Archivo 800 at 75% width. */
+@utility font-display {
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+  font-stretch: 75%;
+  font-weight: 800;
+}
+
+/* Small labels (chips, axis, table heads, title block): 87.5% width. */
+@utility font-label {
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+  font-stretch: 87.5%;
 }
 
 html {
   scroll-padding-top: 5rem;
 }
 
+/* Header and footer follow the page's content width: 56rem (896px) by
+   default, 70rem (1120px) on pages that opt in with data-page-width="wide". */
+:root {
+  --page-max: 56rem;
+}
+body:has([data-page-width="wide"]) {
+  --page-max: 70rem;
+}
+
+/* /about ends on its own title block, right under its Contact section, so the
+   generic footer (name + the same three links) would only repeat them. */
+body:has([data-page-width="wide"]) .site-footer {
+  display: none;
+}
+
 body {
-  background-color: white;
-  color: theme(colors.zinc.900);
-  /* Geist first, or the webfont loaded in layout.tsx is downloaded and never
-     used. next/font already inserts its own metric-matched "Geist Fallback"
-     (built on local Arial) inside this variable, so the tail below only fires
-     on a machine that has no Arial at all. */
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  /* Archivo first, or the webfont loaded in layout.tsx is downloaded and
+     never used. next/font inserts its own metric-matched fallback inside
+     this variable, so the tail below only fires with no Arial at all. */
+  font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+}
+
+/* A link inside running text needs more than color to stand out (WCAG 1.4.1). */
+p a {
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -18,3 +18,10 @@ next-env.d.ts
 .DS_Store
 *.pem
 npm-debug.log*
+
+# CAD showcase pipeline (npm run cad): source CAD stays on this machine only,
+# plus remembered STEP paths and lab test renders
+/cad-source/
+cad.local.json
+/public/cad/lab/
+/cad-still.png

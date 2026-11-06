@@ -1,0 +1,91 @@
+{
+  "pipeline": 5,
+  "renderHash": "df0de882c06d1cd525a74c3594f2daf19ca09babfed6345c392c3d4c4c1d7825",
+  "sourceSha256": "5c4a3c549827ad672f414ab05a363977ef84cea356aa95f268f3a7bd361dbe28",
+  "generated": "2026-11-06T21:29:35.826Z",
+  "video": {
+    "file": "loop.mp4",
+    "width": 1280,
+    "height": 800,
+    "fps": 30,
+    "seconds": 23.740000000000006,
+    "bytes": 3101280
+  },
+  "poster": {
+    "file": "poster.jpg",
+    "bytes": 85021
+  },
+  "steps": [
+    {
+      "label": "Base plate",
+      "start": 0,
+      "end": 0.381
+    },
+    {
+      "label": "Walls",
+      "start": 0.381,
+      "end": 0.9
+    },
+    {
+      "label": "Floors",
+      "start": 0.9,
+      "end": 1.372
+    },
+    {
+      "label": "Gussets",
+      "start": 1.372,
+      "end": 1.891
+    },
+    {
+      "label": "Slide mounts",
+      "start": 1.891,
+      "end": 2.684
+    },
+    {
+      "label": "Drawer slides",
+      "start": 2.684,
+      "end": 3.568
+    },
+    {
+      "label": "Carriage",
+      "start": 3.568,
+      "end": 4.712
+    },
+    {
+      "label": "Belts and pulleys",
+      "start": 4.712,
+      "end": 5.368
+    },
+    {
+      "label": "Ground ore arms",
+      "start": 5.368,
+      "end": 6.511
+    },
+    {
+      "label": "Pneumatics",
+      "start": 6.511,
+      "end": 7.487
+    },
+    {
+      "label": "Bag arm",
+      "start": 7.487,
+      "end": 8.372
+    },
+    {
+      "label": "Dog bone release",
+      "start": 8.372,
+      "end": 9.119
+    },
+    {
+      "label": "Arduino",
+      "start": 9.119,
+      "end": 9.5
+    }
+  ],
+  "model": {
+    "file": "model.glb",
+    "bytes": 1303380,
+    "parts": 132,
+    "triangles": 127366
+  }
+}
