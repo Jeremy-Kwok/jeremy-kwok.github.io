@@ -1,6 +1,8 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ProjectSchema, type Project } from '@/lib/schema';
+import { imageManifest } from '@/lib/images';
 
 // The one place project JSON is read. Every page that lists or renders a
 // project goes through loadProjects(), and generateStaticParams runs it
@@ -9,6 +11,26 @@ import { ProjectSchema, type Project } from '@/lib/schema';
 
 const projectsDir = path.join(process.cwd(), 'content', 'projects');
 const publicDir = path.join(process.cwd(), 'public');
+
+// An image that has display-size copies must still match them: a re-exported
+// poster with stale copies would show the old version to every phone.
+function staleImageProblems(project: Project): string[] {
+  const manifest = imageManifest();
+  const urls = [project.heroImage, ...project.evidence.map((e) => e.url)].filter(
+    (u): u is string => !!u && u.startsWith('/') && !!manifest[u]
+  );
+  const problems: string[] = [];
+  for (const u of urls) {
+    const file = path.join(publicDir, u);
+    if (!fs.existsSync(file)) continue;
+    const sha = crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+    if (sha !== manifest[u].sha256) problems.push(`${u}: changed since its display copies were made. Run: npm run images`);
+    for (const v of manifest[u].variants) {
+      if (!fs.existsSync(path.join(publicDir, v.src))) problems.push(`${v.src}: missing. Run: npm run images`);
+    }
+  }
+  return problems;
+}
 
 function localFileProblems(project: Project): string[] {
   const urls = [
@@ -54,6 +76,7 @@ export function loadProjects(): Project[] {
       errors.push(`${filename}: slug "${project.slug}" does not match the filename`);
     }
     errors.push(...localFileProblems(project).map((p) => `${filename}: ${p}`));
+    errors.push(...staleImageProblems(project).map((p) => `${filename}: ${p}`));
     projects.push(project);
   }
 
