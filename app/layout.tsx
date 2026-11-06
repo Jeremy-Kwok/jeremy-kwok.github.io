@@ -1,19 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import { INTRO, SITE_NAME, SITE_URL } from "@/lib/site";
 import { ogImage } from "@/lib/ogCard";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// One variable family for the whole site. The wdth axis (62–125) gives the
+// condensed headings and labels (font-display / font-label in globals.css).
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
 });
 
 // A page that sets its own openGraph replaces this block wholesale, images
@@ -47,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={archivo.variable}>
       <body className="antialiased min-h-screen flex flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>
