@@ -1,0 +1,182 @@
+{
+  "slug": "medlock",
+  "order": 2,
+  "title": "MedLock: A Guided Prep Station for IVF Injections",
+  "oneLiner": "A tabletop station that walks IVF patients through preparing an injection at home, then images the syringe to check the volume and air before they inject. I do all of the CAD on a team of six. Rev0 is being fabricated and assembled now, so the figures here are design targets, not measurements.",
+  "timeframe": "Aug 2026 – Dec 2026",
+  "role": "Mechanical design (all CAD)",
+  "organization": "Georgia Tech CREATE-X Capstone",
+  "teamSize": 6,
+  "cad": "medlock",
+  "heroImage": "/evidence/medlock/station.jpg",
+  "tags": [
+    "Medical Devices",
+    "Mechanical Design",
+    "Machine Vision",
+    "Customer Discovery"
+  ],
+  "whatIOwnedSummary": "All of the station's CAD in Onshape: the baseplate layout, the control unit enclosure, the supply tray and bin, and the imaging dock (cradle, light-tight tunnel, camera and backlight mounts, and lid), with the three custom PCBs, the Raspberry Pi, the camera and the display placed in one assembly. The team reviews the model together and I make the changes. I share printing and assembly with the other mechanical engineer. I've also been doing customer discovery since before we broke the problem down, and still am: interviews with clinicians and researchers, and the two surveys I wrote, one for clinics and one for patients.",
+  "path": [
+    {
+      "stage": "Problem",
+      "decision": "Interviews narrowed the project three times: from at-home injection training for any self-injected drug, to whether IVF patients retain their training, to checking the preparation itself before the injection.",
+      "why": "A fertility-clinic nurse manager told us patients had injected air instead of the trigger shot, which is timed 36 hours before egg retrieval, and no eggs were retrieved. It happened often enough that the clinic now draws blood the next morning to confirm the shot was taken."
+    },
+    {
+      "stage": "Architecture",
+      "decision": "A preparation station that guides every step, rather than a clip-on that only checks the final syringe. It scored 3.65 to 2.85 in our weighted matrix.",
+      "why": "MENOPUR settled it: one diluent can dissolve several vials, so the expected volume can appear with the wrong number of vials. Only guidance through each step catches that; checking the final syringe can't."
+    },
+    {
+      "stage": "Sensing",
+      "decision": "A backlit camera over a load cell or a plunger encoder (3.90 to 2.20 and 2.20).",
+      "why": "Air has almost no mass and doesn't move the plunger, so neither alternative can tell a full draw from a short draw with an air pocket. A 0.05 mL error is only 50 mg on a syringe that weighs several grams."
+    },
+    {
+      "stage": "Requirements",
+      "decision": "Weighted the specifications against the customer needs from interviews. Seat detection and false-pass control came out above volume accuracy, so the seat gate and the unable-to-verify result were designed first.",
+      "why": "An accurate reading of a syringe that isn't seated properly is still a false pass."
+    },
+    {
+      "stage": "Seat detection",
+      "decision": "Replaced a Hall sensor on the cradle with a slotted optical sensor whose beam the syringe's own finger flange breaks.",
+      "why": "It detects the syringe, not the cradle."
+    },
+    {
+      "stage": "Layout",
+      "decision": "Laid the station out in the order the user works: supply tray, then imaging dock, with the control unit's display facing the user. Everything sits on one baseplate.",
+      "why": "The baseplate is larger than common printer beds, so it's laser-cut 6 mm plywood; the parts on it are FDM prints, with the cradle in PETG."
+    }
+  ],
+  "topMetrics": [
+    {
+      "label": "Volume tolerance, 0.50–2.50 mL (design target)",
+      "value": "±0.05",
+      "unit": "mL"
+    },
+    {
+      "label": "Smallest air volume to catch (design target)",
+      "value": "0.10",
+      "unit": "mL"
+    },
+    {
+      "label": "False passes allowed on bad preps (design target)",
+      "value": "0"
+    },
+    {
+      "label": "Rev0 parts budget, with 10% reserve (target ≤$300)",
+      "value": "$271"
+    }
+  ],
+  "claims": [
+    {
+      "title": "Modeled the full Rev0 station as one fabrication-ready assembly",
+      "ownedScope": "Station CAD and layout",
+      "requirementOrConstraint": "Fit the supply tray, the imaging dock and the control unit on one baseplate, in the order a patient works through a preparation. Hold three custom PCBs, a Raspberry Pi 3B, a Pi camera, a 2.8\" display and a rotary encoder. Every printed part fits a common FDM printer, and the prototype costs at most $300.",
+      "method": "Built the station in Onshape around the parts that couldn't change: the PCB outlines from KiCad, the Pi, the camera module and the display. The main PCB sits on M2 standoffs inside the control unit, with the display and knob on its sloped face toward the user. A cable cover runs from the control unit to the imaging dock. The baseplate is laser-cut plywood because it's too big to print.",
+      "resultMetric": "Rev0 was complete in CAD and fabrication-ready by the end of October. The parts list comes to $270.88 with a 10% reserve, against the $300 target and the $1,000 course budget.",
+      "evidenceRefs": [
+        "rev0-cad"
+      ],
+      "limitations": "The cost doesn't yet include the main PCB or the seat-sensor PCB, and nothing has been assembled and tested yet."
+    },
+    {
+      "title": "Designed the imaging dock so the syringe loads in one motion and is only imaged when seated",
+      "ownedScope": "Imaging dock CAD: cradle, tunnel, mounts and lid",
+      "requirementOrConstraint": "Image the whole barrel of a 3 mL Luer-lock syringe at a fixed distance, against an even backlight, with no stray light. A lift of more than 1.25 mm has to read as not seated.",
+      "method": "A saddle cradle, printed in PETG with 0.2 mm clearance, takes the syringe. Its finger flange drops into a slot that fixes the axial position and sits in the optical sensor's beam, with about 3 mm of clearance on each side. The tunnel is lined with matte black flock. It holds the diffuser and backlight in wall grooves under a lift-off lid, with the camera on the opposite wall 60 mm from the syringe axis, 10 mm past the wide-angle camera's minimum focus.",
+      "resultMetric": "On paper, the 60 mm stand-off gives about 31 px/mm across the barrel. The 0.05 mL tolerance spans about 26 px, and a ±2 px edge error is worth about ±0.004 mL.",
+      "evidenceRefs": [
+        "rev0-cad",
+        "design-report"
+      ],
+      "limitations": "These are calculations from the camera's published specifications. Calibration and the volume and air tests start after assembly."
+    },
+    {
+      "title": "Laid out the supply tray so each guided step points to one slot",
+      "ownedScope": "Supply organization",
+      "requirementOrConstraint": "Wrong medication, wrong diluent and wrong order were errors interviewees described. The display has to be able to point the user at the next item.",
+      "method": "A printed tray holds vials in a fixed order next to a bin for the rest of the supplies. Each step of the guided flow names the slot it uses, so the station can say which vial comes next.",
+      "resultMetric": "The trigger-shot flow runs as eight guided steps, from checking supplies to placing the syringe in the dock, and it uses the tray's fixed order.",
+      "evidenceRefs": [
+        "rev0-cad"
+      ],
+      "limitations": "Rev0 doesn't sense which slots are full; the tray only fixes the order."
+    },
+    {
+      "title": "Ran customer discovery from the problem definition through the prototype",
+      "ownedScope": "Interviews and surveys",
+      "requirementOrConstraint": "Find out where home preparation actually goes wrong before designing anything, then keep checking that the prototype still targets that problem.",
+      "method": "Interviewed clinicians and researchers, including a fertility-clinic nurse manager and a drug-delivery researcher. Then I wrote two short anonymous surveys to test what the interviews couldn't. The clinic survey asks how often patients call unsure whether they prepared a dose correctly, which medications cause the most problems, how much staff time that costs, and what a clinic would pay for a loaned station. The patient survey asks whether people were ever unsure, what they did about it, which injections they'd want checked, and whether they'd use a station for every dose.",
+      "resultMetric": "The interviews narrowed the project three times and set the weights in our requirements matrix. The surveys now target the two hypotheses still open: whether clinics would pay, and whether patients would use it for every dose.",
+      "evidenceRefs": [
+        "surveys",
+        "design-report"
+      ],
+      "limitations": "The sample is small, with one fertility clinic among the interviews, and the survey results aren't in yet."
+    }
+  ],
+  "outcome": "In progress. Rev0 was complete in CAD and fabrication-ready at the end of October, and fabrication and assembly are under way. The three PCBs passed KiCad's electrical and design rule checks, and the interface runs against a simulated backend. Next come bench tests: volume accuracy on a 0.01 g balance at five volumes with 20 placements each, more than 100 randomized air cases, and 50 seat loads. Usability sessions with clinicians and patients follow. I'll replace the design targets above with measurements as they come in.",
+  "interfaces": [
+    {
+      "from": "Syringe flange",
+      "to": "Seat sensor",
+      "type": "mechanical",
+      "notes": "The flange drops into the cradle's slot and breaks the beam. The station only images a seated syringe, and lifting it out sends the flow back to waiting."
+    },
+    {
+      "from": "Seat sensor",
+      "to": "Raspberry Pi",
+      "type": "electrical",
+      "notes": "A slotted optical sensor on its own small PCB under the cradle, read on one GPIO and debounced. HIGH means seated."
+    },
+    {
+      "from": "Backlight",
+      "to": "Camera",
+      "type": "data",
+      "notes": "Six white LEDs behind a diffuser on one wall of the tunnel, with the camera on the opposite wall. The backlight switches on only for capture."
+    },
+    {
+      "from": "Display and knob",
+      "to": "User",
+      "type": "ui",
+      "notes": "Each result pairs a color, a symbol and text: checks passed, correction needed with the reason, or unable to verify. Any error shows unable to verify, never a pass."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "rev0-cad",
+      "label": "Rev0 CAD (Onshape)",
+      "type": "cad",
+      "note": "The full station assembly. The video and 3D view at the top of this page are rendered from it."
+    },
+    {
+      "id": "design-report",
+      "label": "Design reports 1 and 2",
+      "type": "report",
+      "note": "Course reports, September and October 2026: customer discovery, specifications, concept selection, and electrical and optical analysis. Not publicly released."
+    },
+    {
+      "id": "surveys",
+      "label": "Clinic and patient surveys",
+      "type": "other",
+      "note": "Two anonymous Google Forms surveys, fall 2026. Responses are anonymous and not publicly released."
+    }
+  ],
+  "projectRisks": [
+    "No physical testing yet. Every figure on this page is a design target or a calculation until Rev0 is assembled and bench tested.",
+    "Medication identity isn't checked. A pass means the station's checks passed, not that the right drug is in the syringe, and the pass screen says so.",
+    "Only calibrated syringe brands are supported. Published 3 mL inner diameters vary by about 14% between brands. That's enough that a true 1.00 mL in a Terumo syringe reads 0.93 mL with BD's calibration, so any other syringe gets \"unable to verify.\"",
+    "The mechanical interlock from our first concept moved to Rev1. Rev0 only stops the user in software.",
+    "Customer discovery so far is a small sample with one fertility clinic. Whether clinics would pay and patients would use it for every dose is still open; the surveys are out to test both."
+  ],
+  "lessons": [
+    {
+      "text": "The problem we're solving isn't the one we started with. Each interview narrowed it, and the clinic interview turned a training product into a check of the syringe itself, because that's where an error costs a cycle."
+    },
+    {
+      "text": "Ranking the requirements by customer need reordered the design work. Volume accuracy felt like the hard part, but a precise reading of a badly seated syringe is still a false pass, so the cradle and seat gate came first."
+    }
+  ],
+  "workType": "coursework"
+}

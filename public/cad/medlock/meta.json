@@ -1,0 +1,81 @@
+{
+  "pipeline": 5,
+  "renderHash": "5ff06e8e2120412b72dd05c7c0cee6f95d78360664566844aec3a8d52a7287e2",
+  "sourceSha256": "b6fb7167bd6ee9353731f3f9c1703135b1463ae5788ea9a2a631c291621e2140",
+  "generated": "2026-11-07T02:03:05.816Z",
+  "video": {
+    "file": "loop.mp4",
+    "width": 1280,
+    "height": 800,
+    "fps": 30,
+    "seconds": 21.300000000000004,
+    "bytes": 1662988
+  },
+  "poster": {
+    "file": "poster.jpg",
+    "bytes": 55828
+  },
+  "steps": [
+    {
+      "label": "Baseplate",
+      "start": 0,
+      "end": 0.744
+    },
+    {
+      "label": "Main PCB",
+      "start": 0.744,
+      "end": 2.254
+    },
+    {
+      "label": "Raspberry Pi",
+      "start": 2.254,
+      "end": 2.817
+    },
+    {
+      "label": "Control unit",
+      "start": 2.817,
+      "end": 4.326
+    },
+    {
+      "label": "Supply tray",
+      "start": 4.326,
+      "end": 4.889
+    },
+    {
+      "label": "Cradle and seat sensor",
+      "start": 4.889,
+      "end": 5.694
+    },
+    {
+      "label": "Tunnel",
+      "start": 5.694,
+      "end": 6.197
+    },
+    {
+      "label": "Camera",
+      "start": 6.197,
+      "end": 7.706
+    },
+    {
+      "label": "Backlight",
+      "start": 7.706,
+      "end": 8.994
+    },
+    {
+      "label": "Syringe",
+      "start": 8.994,
+      "end": 9.497
+    },
+    {
+      "label": "Lid",
+      "start": 9.497,
+      "end": 10
+    }
+  ],
+  "model": {
+    "file": "model.glb",
+    "bytes": 2596508,
+    "parts": 294,
+    "triangles": 274435
+  }
+}

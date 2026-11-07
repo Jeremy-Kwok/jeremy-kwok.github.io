@@ -45,7 +45,9 @@ function localFileProblems(project: Project): string[] {
 let cache: Project[] | null = null;
 
 export function loadProjects(): Project[] {
-  if (cache) return cache;
+  // The dev server keeps modules alive across requests, so only cache in production
+  // builds; otherwise a new or edited project JSON doesn't show until a restart.
+  if (cache && process.env.NODE_ENV === 'production') return cache;
 
   const filenames = fs
     .readdirSync(projectsDir)

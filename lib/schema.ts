@@ -114,6 +114,9 @@ export const ProjectSchema = z
     organization: z.string().optional(),
     teamSize: z.number().int().positive().nullable().optional(),
     heroImage: EvidenceUrl.optional(),
+    // A CAD showcase (content/cad/<slug>.ts) shown at the top of the page in
+    // place of the hero image. The hero image still feeds the homepage card.
+    cad: z.string().regex(/^[a-z0-9-]+$/, 'a CAD showcase slug').optional(),
     tags: z.array(NonBlank),
     whatIOwnedSummary: NonBlank,
     // Rendered between the overview and the claims; hidden when absent.

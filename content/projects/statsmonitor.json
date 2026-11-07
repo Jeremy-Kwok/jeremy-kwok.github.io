@@ -1,6 +1,6 @@
 {
   "slug": "statsmonitor",
-  "order": 3,
+  "order": 4,
   "title": "StatsMonitor",
   "oneLiner": "A daily reliability pipeline for 13 robot controllers at 6 customer sites: raw telemetry in, a ranked watchlist out for the customer support team. I built it alone, end to end: about 5,800 lines of Python, with daily and weekly views, running unattended at handoff.",
   "timeframe": "Feb 2026 – Apr 2026",

@@ -30,6 +30,20 @@ const RENDER_SOURCES = [
   'scripts/cad/render-page.ts',
 ];
 const RENDER_PACKAGES = ['three', 'occt-import-js', '@gltf-transform/core', '@gltf-transform/extensions', 'meshoptimizer'];
+/** The native reader (mesher: 'native'); its pinned OpenCascade version is in NATIVE_SETUP. */
+const NATIVE_SOURCES = ['scripts/cad/nativeStep.ts', 'scripts/cad/occt_native.py'];
+
+let nativeFingerprint: string | null = null;
+function nativeCodeFingerprint(): string {
+  if (nativeFingerprint) return nativeFingerprint;
+  const h = crypto.createHash('sha256');
+  for (const rel of NATIVE_SOURCES) {
+    h.update(rel);
+    h.update(fs.readFileSync(path.join(process.cwd(), rel), 'utf-8').replace(/\r\n/g, '\n'));
+  }
+  nativeFingerprint = h.digest('hex');
+  return nativeFingerprint;
+}
 
 let codeFingerprint: string | null = null;
 function renderCodeFingerprint(): string {
@@ -88,7 +102,16 @@ export function renderHash(project: CadProject): string {
   void _description;
   return crypto
     .createHash('sha256')
-    .update(stableStringify({ pipeline: PIPELINE_VERSION, video: VIDEO, code: renderCodeFingerprint(), project: rendered }))
+    .update(
+      stableStringify({
+        pipeline: PIPELINE_VERSION,
+        video: VIDEO,
+        code: renderCodeFingerprint(),
+        // Left out (undefined) for occt-import-js showcases, so their hashes don't change.
+        native: project.mesher === 'native' ? nativeCodeFingerprint() : undefined,
+        project: rendered,
+      })
+    )
     .digest('hex');
 }
 

@@ -146,7 +146,7 @@ async function main() {
   const sourceSha256 = crypto.createHash('sha256').update(stepBytes).digest('hex');
   console.log(`Converting ${path.basename(stepPath)} (${mb(stepBytes.length)})…`);
   let t0 = performance.now();
-  const model = await stepToGlb(new Uint8Array(stepBytes), project);
+  const model = await stepToGlb(new Uint8Array(stepBytes), project, stepPath);
   console.log(
     `  ${model.parts} parts, ${model.triangles.toLocaleString()} triangles, model ${mb(model.glb.byteLength)} (${((performance.now() - t0) / 1000).toFixed(1)}s)`
   );

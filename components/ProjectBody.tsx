@@ -1,4 +1,6 @@
 import { responsiveImage } from "@/lib/images";
+import { cadPublic } from "@/lib/cad/content";
+import CadShowcase from "@/components/cad/CadShowcase";
 import type { Project, EvidenceItem } from "@/lib/schema";
 import WorkTypeBadge from "@/components/WorkTypeBadge";
 import ClaimCard from "@/components/ClaimCard";
@@ -33,10 +35,16 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
   ].filter((v): v is string => !!v && v.trim() !== "");
   const risks = project.projectRisks ?? [];
   const lessons = project.lessons ?? [];
+  const cad = project.cad ? cadPublic(project.cad) : null;
+  if (project.cad && !cad) {
+    throw new Error(`content/projects/${project.slug}.json: cad "${project.cad}" has no render. Run: npm run cad -- ${project.cad}`);
+  }
 
   return (
     <div>
-      {project.heroImage && (
+      {cad ? (
+        <CadShowcase cad={cad} className="mb-8" />
+      ) : project.heroImage && (
         <div className="w-full mb-8 overflow-hidden border border-hairline bg-panel">
           <a
             href={project.heroImage}

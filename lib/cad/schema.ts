@@ -131,6 +131,12 @@ export const CadProjectSchema = z.strictObject({
    * nobody can download the geometry. Use it for work under NDA.
    */
   interactive: z.boolean().default(true),
+  /**
+   * 'native' reads the STEP with native OpenCascade (scripts/cad/occt_native.py)
+   * instead of occt-import-js: for assemblies too large for WebAssembly, such as
+   * ones carrying detailed PCB exports. Needs Python with cadquery-ocp (.cad-venv/).
+   */
+  mesher: z.literal('native').optional(),
   /** Which axis points up in the STEP file. SolidWorks exports Y-up; Onshape and FreeCAD Z-up. */
   up: z.enum(['y', 'z']).default('y'),
   /** "cad" keeps the colors in the STEP file; "mono" draws every part in drawing grey. */
