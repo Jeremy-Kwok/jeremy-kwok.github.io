@@ -4,6 +4,7 @@ import { ALL_EXTENSIONS, EXTMeshoptCompression } from '@gltf-transform/extension
 import { MeshoptDecoder, MeshoptEncoder } from 'meshoptimizer';
 import type { CadProject } from '../../lib/cad/schema';
 import { matchesAny } from '../../lib/cad/match';
+import { readStepNative } from './nativeStep';
 
 // STEP -> GLB for the CAD showcase. OpenCascade (occt-import-js, the same
 // converter Enport uses) tessellates the B-rep; each STEP product with geometry
@@ -34,11 +35,23 @@ export interface GlbResult {
   partPaths: string[];
 }
 
-export async function stepToGlb(step: Uint8Array, project: CadProject): Promise<GlbResult> {
+export async function stepToGlb(step: Uint8Array, project: CadProject, stepPath: string): Promise<GlbResult> {
   await MeshoptEncoder.ready;
-  const occt = await occtimportjs();
-  const result = occt.ReadStepFile(step, tessellation(step.byteLength));
-  if (!result.success) throw new Error('OpenCascade could not read this STEP file.');
+  let result;
+  if (project.mesher === 'native') {
+    result = readStepNative(stepPath);
+  } else {
+    const occt = await occtimportjs();
+    result = occt.ReadStepFile(step, tessellation(step.byteLength));
+    if (!result.success) throw new Error('OpenCascade could not read this STEP file.');
+    // Past WebAssembly's memory ceiling, occt-import-js reads every part but meshes none of them.
+    if (result.meshes.length > 0 && result.meshes.every((m) => m.attributes.position.array.length === 0)) {
+      throw new Error(
+        `occt-import-js read ${result.meshes.length} parts but meshed none of them: the assembly is too large for\n` +
+          `its WebAssembly memory. Add mesher: 'native' to content/cad/${project.slug}.ts to read it with native OpenCascade.`
+      );
+    }
+  }
 
   const doc = new Document();
   const buffer = doc.createBuffer();

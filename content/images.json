@@ -151,6 +151,25 @@
       }
     ]
   },
+  "/evidence/medlock/station.jpg": {
+    "sha256": "48e0922ac1304cda6bbbab28afe645a8af888ee5795016c9734ff02995546e76",
+    "width": 1280,
+    "height": 800,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/medlock/_w/station-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/medlock/_w/station-960.webp"
+      },
+      {
+        "w": 1280,
+        "src": "/evidence/medlock/_w/station-1280.webp"
+      }
+    ]
+  },
   "/evidence/statsmonitor/system-context.png": {
     "sha256": "06dbce42e1e756dc848ee5760466ec120bf2435bad483777ed23f4d5f712aa53",
     "width": 2800,

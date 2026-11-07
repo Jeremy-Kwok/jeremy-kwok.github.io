@@ -1,6 +1,6 @@
 {
   "slug": "eoat-supplier-change-qualification",
-  "order": 2,
+  "order": 3,
   "title": "Vacuum Cup Validation for a Robot Gripper",
   "oneLiner": "Qualified a replacement vacuum cup for a 63-cup robot gripper: bench tests on a force/vacuum jig, then a field A/B I led at a 24/7 distribution center. The plan’s pre-set criteria caught a durability failure and called a no-swap before any fleet-wide rollout.",
   "timeframe": "Jan 2026 – Apr 2026",

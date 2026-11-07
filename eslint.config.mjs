@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Python with native OpenCascade for `npm run cad` (gitignored).
+    ".cad-venv/**",
   ]),
 ]);
 
