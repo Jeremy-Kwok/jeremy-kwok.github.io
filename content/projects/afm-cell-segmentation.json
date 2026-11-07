@@ -1,6 +1,6 @@
 {
   "slug": "afm-cell-segmentation",
-  "order": 4,
+  "order": 5,
   "title": "AFM Tip-Cell Segmentation Pipeline",
   "oneLiner": "A pipeline that finds the indented T cell in crowded AFM frames: 0.813 Dice / 0.723 IoU on 39 held-out frames, with zero empty outputs. A probe-aware selection rule does most of the work. In the ablation it adds +0.67 Dice over picking the largest cell, while fine-tuning the model adds +0.02.",
   "timeframe": "Fall 2025",
