@@ -24,6 +24,19 @@ interface WorkTypeBadgeProps {
   variant?: WorkTypeBadgeVariant;
 }
 
+/** The eyebrow above a project title: one badge, or a row of them for a page covering several kinds of work. */
+export function WorkTypeBadges({ value, className = '' }: { value: WorkType | WorkType[] | undefined; className?: string }) {
+  const types = value === undefined ? [] : Array.isArray(value) ? value : [value];
+  if (types.length === 0) return null;
+  return (
+    <div className={`flex flex-wrap gap-x-4 gap-y-1 ${className}`}>
+      {types.map((t) => (
+        <WorkTypeBadge key={t} type={t} variant="eyebrow" />
+      ))}
+    </div>
+  );
+}
+
 export default function WorkTypeBadge({ type, variant = 'pill' }: WorkTypeBadgeProps) {
   const label = type.charAt(0).toUpperCase() + type.slice(1);
   return (

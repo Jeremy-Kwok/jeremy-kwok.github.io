@@ -22,10 +22,11 @@ const LEAD =
 const INTRO =
   "This year has been hardware: at Mujin I qualified a replacement vacuum cup for a robot gripper, from bench tests to a field trial, and at Bloom Energy I designed and built a five-camera inspection station for returned fuel cell columns. Before that I built things in other ways: leading student software teams for nonprofits, consulting for a semester, and research in a bio lab, which I still do. What I like most is taking a problem the whole way through: ideation, evaluating possible solutions, prototyping and fabrication, then verifying and validating it once it’s built.";
 
-const LATELY: { lead: string; text: string }[] = [
+const LATELY: { lead: string; text: string; link?: { text: string; href: string } }[] = [
   {
     lead: "Capstone.",
-    text: "A training and guidance platform for preparing IVF medications. I do all of the CAD and run our customer discovery, interviewing and surveying potential customers to check we’re solving the right problem as the prototype develops.",
+    text: "MedLock, a tabletop station that guides IVF patients through preparing an injection at home and checks the syringe before they inject. I do all of the CAD and run our customer discovery, interviewing clinicians and surveying clinics and patients as the prototype develops.",
+    link: { text: "Read about MedLock", href: "/projects/medlock/" },
   },
   { lead: "Research.", text: "Damage analysis for an AFM dataset of T cells in the Sulchek Lab." },
   {
@@ -194,6 +195,12 @@ export default function AboutPage() {
               {LATELY.map((l) => (
                 <li key={l.lead}>
                   <span className="font-bold">{l.lead}</span> {l.text}
+                  {l.link && (
+                    <>
+                      {" "}
+                      <TimelineLinkAnchor href={l.link.href} text={l.link.text} />
+                    </>
+                  )}
                 </li>
               ))}
             </ul>

@@ -8,6 +8,7 @@
   "organization": "Sulchek Lab, Georgia Tech",
   "teamSize": 1,
   "heroImage": "/evidence/afm-cell-segmentation/pipeline-strip.png",
+  "cardImage": "/evidence/afm-cell-segmentation/card.png",
   "tags": [
     "Biomedical Imaging",
     "Machine Learning",

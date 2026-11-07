@@ -22,6 +22,7 @@ function sourcesInUse(): string[] {
   const urls = new Set<string>();
   for (const p of loadProjects()) {
     if (p.heroImage?.startsWith('/')) urls.add(p.heroImage);
+    if (p.cardImage?.startsWith('/')) urls.add(p.cardImage);
     for (const e of p.evidence) if (e.url?.startsWith('/') && detectFormatKind(e) === 'image') urls.add(e.url);
   }
   return [...urls].filter((u) => !/\.(svg|gif)$/i.test(u)).sort();

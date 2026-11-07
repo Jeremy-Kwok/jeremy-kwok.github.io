@@ -45,10 +45,11 @@ export const ITEMS: TimelineItem[] = [
     lane: 'school',
     segments: [['2026-08', '2026-12']],
     label: 'Capstone',
-    title: 'Senior capstone',
+    title: 'Senior capstone: MedLock',
     dates: 'Aug – Dec 2026',
     description:
-      'A training and guidance platform for preparing IVF medications. I do all of the CAD. Before we designed anything, I ran customer discovery (interviews and surveys) to find the problems people were actually running into. As the prototype develops, I keep interviewing and surveying potential customers to check that our solution still targets that problem and to find product-market fit.',
+      'MedLock, a tabletop station that walks IVF patients through preparing an injection at home, then images the syringe to check the volume and air before they inject. I do all of the CAD. I started customer discovery before we had defined the problem, interviewing clinicians and researchers, and I wrote our clinic and patient surveys. I keep at it as the prototype develops, to check we’re still solving the problem people actually have.',
+    links: [{ text: 'Read about MedLock', href: '/projects/medlock/' }],
   },
 
   // Work

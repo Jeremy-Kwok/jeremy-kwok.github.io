@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
-import ContactLinks from "@/components/ContactLinks";
 import { RESUME_PATH, SITE_NAME } from "@/lib/site";
 import { loadResumeImage } from "@/lib/resumeContent";
 import { ogImage } from "@/lib/ogCard";
@@ -64,11 +63,6 @@ export default function ResumePage() {
           </details>
         </>
       )}
-
-      <div className="mt-12">
-        <h2 className="mb-3 border-t border-rule pt-3 font-display text-2xl leading-tight text-ink">Contact</h2>
-        <ContactLinks className="text-sm" />
-      </div>
     </PageShell>
   );
 }

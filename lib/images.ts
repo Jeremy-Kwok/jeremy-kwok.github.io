@@ -1,4 +1,6 @@
 import manifestJson from '@/content/images.json';
+import { detectFormatKind } from '@/lib/evidenceRender';
+import type { Project } from '@/lib/schema';
 
 // Display-size copies of project images, made by `npm run images`
 // (scripts/images.ts) and listed in content/images.json. Components ask for
@@ -46,4 +48,12 @@ export function aspectRatio(url: string): number | null {
 
 export function imageManifest(): ImageManifest {
   return manifest;
+}
+
+/** The picture for a project's homepage card and share card: the card image, else the hero image, else the first image evidence. */
+export function projectThumbnail(project: Project): string | null {
+  const own = project.cardImage ?? project.heroImage;
+  if (own) return own;
+  const image = project.evidence.find((e) => e.url && detectFormatKind(e) === 'image');
+  return image?.url ?? null;
 }

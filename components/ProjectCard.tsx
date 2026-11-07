@@ -1,12 +1,11 @@
 import Link from "next/link";
 import type { Project } from "@/lib/schema";
-import WorkTypeBadge from "@/components/WorkTypeBadge";
-import { detectFormatKind } from "@/lib/evidenceRender";
-import { aspectRatio, responsiveImage } from "@/lib/images";
+import { WorkTypeBadges } from "@/components/WorkTypeBadge";
+import { aspectRatio, projectThumbnail, responsiveImage } from "@/lib/images";
 
 // Adapted from Enport's ProjectCard: no owner byline, no crop-box thumbnail
-// math. The thumbnail is the hero image, else the first image evidence,
-// else Enport's gradient.
+// math. The thumbnail is the card image, else the hero image, else the first
+// image evidence, else Enport's gradient.
 
 const ACRONYM_TAGS: Record<string, string> = {
   cad: "CAD",
@@ -44,12 +43,6 @@ function pickDisplayTags(tags: string[]): string[] {
   return picked;
 }
 
-function thumbnailFor(project: Project): string | null {
-  if (project.heroImage) return project.heroImage;
-  const image = project.evidence.find((e) => e.url && detectFormatKind(e) === "image");
-  return image?.url ?? null;
-}
-
 type ProjectCardProps = {
   project: Project;
   /** The first card's image is the homepage's largest element: load it right away, not lazily. */
@@ -57,7 +50,7 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({ project, priority = false }: ProjectCardProps) {
-  const thumbUrl = thumbnailFor(project);
+  const thumbUrl = projectThumbnail(project);
   const thumb = thumbUrl ? responsiveImage(thumbUrl) : null;
   // A strip wider than about 2.6:1 loses its labels when cropped into the card; show it whole.
   const wide = thumbUrl ? (aspectRatio(thumbUrl) ?? 0) > 2.6 : false;
@@ -86,11 +79,7 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
         <div className="w-full aspect-[1.92] bg-[linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)]" aria-hidden="true" />
       )}
       <div className="p-5">
-        {project.workType && (
-          <div className="mb-1.5">
-            <WorkTypeBadge type={project.workType} variant="eyebrow" />
-          </div>
-        )}
+        <WorkTypeBadges value={project.workType} className="mb-1.5" />
         <h3 className="font-display text-lg leading-snug text-ink group-hover:underline">{project.title}</h3>
         <p className="text-sm text-zinc-500 mt-1">{project.role}</p>
         {(project.organization || project.timeframe) && (
