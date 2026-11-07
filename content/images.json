@@ -1,0 +1,173 @@
+{
+  "/evidence/afm-cell-segmentation/pipeline-strip.png": {
+    "sha256": "7776a8bf1f05c41516beadb57894ab82f1ed9aeaf7e67bcdeff238cc6c89d9b0",
+    "width": 2898,
+    "height": 484,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/afm-cell-segmentation/_w/pipeline-strip-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/afm-cell-segmentation/_w/pipeline-strip-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/afm-cell-segmentation/_w/pipeline-strip-1600.webp"
+      }
+    ]
+  },
+  "/evidence/afm-cell-segmentation/qualitative-examples.png": {
+    "sha256": "899cb9124252a837242701df2fe98d53ac228e2c805c5187c213492b32dfd78b",
+    "width": 1220,
+    "height": 1508,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/afm-cell-segmentation/_w/qualitative-examples-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/afm-cell-segmentation/_w/qualitative-examples-960.webp"
+      },
+      {
+        "w": 1220,
+        "src": "/evidence/afm-cell-segmentation/_w/qualitative-examples-1220.webp"
+      }
+    ]
+  },
+  "/evidence/eoat-supplier-change-qualification/methodology.png": {
+    "sha256": "fac91ffa1508a1cf55ea9263b56d83396ef2699dbad28c9fd0972e47d5c819ea",
+    "width": 3000,
+    "height": 2300,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/eoat-supplier-change-qualification/_w/methodology-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/eoat-supplier-change-qualification/_w/methodology-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/eoat-supplier-change-qualification/_w/methodology-1600.webp"
+      }
+    ]
+  },
+  "/evidence/eoat-supplier-change-qualification/triage-decision-tree.png": {
+    "sha256": "176818e62d443e2571924f654ad91340c3fae34423b757e87d088e1721c39c63",
+    "width": 2900,
+    "height": 2532,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/eoat-supplier-change-qualification/_w/triage-decision-tree-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/eoat-supplier-change-qualification/_w/triage-decision-tree-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/eoat-supplier-change-qualification/_w/triage-decision-tree-1600.webp"
+      }
+    ]
+  },
+  "/evidence/iris-integrated-reliability-imaging-system/showcase-poster.png": {
+    "sha256": "9db21234ef6168a1c33af5b440e4f581a76f2f6e6fe4cb0d47f99793816d222c",
+    "width": 5400,
+    "height": 3600,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/iris-integrated-reliability-imaging-system/_w/showcase-poster-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/iris-integrated-reliability-imaging-system/_w/showcase-poster-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/iris-integrated-reliability-imaging-system/_w/showcase-poster-1600.webp"
+      }
+    ]
+  },
+  "/evidence/mechanical-builds/blockparty-poster.jpg": {
+    "sha256": "cf8523872d9c48f4cbe61b3edc32f16927ba0c82b606afa4b96432ca85380c7b",
+    "width": 1600,
+    "height": 1018,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/mechanical-builds/_w/blockparty-poster-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/mechanical-builds/_w/blockparty-poster-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/mechanical-builds/_w/blockparty-poster-1600.webp"
+      }
+    ]
+  },
+  "/evidence/mechanical-builds/excelsior.jpg": {
+    "sha256": "ecdb707ed6404c951a15e31bd62d612532bb9a8be08af884ab6cf7709a6742c0",
+    "width": 1600,
+    "height": 1964,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/mechanical-builds/_w/excelsior-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/mechanical-builds/_w/excelsior-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/mechanical-builds/_w/excelsior-1600.webp"
+      }
+    ]
+  },
+  "/evidence/mechanical-builds/jim.jpg": {
+    "sha256": "284002e73636fc92ce963ad082043a6bbb0de2b3318ed6bd3cbcc7b8444a88d7",
+    "width": 1205,
+    "height": 811,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/mechanical-builds/_w/jim-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/mechanical-builds/_w/jim-960.webp"
+      },
+      {
+        "w": 1205,
+        "src": "/evidence/mechanical-builds/_w/jim-1205.webp"
+      }
+    ]
+  },
+  "/evidence/statsmonitor/system-context.png": {
+    "sha256": "06dbce42e1e756dc848ee5760466ec120bf2435bad483777ed23f4d5f712aa53",
+    "width": 2800,
+    "height": 1400,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/statsmonitor/_w/system-context-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/statsmonitor/_w/system-context-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/statsmonitor/_w/system-context-1600.webp"
+      }
+    ]
+  }
+}

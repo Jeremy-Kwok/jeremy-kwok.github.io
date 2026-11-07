@@ -9,7 +9,7 @@ interface InterfacesTableProps {
 
 function TypeChip({ type }: { type: Interface['type'] }) {
   return (
-    <span className="rounded-full bg-zinc-100 text-zinc-600 text-xs px-2 py-0.5">
+    <span className="border border-hairline px-1.5 py-px font-label text-xs font-semibold text-ink-2 whitespace-nowrap">
       {type}
     </span>
   );

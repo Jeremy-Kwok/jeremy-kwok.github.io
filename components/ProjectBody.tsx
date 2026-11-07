@@ -1,3 +1,4 @@
+import { responsiveImage } from "@/lib/images";
 import type { Project, EvidenceItem } from "@/lib/schema";
 import WorkTypeBadge from "@/components/WorkTypeBadge";
 import ClaimCard from "@/components/ClaimCard";
@@ -36,9 +37,23 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
   return (
     <div>
       {project.heroImage && (
-        <div className="w-full mb-8 rounded-lg overflow-hidden border border-zinc-200 bg-white">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.heroImage} alt="" className="w-full max-h-80 object-contain" />
+        <div className="w-full mb-8 overflow-hidden border border-hairline bg-panel">
+          <a
+            href={project.heroImage}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+            aria-label={`${project.evidence.find((e) => e.url === project.heroImage)?.label ?? project.title}, full size (opens in a new tab)`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              {...responsiveImage(project.heroImage)}
+              sizes="(min-width: 960px) 896px, 100vw"
+              alt=""
+              fetchPriority="high"
+              className="w-full max-h-80 object-contain"
+            />
+          </a>
         </div>
       )}
 
@@ -49,7 +64,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
             <WorkTypeBadge type={project.workType} variant="eyebrow" />
           </div>
         )}
-        <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900 leading-tight">{project.title}</h1>
+        <h1 className="font-display text-[clamp(30px,6vw,44px)] leading-[1.05] text-ink">{project.title}</h1>
         <p className="text-base text-zinc-500 mt-2 leading-relaxed">{project.oneLiner}</p>
 
         <dl className="flex flex-wrap gap-x-6 gap-y-2 mt-4">
@@ -68,7 +83,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
         {project.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-4">
             {project.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-zinc-100 text-zinc-700 text-xs px-3 py-1">
+              <span key={tag} className="border border-hairline px-2 py-0.5 font-label text-xs font-semibold text-ink-2">
                 {normalizeTag(tag)}
               </span>
             ))}
@@ -77,7 +92,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
 
         <div id="metrics" className="mt-5 flex flex-wrap gap-3">
           {project.topMetrics.map((metric, idx) => (
-            <span key={idx} className="rounded-full border border-zinc-200 px-4 py-2 text-sm bg-white">
+            <span key={idx} className="border border-hairline bg-panel px-3 py-2 text-sm">
               <span className="font-bold text-zinc-900">{metric.value}</span>
               {metric.unit && (
                 <span className={`text-zinc-500 ${/^\p{L}/u.test(metric.unit) ? 'ml-1' : ''}`}>{metric.unit}</span>
@@ -92,19 +107,19 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
       </div>
 
       <section id="owned" className="mt-12">
-        <h2 className="text-xl font-semibold text-zinc-900 mb-3">What I owned</h2>
+        <h2 className="font-display text-2xl leading-tight text-ink mb-3">What I owned</h2>
         <p className="text-sm sm:text-base text-zinc-700 leading-relaxed">{project.whatIOwnedSummary}</p>
       </section>
 
       {project.path && project.path.length > 0 && (
         <section id="path" className="mt-12">
-          <h2 className="text-xl font-semibold text-zinc-900 mb-6">Decision path</h2>
+          <h2 className="font-display text-2xl leading-tight text-ink mb-6">Decision path</h2>
           <DecisionPath steps={project.path} evidenceById={evidenceById} />
         </section>
       )}
 
       <section id="claims" className="mt-12">
-        <h2 className="text-xl font-semibold text-zinc-900 mb-6">
+        <h2 className="font-display text-2xl leading-tight text-ink mb-6">
           Key Work
           <span className="font-normal text-zinc-400"> · {project.claims.length}</span>
         </h2>
@@ -116,22 +131,22 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
       </section>
 
       <section id="outcome" className="mt-12">
-        <div className="border-l-4 border-emerald-500 bg-emerald-50 rounded-r-md p-5">
-          <h2 className="text-xs font-semibold tracking-widest text-emerald-700 uppercase mb-3">Outcome</h2>
+        <div className="border border-hairline border-l-4 border-l-accent bg-panel p-5">
+          <h2 className="font-label text-xs font-bold tracking-widest text-accent-text uppercase mb-3">Outcome</h2>
           <p className="text-sm sm:text-base text-zinc-800 leading-relaxed">{project.outcome}</p>
         </div>
       </section>
 
       {project.interfaces && project.interfaces.length > 0 && (
         <section id="interfaces" className="mt-12">
-          <h2 className="text-xl font-semibold text-zinc-900 mb-4">Interfaces</h2>
+          <h2 className="font-display text-2xl leading-tight text-ink mb-4">Interfaces</h2>
           <InterfacesTable interfaces={project.interfaces} />
         </section>
       )}
 
       {project.evidence.length > 0 && (
         <section id="evidence" className="mt-12">
-          <h2 className="text-xl font-semibold text-zinc-900 mb-4">Evidence</h2>
+          <h2 className="font-display text-2xl leading-tight text-ink mb-4">Evidence</h2>
           <EvidenceList evidence={project.evidence} />
         </section>
       )}
@@ -139,21 +154,21 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
       {(risks.length > 0 || lessons.length > 0) && (
         <div className={`mt-12 grid grid-cols-1 gap-6 ${risks.length > 0 && lessons.length > 0 ? 'md:grid-cols-[5fr_7fr]' : ''}`}>
           {risks.length > 0 && (
-            <div id="risks" className="border-l-4 border-orange-400 bg-orange-50 rounded-r-md p-5">
-              <h2 className="text-xs font-semibold tracking-widest text-orange-600 uppercase mb-3">Limitations</h2>
-              <ul className="space-y-2">
+            <div id="risks" className="border border-hairline border-l-4 border-l-rule bg-panel p-5">
+              <h2 className="font-label text-xs font-bold tracking-widest text-ink-2 uppercase mb-3">Limitations</h2>
+              <ul className="list-disc space-y-2 pl-5 marker:text-rule">
                 {risks.map((risk, i) => (
-                  <li key={i} className="text-sm text-zinc-700 leading-relaxed">• {risk}</li>
+                  <li key={i} className="text-sm text-zinc-700 leading-relaxed">{risk}</li>
                 ))}
               </ul>
             </div>
           )}
           {lessons.length > 0 && (
-            <div id="lessons" className="border-l-4 border-blue-500 bg-blue-50 rounded-r-md p-5">
-              <h2 className="text-xs font-semibold tracking-widest text-blue-600 uppercase mb-3">Lessons</h2>
-              <ul className="space-y-2">
+            <div id="lessons" className="border border-hairline border-l-4 border-l-link bg-panel p-5">
+              <h2 className="font-label text-xs font-bold tracking-widest text-ink-2 uppercase mb-3">Lessons</h2>
+              <ul className="list-disc space-y-2 pl-5 marker:text-rule">
                 {lessons.map((lesson, i) => (
-                  <li key={i} className="text-sm text-zinc-700 leading-relaxed">• {lesson.text}</li>
+                  <li key={i} className="text-sm text-zinc-700 leading-relaxed">{lesson.text}</li>
                 ))}
               </ul>
             </div>
