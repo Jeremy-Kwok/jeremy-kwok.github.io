@@ -114,6 +114,10 @@ export const ProjectSchema = z
     organization: z.string().optional(),
     teamSize: z.number().int().positive().nullable().optional(),
     heroImage: EvidenceUrl.optional(),
+    // A close-up for the homepage card and the share card, where a full
+    // poster or diagram would be too small to read. Falls back to heroImage.
+    // PNG or JPEG, so the share card can embed it.
+    cardImage: EvidenceUrl.optional(),
     // A CAD showcase (content/cad/<slug>.ts) shown at the top of the page in
     // place of the hero image. The hero image still feeds the homepage card.
     cad: z.string().regex(/^[a-z0-9-]+$/, 'a CAD showcase slug').optional(),
@@ -131,7 +135,8 @@ export const ProjectSchema = z
     evidence: z.array(EvidenceItemSchema),
     projectRisks: z.array(NonBlank).optional(),
     lessons: z.array(LessonSchema).optional(),
-    workType: WorkType.optional(),
+    // One type, or several for a page that covers more than one kind of work.
+    workType: z.union([WorkType, z.array(WorkType).min(1)]).optional(),
   })
   .superRefine((project, ctx) => {
     const ids = new Set<string>();

@@ -2,7 +2,7 @@ import { responsiveImage } from "@/lib/images";
 import { cadPublic } from "@/lib/cad/content";
 import CadShowcase from "@/components/cad/CadShowcase";
 import type { Project, EvidenceItem } from "@/lib/schema";
-import WorkTypeBadge from "@/components/WorkTypeBadge";
+import { WorkTypeBadges } from "@/components/WorkTypeBadge";
 import ClaimCard from "@/components/ClaimCard";
 import DecisionPath from "@/components/DecisionPath";
 import InterfacesTable from "@/components/InterfacesTable";
@@ -67,11 +67,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
 
       {/* Header */}
       <div id="header">
-        {project.workType && (
-          <div className="mb-1.5">
-            <WorkTypeBadge type={project.workType} variant="eyebrow" />
-          </div>
-        )}
+        <WorkTypeBadges value={project.workType} className="mb-1.5" />
         <h1 className="font-display text-[clamp(30px,6vw,44px)] leading-[1.05] text-ink">{project.title}</h1>
         <p className="text-base text-zinc-500 mt-2 leading-relaxed">{project.oneLiner}</p>
 

@@ -8,6 +8,7 @@
   "organization": "Mujin",
   "teamSize": 1,
   "heroImage": "/evidence/statsmonitor/system-context.png",
+  "cardImage": "/evidence/statsmonitor/card.png",
   "tags": [
     "Reliability",
     "Data Pipelines",

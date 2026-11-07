@@ -24,9 +24,10 @@ export default function ContactLinks({ className = "" }: ContactLinksProps) {
     <ul className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${className}`}>
       {links.map((link) => (
         <li key={link.label}>
+          {/* The padding, cancelled by the negative margin, makes the tap target about 25px tall without moving anything. */}
           <a
             href={link.href}
-            className="text-blue-600 hover:underline"
+            className="-my-[5px] inline-block py-[5px] text-blue-600 hover:underline"
             {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {link.label}

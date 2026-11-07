@@ -16,7 +16,7 @@ const publicDir = path.join(process.cwd(), 'public');
 // poster with stale copies would show the old version to every phone.
 function staleImageProblems(project: Project): string[] {
   const manifest = imageManifest();
-  const urls = [project.heroImage, ...project.evidence.map((e) => e.url)].filter(
+  const urls = [project.heroImage, project.cardImage, ...project.evidence.map((e) => e.url)].filter(
     (u): u is string => !!u && u.startsWith('/') && !!manifest[u]
   );
   const problems: string[] = [];
@@ -35,6 +35,7 @@ function staleImageProblems(project: Project): string[] {
 function localFileProblems(project: Project): string[] {
   const urls = [
     project.heroImage,
+    project.cardImage,
     ...project.evidence.map((e) => e.url),
   ].filter((u): u is string => !!u && u.startsWith('/'));
   return urls
