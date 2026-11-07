@@ -13,7 +13,7 @@
     "Fabrication",
     "Robotics"
   ],
-  "whatIOwnedSummary": "BlockParty: a team project, so these were team decisions. My part: prototyping and fabricating our first mechanism, laser-cutting parts for another, ideation and testing on the bag arm, and the code for our first sprint. FRC: I owned the pneumatics on both robots, and was second in command on the swerve drivetrain: some of the CAD, building swerve modules and one-piece bumpers, fabrication, and training rookies to build the rest.",
+  "whatIOwnedSummary": "BlockParty: a team project, so these were team decisions. My part: prototyping and fabricating our first mechanism, laser-cutting parts for another, ideation and testing on the bag arm, and the code for our first sprint. FRC: I owned the pneumatics on both robots, and was second in command on the swerve drivetrain: some of the CAD, building some of the swerve modules and the one-piece bumpers, fabrication, and training rookies to build the rest.",
   "topMetrics": [
     {
       "label": "BlockParty",
@@ -47,7 +47,7 @@
       "title": "FRC drivetrain, Excelsior and Jim (High school, 2022–2023): second in command on the swerve drivetrain",
       "ownedScope": "",
       "requirementOrConstraint": "",
-      "method": "Did some of the drivetrain CAD, built and tested swerve modules, built the one-piece bumpers, and fabricated parts.",
+      "method": "Did some of the drivetrain CAD, built and tested some of the swerve modules, built the one-piece bumpers, and fabricated parts.",
       "resultMetric": "Trained rookies to build the rest of the swerve modules.",
       "evidenceRefs": ["jim"],
       "limitations": ""

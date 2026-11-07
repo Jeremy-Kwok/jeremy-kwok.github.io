@@ -20,7 +20,7 @@ const LEAD =
   "I’m a mechanical engineering student at Georgia Tech (CS minor), graduating in December 2026. I’m in Atlanta through December, then New York.";
 
 const INTRO =
-  "This year has been hardware: at Mujin I qualified a replacement vacuum cup for a robot gripper, from bench tests to a field trial, and at Bloom Energy I designed and built a five-camera inspection station for returned fuel cell columns. Before that I built things in other ways: leading student software teams for nonprofits, consulting for a semester, and research in a bio lab, which I still do. What I like most is taking a problem the whole way through: ideation, evaluating possible solutions, prototyping and fabrication, then verifying and validating it once it’s built.";
+  "This year has been hardware: at Mujin I wrote the plan to qualify a replacement vacuum cup for a robot gripper, ran the bench tests and managed the field trial, and at Bloom Energy I designed and built a five-camera inspection station for returned fuel cell columns. Before that I built things in other ways: leading student software teams for nonprofits, consulting for a semester, and research in a bio lab, which I still do. What I like most is taking a problem the whole way through: ideation, evaluating possible solutions, prototyping and fabrication, then verifying and validating it once it’s built.";
 
 const LATELY: { lead: string; text: string; link?: { text: string; href: string } }[] = [
   {
@@ -35,7 +35,7 @@ const LATELY: { lead: string; text: string; link?: { text: string; href: string 
   },
   {
     lead: "Looking for.",
-    text: "Full-time mechanical, mechatronics or test engineering work in robotics or medical devices after I graduate in December, especially on a small team where one engineer owns a system from the first requirement to how it holds up in the field. Open to relocating for the right role, ideally to a city like New York or Boston.",
+    text: "Full-time mechanical, mechatronics or test engineering work in robotics or medical devices after I graduate in December, especially a role where I own a system from the first requirement to how it holds up in the field. Open to relocating for the right role, ideally to a city like New York or Boston.",
   },
 ];
 

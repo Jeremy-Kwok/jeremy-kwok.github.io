@@ -121,7 +121,7 @@
       "ownedScope": "",
       "requirementOrConstraint": "Someone else would commission and own the station after my internship. A two-column expansion considered as a potential upgrade to reduce takt time. Vendor software versions change, so anything version-specific would go stale.",
       "method": "Moved camera count, backend selection, and network tuning into a configuration file, and built three interchangeable camera backends covering production hardware, any USB camera, and a hardware-free simulator. Wrote a readiness script that tests the actual constraint rather than assuming a software version.",
-      "resultMetric": "End-to-end runs verified at one, two, and five cameras, so the two-column expansion to ten cameras should need no software changes. Testing stopped at five cameras. The documentation set includes a commissioning runbook, the firewall exception package, a decision log of every locked design choice, a verification record with open items, a code guide written for a non-programmer working with an AI assistant, and an asset inventory.",
+      "resultMetric": "End-to-end runs verified at one, two, and five cameras, so the two-column expansion to ten cameras should need no software changes. Testing stopped at five cameras. The handoff was seven documents: a handoff memo with status and ownership, a commissioning runbook, the firewall exception package for IT, a decision log of 19 locked design choices, a verification record with 13 open items (each naming the event that closes it), a code guide written for a non-programmer working with an AI assistant, and an asset inventory.",
       "evidenceRefs": [
         "commissioning-package"
       ],
@@ -180,7 +180,7 @@
       "id": "commissioning-package",
       "label": "Commissioning package",
       "type": "report",
-      "note": "Commissioning runbook, firewall exception package, decision log, verification record with open items, code guide, and asset inventory. Internal; not publicly released."
+      "note": "Seven documents: handoff memo, commissioning runbook, firewall exception package, decision log, verification record with open items, code guide, and asset inventory. Internal; not publicly released."
     }
   ],
   "projectRisks": [
