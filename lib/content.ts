@@ -45,10 +45,12 @@ function localFileProblems(project: Project): string[] {
 
 let cache: Project[] | null = null;
 
-export function loadProjects(): Project[] {
+// `skipImageCheck` is for scripts/images.ts only: it is the command that refreshes
+// stale display copies, so the staleness check must not stop it from running.
+export function loadProjects({ skipImageCheck = false }: { skipImageCheck?: boolean } = {}): Project[] {
   // The dev server keeps modules alive across requests, so only cache in production
   // builds; otherwise a new or edited project JSON doesn't show until a restart.
-  if (cache && process.env.NODE_ENV === 'production') return cache;
+  if (cache && !skipImageCheck && process.env.NODE_ENV === 'production') return cache;
 
   const filenames = fs
     .readdirSync(projectsDir)
@@ -79,7 +81,7 @@ export function loadProjects(): Project[] {
       errors.push(`${filename}: slug "${project.slug}" does not match the filename`);
     }
     errors.push(...localFileProblems(project).map((p) => `${filename}: ${p}`));
-    errors.push(...staleImageProblems(project).map((p) => `${filename}: ${p}`));
+    if (!skipImageCheck) errors.push(...staleImageProblems(project).map((p) => `${filename}: ${p}`));
     projects.push(project);
   }
 
@@ -88,8 +90,9 @@ export function loadProjects(): Project[] {
     throw new Error(`Invalid project content:\n  ${errors.join('\n  ')}`);
   }
 
-  cache = projects.sort((a, b) => a.order - b.order);
-  return cache;
+  const sorted = projects.sort((a, b) => a.order - b.order);
+  if (!skipImageCheck) cache = sorted;
+  return sorted;
 }
 
 export function getProject(slug: string): Project | undefined {
