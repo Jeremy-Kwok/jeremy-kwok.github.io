@@ -29,22 +29,22 @@
       }
     ]
   },
-  "/evidence/afm-cell-segmentation/qualitative-examples.png": {
-    "sha256": "899cb9124252a837242701df2fe98d53ac228e2c805c5187c213492b32dfd78b",
-    "width": 1220,
-    "height": 1508,
+  "/evidence/afm-research/imaging-pipeline.png": {
+    "sha256": "2a639837fa3a46d19ccdc21acc87e9e6cc02add5dd09bcdb0ec8739f388e674a",
+    "width": 2400,
+    "height": 1044,
     "variants": [
       {
         "w": 480,
-        "src": "/evidence/afm-cell-segmentation/_w/qualitative-examples-480.webp"
+        "src": "/evidence/afm-research/_w/imaging-pipeline-480.webp"
       },
       {
         "w": 960,
-        "src": "/evidence/afm-cell-segmentation/_w/qualitative-examples-960.webp"
+        "src": "/evidence/afm-research/_w/imaging-pipeline-960.webp"
       },
       {
-        "w": 1220,
-        "src": "/evidence/afm-cell-segmentation/_w/qualitative-examples-1220.webp"
+        "w": 1600,
+        "src": "/evidence/afm-research/_w/imaging-pipeline-1600.webp"
       }
     ]
   },

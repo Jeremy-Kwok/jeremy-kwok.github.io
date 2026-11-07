@@ -81,6 +81,7 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
       <div className="p-5">
         <WorkTypeBadges value={project.workType} className="mb-1.5" />
         <h3 className="font-display text-lg leading-snug text-ink group-hover:underline">{project.title}</h3>
+        {project.cardSummary && <p className="text-sm text-ink-2 mt-1 leading-snug">{project.cardSummary}</p>}
         <p className="text-sm text-zinc-500 mt-1">{project.role}</p>
         {(project.organization || project.timeframe) && (
           <p className="mt-0.5 font-label text-[13px] font-semibold text-ink-2">

@@ -24,6 +24,7 @@ export default function NavLink({ href, children, prefix = false }: NavLinkProps
   return (
     <Link
       href={href}
+      prefetch={false}
       aria-current={current ? "page" : undefined}
       className={`py-2 transition-colors hover:text-ink ${
         current ? "text-ink underline decoration-accent decoration-2 underline-offset-[6px]" : ""

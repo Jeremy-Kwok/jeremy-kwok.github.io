@@ -28,7 +28,11 @@ const LATELY: { lead: string; text: string; link?: { text: string; href: string 
     text: "MedLock, a tabletop station that guides IVF patients through preparing an injection at home and checks the syringe before they inject. I do all of the CAD and run our customer discovery, interviewing clinicians and surveying clinics and patients as the prototype develops.",
     link: { text: "Read about MedLock", href: "/projects/medlock/" },
   },
-  { lead: "Research.", text: "Damage analysis for an AFM dataset of T cells in the Sulchek Lab." },
+  {
+    lead: "Research.",
+    text: "I own the damage analysis and built the imaging pipeline for an atomic force microscopy (AFM) study of T cells in the Sulchek Lab.",
+    link: { text: "Read about the research", href: "/projects/afm-research/" },
+  },
   {
     lead: "Looking for.",
     text: "Full-time mechanical, mechatronics or test engineering work in robotics or medical devices after I graduate in December, especially on a small team where one engineer owns a system from the first requirement to how it holds up in the field. Open to relocating for the right role, ideally to a city like New York or Boston.",
@@ -44,7 +48,7 @@ const HOW_I_WORK = [
 ];
 
 const OUTSIDE_WORK =
-  "Recently I’ve been learning to fly. I’m a student pilot with the Yellow Jacket Flying Club out of PDK, training in a Cessna 172 toward my private pilot license, and right now I’m working through slow flight and stalls. It’s genuinely hard to learn, with the maneuvers, navigation planning and radio calls all at once, but it’s a lot of fun. Every time something new clicks, like a maneuver or a landing, the sense of accomplishment is hugely gratifying.";
+  "Recently I’ve been learning to fly. I’m a student pilot with the Yellow Jacket Flying Club out of DeKalb-Peachtree Airport (PDK), training in a Cessna 172 toward my private pilot license, and right now I’m working through slow flight and stalls. It’s genuinely hard to learn, with the maneuvers, navigation planning and radio calls all at once, but it’s a lot of fun. Every time something new clicks, like a maneuver or a landing, the sense of accomplishment is hugely gratifying.";
 
 export const metadata: Metadata = {
   title: "About",
@@ -242,11 +246,11 @@ export default function AboutPage() {
             {contactLinks.map((l) => (
               <li key={l.label}>
                 {l.href.startsWith("/") ? (
-                  <Link href={l.href} className="text-link underline-offset-[3px] hover:underline">
+                  <Link href={l.href} className="-my-[5px] inline-block py-[5px] text-link underline-offset-[3px] hover:underline">
                     {l.label}
                   </Link>
                 ) : (
-                  <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-link underline-offset-[3px] hover:underline">
+                  <a href={l.href} target="_blank" rel="noopener noreferrer" className="-my-[5px] inline-block py-[5px] text-link underline-offset-[3px] hover:underline">
                     {l.label}
                   </a>
                 )}

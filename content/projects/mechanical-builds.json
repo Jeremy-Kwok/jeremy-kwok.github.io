@@ -1,8 +1,9 @@
 {
   "slug": "mechanical-builds",
-  "order": 6,
+  "order": 4,
   "title": "Mechanical builds",
-  "oneLiner": "BlockParty, a fully autonomous robot my team built that won the course’s Best Design Award in ME 2110. Plus high school FRC: the pneumatics on two robots, and second in command on the swerve drivetrain.",
+  "oneLiner": "BlockParty, a fully autonomous robot my team built that won the Best Design Award in ME 2110, Georgia Tech’s sophomore design course. Plus high school FIRST Robotics Competition (FRC): the pneumatics on two robots, and second in command on the swerve drivetrain.",
+  "cardSummary": "Autonomous robot that won ME 2110’s Best Design Award, plus FRC robot pneumatics",
   "timeframe": "2022 – 2025",
   "role": "Team member (BlockParty); Director of Pneumatics (FRC)",
   "heroImage": "/evidence/mechanical-builds/excelsior.jpg",
@@ -28,8 +29,8 @@
       "title": "BlockParty (ME 2110 Creative Decisions & Design, Jan–May 2025): a fully autonomous robot that won the course’s Best Design Award",
       "ownedScope": "",
       "requirementOrConstraint": "Three judged sprints building toward a fully autonomous robot.",
-      "method": "Generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
-      "resultMetric": "Won the course’s Best Design Award. The robot ran fully autonomously in competition.",
+      "method": "We generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, we designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
+      "resultMetric": "The robot ran fully autonomously in competition.",
       "evidenceRefs": ["blockparty-poster"],
       "limitations": ""
     },
@@ -52,7 +53,7 @@
       "limitations": ""
     }
   ],
-  "outcome": "BlockParty won the course’s Best Design Award in ME 2110 and ran fully autonomously. On FRC, I owned the pneumatics on both robots and trained rookies to build the rest of the swerve modules.",
+  "outcome": "BlockParty won the Best Design Award in ME 2110 and ran fully autonomously. On FRC, I owned the pneumatics on both robots and trained rookies to build the rest of the swerve modules.",
   "evidence": [
     {
       "id": "excelsior",

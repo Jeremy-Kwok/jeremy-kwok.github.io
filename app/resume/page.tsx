@@ -37,7 +37,7 @@ export default function ResumePage() {
         >
           Download PDF
         </a>
-        <a href={RESUME_PATH} className="font-label text-[15px] font-semibold text-link underline underline-offset-[3px]">
+        <a href={RESUME_PATH} className="-my-[5px] py-[5px] font-label text-[15px] font-semibold text-link underline underline-offset-[3px]">
           Open PDF
         </a>
       </div>

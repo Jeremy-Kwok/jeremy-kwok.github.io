@@ -378,46 +378,57 @@ export default function CadShowcase({ cad, className = "", request = null, onCha
           </button>
         )}
 
-        {hydrated && cad.model && mode !== "explore" && (
-          <button
-            ref={exploreButtonRef}
-            type="button"
-            className={`${btn} absolute bottom-2 right-2`}
-            onClick={enterExplore}
-            onPointerEnter={() => void import("@/lib/cad/explorer")}
-            onFocus={() => void import("@/lib/cad/explorer")}
-            disabled={mode === "loading"}
-          >
-            {mode === "loading" ? (
-              loadingLabel
-            ) : (
-              <>
-                Explore in 3D <span className="font-normal text-ink-2">{formatMb(cad.model.bytes)}</span>
-              </>
+        {hydrated && (
+          // The caption and the Explore button share one bottom row, so on a
+          // narrow phone a long step name is cut short instead of running
+          // under the button. Below a 22rem row (most phones) the "of N" count is
+          // dropped so the step name gets the room. The row itself lets drags
+          // through to the 3D view.
+          <div className="@container pointer-events-none absolute inset-x-2 bottom-2 flex items-end gap-2">
+            {stepIndex >= 0 ? (
+              // Visual only: the step name repeats what the animation shows, and the
+              // video's description already covers it for screen readers.
+              <div
+                aria-hidden="true"
+                className="flex min-w-0 items-center gap-2 border border-hairline bg-paper/90 py-1 pl-1 pr-2.5"
+              >
+                <Balloon n={stepIndex + 1} filled />
+                <span className="min-w-0 truncate font-label text-[13px] font-semibold text-ink">
+                  {cad.steps[stepIndex].label}
+                </span>
+                <span className="shrink-0 whitespace-nowrap font-label text-[12px] tabular-nums text-ink-2 @max-[22rem]:hidden">
+                  of {cad.steps.length}
+                </span>
+              </div>
+            ) : onScreenChapter?.color ? (
+              <div
+                aria-hidden="true"
+                className="flex min-w-0 items-center gap-2 border border-hairline bg-paper/90 px-2.5 py-1.5"
+              >
+                <span className="size-3 shrink-0 border border-ink/30" style={{ background: onScreenChapter.color }} />
+                <span className="min-w-0 truncate font-label text-[13px] font-semibold text-ink">{onScreenChapter.label}</span>
+              </div>
+            ) : null}
+
+            {cad.model && mode !== "explore" && (
+              <button
+                ref={exploreButtonRef}
+                type="button"
+                className={`${btn} pointer-events-auto ml-auto shrink-0 whitespace-nowrap`}
+                onClick={enterExplore}
+                onPointerEnter={() => void import("@/lib/cad/explorer")}
+                onFocus={() => void import("@/lib/cad/explorer")}
+                disabled={mode === "loading"}
+              >
+                {mode === "loading" ? (
+                  loadingLabel
+                ) : (
+                  <>
+                    Explore in 3D <span className="font-normal text-ink-2">{formatMb(cad.model.bytes)}</span>
+                  </>
+                )}
+              </button>
             )}
-          </button>
-        )}
-
-        {hydrated && stepIndex >= 0 && (
-          // Visual only: the step name repeats what the animation shows, and the
-          // video's description already covers it for screen readers.
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-2 left-2 flex items-center gap-2 border border-hairline bg-paper/90 py-1 pl-1 pr-2.5"
-          >
-            <Balloon n={stepIndex + 1} filled />
-            <span className="font-label text-[13px] font-semibold text-ink">{cad.steps[stepIndex].label}</span>
-            <span className="font-label text-[12px] tabular-nums text-ink-2">of {cad.steps.length}</span>
-          </div>
-        )}
-
-        {hydrated && stepIndex < 0 && onScreenChapter && onScreenChapter.color && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-2 left-2 flex items-center gap-2 border border-hairline bg-paper/90 px-2.5 py-1.5"
-          >
-            <span className="size-3 shrink-0 border border-ink/30" style={{ background: onScreenChapter.color }} />
-            <span className="font-label text-[13px] font-semibold text-ink">{onScreenChapter.label}</span>
           </div>
         )}
 

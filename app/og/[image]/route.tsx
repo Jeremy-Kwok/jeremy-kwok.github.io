@@ -17,7 +17,7 @@ const SITE_CARD_PROJECTS = [
   'iris-integrated-reliability-imaging-system',
   'medlock',
   'mechanical-builds',
-  'afm-cell-segmentation',
+  'afm-research',
 ];
 
 export function generateStaticParams() {

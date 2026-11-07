@@ -41,7 +41,8 @@ export default function ClaimCard({ claim, index, evidenceById }: ClaimCardProps
 
       {hasDetails && (
         <details className="group mt-4">
-          <summary className="text-sm text-blue-600 hover:underline cursor-pointer list-none">
+          {/* The padding, cancelled by the negative margin, makes the tap target about 30px tall without moving anything. */}
+          <summary className="-my-[5px] py-[5px] text-sm text-blue-600 hover:underline cursor-pointer list-none">
             <span className="group-open:hidden">Show method and limitations</span>
             <span className="hidden group-open:inline">Hide details</span>
           </summary>

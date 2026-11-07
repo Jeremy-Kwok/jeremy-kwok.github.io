@@ -22,7 +22,7 @@ export default function NotFound() {
         >
           See projects
         </Link>
-        <Link href="/" className="text-sm text-link underline underline-offset-2 hover:text-ink">
+        <Link href="/" className="-my-[5px] py-[5px] text-sm text-link underline underline-offset-2 hover:text-ink">
           Go home
         </Link>
       </div>

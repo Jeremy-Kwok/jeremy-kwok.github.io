@@ -71,7 +71,7 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-blue-600 hover:underline flex-shrink-0"
+                      className="-my-[5px] py-[5px] text-xs text-blue-600 hover:underline flex-shrink-0"
                     >
                       {detectFormatKind(item) === "cad" ? "Download" : "Open"}
                     </a>

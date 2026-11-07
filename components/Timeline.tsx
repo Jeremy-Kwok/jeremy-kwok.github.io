@@ -319,7 +319,7 @@ function Chip({
 }
 
 export function TimelineLinkAnchor({ href, text }: { href: string; text: string }) {
-  const cls = "text-link underline-offset-2 hover:underline";
+  const cls = "text-link underline underline-offset-2 hover:text-ink";
   return href.startsWith("/") ? (
     <Link href={href} prefetch={false} className={cls}>
       {text}

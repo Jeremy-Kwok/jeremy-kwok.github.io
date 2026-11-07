@@ -1,0 +1,222 @@
+{
+  "slug": "afm-research",
+  "order": 6,
+  "title": "AFM Measurement & Damage Characterization",
+  "oneLiner": "Imaging and analysis tools for a Sulchek Lab study of T-cell damage under atomic force microscope (AFM) indentation. This fall I own the damage analysis for 397 indentations on 102 cells, including an imaging pipeline that outlines the indented cell on about 90% of all frames from three days it was never tuned on. Before that, in fall 2025, I built a pipeline that picks out and outlines the indented cell in each frame.",
+  "cardSummary": "Imaging and analysis pipelines for a lab study of T-cell damage under AFM indentation",
+  "timeframe": "Jun 2025 – present",
+  "role": "Undergraduate researcher",
+  "organization": "Sulchek Lab, Georgia Tech",
+  "heroImage": "/evidence/afm-research/imaging-pipeline.png",
+  "cardImage": "/evidence/afm-cell-segmentation/card.png",
+  "tags": [
+    "Test & Measurement",
+    "Biomedical Imaging",
+    "Image Segmentation",
+    "Python"
+  ],
+  "whatIOwnedSummary": "The lab runs the experiments: it presses T cells with the tip of the AFM's cantilever (a thin probe arm), fits the force curves and hand-scores each indentation for visible damage. I build the tools that turn those recordings into answers. In fall 2025 that was a pipeline that finds and outlines the indented cell in each microscope frame. This fall I own the damage analysis for one 397-indentation dataset, starting with the research plan. I built an analysis table that uses the load the instrument actually delivered and an imaging pipeline that follows each indented cell and its untouched neighbors frame by frame. I also wrote down, before running it, a test of whether shape changes can flag damage. What the analysis has found about damage is unpublished and belongs to the lab, so this page covers how I built and checked the tools, not the biology.",
+  "path": [
+    {
+      "stage": "Automate the hand tracing",
+      "when": "Fall 2025",
+      "decision": "Automated what the lab did by hand: finding the cell under the cantilever in each frame and tracing its outline.",
+      "why": "Hand tracing was slow and varied from person to person, and one experiment runs to thousands of frames."
+    },
+    {
+      "stage": "Pick the right cell, not just outline it",
+      "when": "Fall 2025",
+      "decision": "Put the effort into choosing the right cell rather than into more model training. The rule keeps cells to the right of the detected tip and within 80 px of it vertically, then takes the nearest, with vertical distance counted double.",
+      "why": "The model found cells well; many bad scores came from picking the wrong one near the cantilever, not from missing the cell. On frames the model never trained on, the rule scores 0.813 Dice (overlap with the hand tracing, where 1 is perfect), against 0.140 for taking the largest cell.",
+      "evidenceIds": ["pipeline-strip"]
+    },
+    {
+      "stage": "Correct my own numbers",
+      "when": "Aug 2026",
+      "decision": "Found that my first published scores included the 177 training frames, and that I had picked the thresholds on those same frames. I reran the 39 held-out frames under one global configuration and posted a dated correction in the public repo.",
+      "why": "The notebook's saved outputs showed that inference had run on the full dataset, so anyone who opened it could find the error. It was better to disclose it myself than to have someone else find it.",
+      "evidenceIds": ["segmentation-repo"]
+    },
+    {
+      "stage": "Ask what the data can answer",
+      "when": "Fall 2026",
+      "decision": "Started with a feasibility question instead of a model: which of the proposed damage factors this dataset can separate at all, and which would need a different experiment.",
+      "why": "The protocol commands the same force and speed for every indentation, by design, so some factors can't be pulled apart by any analysis of this dataset."
+    },
+    {
+      "stage": "Use what the instrument delivered",
+      "when": "Fall 2026",
+      "decision": "Used the force and indentation rate the instrument actually delivered, read off every curve, instead of the commanded setpoints.",
+      "why": "Delivered force varied between sessions despite a constant setpoint, partly from a calibration problem in one session. Delivered load and rate together explained more than twice as much of the stiffness variation as the day of measurement did, mostly through the rate, which itself depends on cell stiffness."
+    },
+    {
+      "stage": "Find the cantilever per session",
+      "when": "Fall 2026",
+      "decision": "Learned the cantilever's shape once per session and registered its position for each cell, instead of re-detecting it in every frame as the dark region at the image's left edge.",
+      "why": "On the later days the tip sat about 65 px higher than on the first, and an indented cell touching it merged into the detected cantilever and was masked out with it. A shape shared across a session can't be taken over by one touching cell, and per-cell registration follows the cantilever's 10–25 px drift. On the hardest day, detection of the indented cell went from 62% to 96% of frames with nothing else changed."
+    },
+    {
+      "stage": "Measure the noise floor",
+      "when": "Fall 2026",
+      "decision": "Measured frame-to-frame shape noise on neighboring cells that weren't being indented, in the same fields and frames.",
+      "why": "A shape change only says damage if it's bigger than the noise. The floor is about ±0.75 µm on the long axis of a cell roughly 10 µm across.",
+      "evidenceIds": ["imaging-pipeline"]
+    },
+    {
+      "stage": "Write the rule before the data",
+      "when": "Fall 2026",
+      "decision": "Didn't fit a model to the first day's 7 usable damaged indentations. I wrote a scoring rule into a dated document, with thresholds taken from the untouched neighbors, and ran it once on three days it had never seen.",
+      "why": "Every earlier choice had been made while looking at those same few indentations, so they couldn't test the rule honestly."
+    },
+    {
+      "stage": "Measure rater agreement",
+      "when": "Fall 2026",
+      "decision": "Set up blind re-scoring of 40 indentations by two raters before building another scorer.",
+      "why": "A scorer can only be judged as precisely as human raters agree on the same calls."
+    }
+  ],
+  "topMetrics": [
+    {
+      "label": "Indented-cell (target) detection on the hardest day",
+      "value": "62% → 96%"
+    },
+    {
+      "label": "Share of all frames with the indented cell outlined, three new days, no retuning",
+      "value": "89–92%"
+    },
+    {
+      "label": "First-day cell crops delivered to the lab's pipeline",
+      "value": "31,347"
+    },
+    {
+      "label": "Fall 2025: mean Dice vs hand tracing on unseen frames (1 = perfect)",
+      "value": "0.813"
+    }
+  ],
+  "claims": [
+    {
+      "title": "Built an imaging pipeline that follows each indented cell frame by frame, and measured the smallest change it can see",
+      "ownedScope": "The image side of the fall 2026 analysis: finding the cantilever, detecting and outlining the cells on each frame, per-frame shape for the indented cell and each untouched neighbor, the crop datasets and the detection limit.",
+      "requirementOrConstraint": "Find the indented cell on every frame of every indentation, across four days with different cantilever positions, without retuning for each day. Know the smallest shape change the measurement can see, from neighboring cells that weren't being indented, before calling anything damage.",
+      "method": "Cellpose's cyto3 model, a stock cell-outlining network, on every frame, with dust specks found per folder and removed, and an 85-frame average image to find the untouched neighbors. The cantilever's shape is learned once per session and its position registered for each cell. The cyto3 model runs in its own pinned Python environment. Asked for cyto3, Cellpose 4 quietly loads its own model instead, and that model kept the indented cell on only 21 of 54 cells' average images, against 49 for cyto3. Every script that loads a model checks the Cellpose version and the loaded weights file at run time and stops if either is wrong. Checking which weights had loaded also explained an early result I had put down to the model failing near the cantilever: Cellpose 4.2 had changed its default weights, and the previous ones found the cell on 46 of 54.",
+      "resultMetric": "Where the detector found the indented cell, the pipeline also outlined it on 96.6% of first-day frames and 97.3% of later-day frames, with the same settings and no retuning. Counted over every frame, the later days reach 89–92%. Registering the cantilever per session lifted detection of the indented cell on the hardest day from 62% to 96% of frames on its own. 31,347 first-day cell crops (4,256 of the indented cell, 27,091 of neighbors) with per-frame shape went to the lab's downstream pipeline. Measured on untouched neighbors in the same fields, the detection limit is about ±0.75 µm on the long axis and ±7.8 µm² in area.",
+      "evidenceRefs": [
+        "imaging-pipeline",
+        "interim-report"
+      ],
+      "limitations": "On two cells pressed directly under the tip, the step that removes the cantilever also deletes the cell's outline. On the first day, six cells hold 137 of the 146 misses, and three cells hold most of them on the later days. They're flagged rather than repaired, and the held-out test kept them in.\nNext: review the untouched-neighbor detections on the three new days, which sets the scorer's false-alarm rate there."
+    },
+    {
+      "title": "Treated the instrument as a variable before analyzing the cells",
+      "ownedScope": "The analysis dataset: 397 indentations on 102 T cells over four days after thaw, and the regression check that guards it.",
+      "requirementOrConstraint": "Stiffness can't be compared across cells or sessions without knowing the force and rate each cell actually received, not just what was commanded. Every number in a report also has to come from a script, and a fixed set of numbers has to reproduce after every change, so a changed input can't slip through unnoticed.",
+      "method": "Used the delivered force and indentation rate measured on every curve instead of the commanded 1 nN and 5 µm/s, after confirming the force values reproduce exactly from the raw curves. Delivered force is a covariate in every damage model, and rate was added as a check. Matched each of the 397 table rows to its raw force curve, with no mismatches, which ties every row to its image series and recovered one first-day cell whose images had been recorded as missing. A regression script prints the verification set after every change and stops the work if anything differs.",
+      "resultMetric": "Delivered force differed between sessions despite a constant setpoint, and delivered load and rate together explained more than twice as much of the stiffness variation as the day of measurement, almost all of it through the rate, which itself depends on how stiff the cell is. Checking the instrument also turned up two errors: one session's recorded calibration disagreed with its own calibration curves, and the pixel size in my own September report was a ratio of two measurements of the same outline, not a calibration, which made lengths 3.4% too small. I issued an erratum switching to the lab's saved calibration (0.341 µm/px, not 0.3293) and listing the corrected value of every micron figure that depended on it.",
+      "evidenceRefs": [
+        "interim-report"
+      ],
+      "limitations": "Calibration was re-measured every day and the instrument files don't identify the physical cantilever, so corrections are per session rather than per probe. The stiffness and relaxation fits come from the lab's own fitting script, not mine."
+    },
+    {
+      "title": "Wrote down a damage-scoring rule before testing it, ran it once on new days, and reported the miss",
+      "ownedScope": "The scoring rule, its written specification, the held-out test and the blind re-scoring setup.",
+      "requirementOrConstraint": "Flag damaged indentations from shape change alone. On the first day, the usable indentations included only 7 damaged ones, in 3 cells, too few to fit a model or to evaluate one honestly.",
+      "method": "Instead of fitting a model, I fixed a rule in a dated document before the other three days' images had arrived. It uses two shape features, thresholds set from untouched neighbors instead of labels, and a minimum number of usable frames. The test plan was committed before the three new days' labels were matched to the scores: one run, no threshold changes, and whatever it shows is the result.",
+      "resultMetric": "On three days it had never seen, the rule raised a false alarm on about 1% of undamaged indentations but caught only about one damaged indentation in eight. Two revised rules followed. One was never tested on held-out cells; the other, also written down before its held-out run, couldn't be told apart from chance, and I recorded it that way. Alongside them I set up blind re-scoring of 40 indentations by two raters, to measure how closely human raters agree on the damage calls before judging any scorer against the labels.",
+      "evidenceRefs": [
+        "interim-report"
+      ],
+      "limitations": "A damage label says whether the cell looks damaged at that indentation, including damage already there before it, while the scorer looks for change across that one indentation, so the two don't measure quite the same thing. The blind re-scoring is still under review.\nNext: agree on the label definition with the lab, then evaluate on newly labeled indentations."
+    },
+    {
+      "title": "Built a pipeline that picks out the indented cell, then corrected my own evaluation",
+      "ownedScope": "The fall 2025 pipeline, end to end: turning the lab's hand-drawn outlines into ground-truth masks, a seeded train/test split, Cellpose-SAM fine-tuning, automatic tip detection, the selection rule, failure handling and per-frame logs.",
+      "requirementOrConstraint": "Return exactly one mask per frame, for the cell under the cantilever, in frames crowded with larger neighbors. Never return an empty mask.",
+      "method": "216 labeled frames across four days and two loading protocols, split 177/39 within each subset with a fixed seed. The tip is the rightmost point of the dark cantilever, with a manual override for any frame. Cells whose centers sit right of the tip and within 80 px of it vertically are ranked by distance, with vertical offset counted double; if none qualify, the nearest center wins. If the chosen mask comes back empty, one retry at a softer threshold and then a crop around the tip fill the gap, and a log records which path each frame took. A 2×2 comparison (two models × two selection rules) separated the rule's effect from the model's.",
+      "resultMetric": "0.813 Dice / 0.723 IoU (overlap scores against the hand tracing, where 1 is perfect) on the 39 held-out frames under one global configuration, with no empty outputs and one retry. The selection rule carries the result: 0.813 against 0.140 for picking the largest cell, with the same model on the same frames. My first published scores had included the 177 training frames; I reran the evaluation on held-out frames and posted a dated correction in the public repo.",
+      "evidenceRefs": [
+        "pipeline-strip",
+        "segmentation-repo",
+        "annotation-repo"
+      ],
+      "limitations": "Four of eight subsets reach the 0.90 target. One fails outright at 0.275 Dice (n = 4), and the other three sit between 0.76 and 0.86. The held-out set is 39 frames, four or five per subset. Fine-tuning looked like it added little (+0.02 Dice), but the out-of-box baseline used newer base weights than the fine-tuned model, so that comparison is confounded. The global thresholds were set during development rather than tuned on the training frames alone, so the held-out score isn't fully blind. Untested on any other microscope or session."
+    }
+  ],
+  "outcome": "In progress. The fall 2025 pipeline is finished and public. This fall, the dataset is cleaned up and checked, the imaging pipeline is built and characterized, and the scoring rule I wrote down before testing missed most damaged indentations on three new days, reported as run. Blind re-scoring by two raters, which sets how precisely any scorer can be judged, is under review. What the analysis shows about damage is unpublished and belongs to the lab, so it isn't on this page.",
+  "interfaces": [
+    {
+      "from": "Lab's AFM and microscope",
+      "to": "My image pipeline",
+      "type": "data",
+      "notes": "An image series for each cell, a frame every 3 s through four indentations. The raw series stay read-only."
+    },
+    {
+      "from": "Lab's curve fits",
+      "to": "Analysis table",
+      "type": "data",
+      "notes": "Stiffness and relaxation fits from the lab's script, joined with the delivered force and rate read off each curve."
+    },
+    {
+      "from": "My image pipeline",
+      "to": "Lab's downstream pipeline",
+      "type": "data",
+      "notes": "31,347 first-day cell crops, indented and untouched, with per-frame shape for each."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "imaging-pipeline",
+      "label": "Fall 2026 imaging pipeline",
+      "type": "diagram",
+      "url": "/evidence/afm-research/imaging-pipeline.png",
+      "mimeType": "image/png",
+      "note": "How the pipeline works, step by step. Drawn for this page, with no lab images or results."
+    },
+    {
+      "id": "interim-report",
+      "label": "Interim report and erratum",
+      "type": "report",
+      "note": "September 2026, with a pixel-size erratum. Not public: the data is unpublished and belongs to the lab."
+    },
+    {
+      "id": "pipeline-strip",
+      "label": "Fall 2025 pipeline stages",
+      "type": "diagram",
+      "url": "/evidence/afm-cell-segmentation/pipeline-strip.png",
+      "mimeType": "image/png",
+      "note": "Raw frame, detected cantilever tip, Cellpose candidates, selection and the final mask. The example frame is from the training set."
+    },
+    {
+      "id": "segmentation-repo",
+      "label": "Fall 2025 segmentation repo",
+      "type": "repo",
+      "url": "https://github.com/Jeremy-Kwok/afm-segmentation-pipeline",
+      "note": "Fine-tuning, inference with the selection rule, and the held-out evaluation. Image data and weights aren't included: they come from unpublished lab data."
+    },
+    {
+      "id": "annotation-repo",
+      "label": "Fall 2025 ground-truth mask repo",
+      "type": "repo",
+      "url": "https://github.com/Jeremy-Kwok/afm-annotation-pipeline",
+      "note": "Turns the lab's hand-drawn cell outlines into the binary masks used for training and scoring."
+    }
+  ],
+  "projectRisks": [
+    "There's no working image-based damage scorer yet. The rule I wrote down before testing rarely raises a false alarm but misses most damaged indentations on new days.",
+    "Any scorer is judged against hand-scored damage calls, and how closely raters agree on those calls is still being measured. That caps how precisely a scorer can be judged.",
+    "Everything comes from one lab's sessions on four days after thaw, and the damage analysis covers one loading protocol. Neither pipeline has been tried on another microscope.",
+    "The fall 2025 test set of unseen frames is small (39), and one day-and-protocol group (4 frames) fails outright at 0.275 Dice."
+  ],
+  "lessons": [
+    {
+      "text": "Rescoring my first published segmentation results on frames the model never trained on cost the headline number and was still the right call. It's also why every number in this fall's report comes from a script, with a fixed set of numbers that must reproduce after every change."
+    },
+    {
+      "text": "A rule that caught most damage on the indentations it was built from caught one in eight on new days. Writing it down before running it on those days is the only reason I know that, instead of tuning it until it looked good."
+    },
+    {
+      "text": "Check the instrument before the cells. The load the probe delivered varied between sessions, partly from a calibration problem in one session, and could have passed for a difference between days. A Cellpose release had also quietly changed its default weights. I first read the resulting misses as the model failing near the cantilever, until I checked which weights file had actually loaded."
+    }
+  ],
+  "workType": "research"
+}
