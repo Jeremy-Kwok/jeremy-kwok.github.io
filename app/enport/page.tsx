@@ -5,7 +5,7 @@ import { SITE_NAME } from "@/lib/site";
 import { ogImage } from "@/lib/ogCard";
 
 const description =
-  "Enport: a structured portfolio platform for engineering students, built around one question: what did you specifically do, and how do you prove it?";
+  "Enport was a structured portfolio platform for engineering students, built around one question: what did you specifically do, and how do you prove it?";
 
 export const metadata: Metadata = {
   title: "Enport",
@@ -62,7 +62,7 @@ export default function EnportPage() {
   return (
     <PageShell
       title="Enport"
-      subtitle="A portfolio platform for engineering students, where every claim links to its evidence."
+      subtitle="A portfolio platform for engineering students, where every claim linked to its evidence. I built it from January to October 2026, then wound it down."
     >
       <p className="text-sm sm:text-base text-zinc-700 leading-relaxed">
         Engineering students do complex team work (Formula SAE, robotics, rocketry, capstone,

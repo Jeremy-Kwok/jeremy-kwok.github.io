@@ -48,6 +48,7 @@ export default function Headshot() {
         alt=""
         width={720}
         height={900}
+        loading="lazy"
         decoding="async"
         className={`absolute inset-0 size-full object-cover transition-opacity duration-200 motion-reduce:transition-none ${
           swapped ? "opacity-100" : "opacity-0"

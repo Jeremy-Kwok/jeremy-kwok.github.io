@@ -39,12 +39,20 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
   if (project.cad && !cad) {
     throw new Error(`content/projects/${project.slug}.json: cad "${project.cad}" has no render. Run: npm run cad -- ${project.cad}`);
   }
+  const hero = project.heroImage ? responsiveImage(project.heroImage) : null;
+  // The hero is at most 320px tall (max-h-80), so a tall photo shows narrower
+  // than the column. Size the download to the width it actually shows at.
+  const heroShownWidth = hero?.width && hero.height ? Math.round((320 * hero.width) / hero.height) : null;
+  const heroSizes =
+    heroShownWidth !== null && heroShownWidth < 896
+      ? `(min-width: ${heroShownWidth}px) ${heroShownWidth}px, 100vw`
+      : "(min-width: 960px) 896px, 100vw";
 
   return (
     <div>
       {cad ? (
         <CadShowcase cad={cad} className="mb-8" />
-      ) : project.heroImage && (
+      ) : project.heroImage && hero && (
         <div className="w-full mb-8 overflow-hidden border border-hairline bg-panel">
           <a
             href={project.heroImage}
@@ -55,8 +63,8 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              {...responsiveImage(project.heroImage)}
-              sizes="(min-width: 960px) 896px, 100vw"
+              {...hero}
+              sizes={heroSizes}
               alt=""
               fetchPriority="high"
               className="w-full max-h-80 object-contain"
@@ -123,10 +131,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
       )}
 
       <section id="claims" className="mt-12">
-        <h2 className="font-display text-2xl leading-tight text-ink mb-6">
-          Key Work
-          <span className="font-normal text-zinc-400"> · {project.claims.length}</span>
-        </h2>
+        <h2 className="font-display text-2xl leading-tight text-ink mb-6">Key work</h2>
         <div className="space-y-4">
           {project.claims.map((claim, i) => (
             <ClaimCard key={i} claim={claim} index={i} evidenceById={evidenceById} />
@@ -169,7 +174,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
           )}
           {lessons.length > 0 && (
             <div id="lessons" className="border border-hairline border-l-4 border-l-link bg-panel p-5">
-              <h2 className="font-label text-xs font-bold tracking-widest text-ink-2 uppercase mb-3">Lessons</h2>
+              <h2 className="font-label text-xs font-bold tracking-widest text-ink-2 uppercase mb-3">What I learned</h2>
               <ul className="list-disc space-y-2 pl-5 marker:text-rule">
                 {lessons.map((lesson, i) => (
                   <li key={i} className="text-sm text-zinc-700 leading-relaxed">{lesson.text}</li>

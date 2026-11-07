@@ -1,9 +1,10 @@
 {
   "slug": "medlock",
-  "order": 2,
+  "order": 3,
   "title": "MedLock: A Guided Prep Station for IVF Injections",
-  "oneLiner": "A tabletop station that walks IVF patients through preparing an injection at home, then images the syringe to check the volume and air before they inject. I do all of the CAD on a team of six. Rev0 is being fabricated and assembled now, so the figures here are design targets, not measurements.",
-  "timeframe": "Aug 2026 – Dec 2026",
+  "oneLiner": "A tabletop station that walks IVF patients through preparing an injection at home, then images the syringe to check the volume and air before they inject. I do all of the CAD on a team of six. The first prototype (Rev0) is being fabricated and assembled now, so the figures here are design targets, not measurements.",
+  "cardSummary": "Tabletop station that guides IVF injection prep and checks the syringe by camera",
+  "timeframe": "Aug – Dec 2026",
   "role": "Mechanical design (all CAD)",
   "organization": "Georgia Tech CREATE-X Capstone",
   "teamSize": 6,
@@ -19,7 +20,7 @@
   "path": [
     {
       "stage": "Problem",
-      "decision": "Interviews narrowed the project three times: from at-home injection training for any self-injected drug, to whether IVF patients retain their training, to checking the preparation itself before the injection.",
+      "decision": "Interviews kept narrowing the project: from at-home injection training for any self-injected drug, to whether IVF patients retain their training, to checking the preparation itself before the injection.",
       "why": "A fertility-clinic nurse manager told us patients had injected air instead of the trigger shot, which is timed 36 hours before egg retrieval, and no eggs were retrieved. It happened often enough that the clinic now draws blood the next morning to confirm the shot was taken."
     },
     {
@@ -64,7 +65,7 @@
       "value": "0"
     },
     {
-      "label": "Rev0 parts budget, with 10% reserve (target ≤$300)",
+      "label": "Rev0 parts budget with 10% reserve, excluding two of three PCBs (target ≤$300)",
       "value": "$271"
     }
   ],
@@ -108,7 +109,7 @@
       "ownedScope": "Interviews and surveys",
       "requirementOrConstraint": "Find out where home preparation actually goes wrong before designing anything, then keep checking that the prototype still targets that problem.",
       "method": "Interviewed clinicians and researchers, including a fertility-clinic nurse manager and a drug-delivery researcher. Then I wrote two short anonymous surveys to test what the interviews couldn't. The clinic survey asks how often patients call unsure whether they prepared a dose correctly, which medications cause the most problems, how much staff time that costs, and what a clinic would pay for a loaned station. The patient survey asks whether people were ever unsure, what they did about it, which injections they'd want checked, and whether they'd use a station for every dose.",
-      "resultMetric": "The interviews narrowed the project three times and set the weights in our requirements matrix. The surveys now target the two hypotheses still open: whether clinics would pay, and whether patients would use it for every dose.",
+      "resultMetric": "The interviews kept narrowing the project and set the weights in our requirements matrix. The surveys now target the two hypotheses still open: whether clinics would pay, and whether patients would use it for every dose.",
       "evidenceRefs": [
         "surveys",
         "design-report"

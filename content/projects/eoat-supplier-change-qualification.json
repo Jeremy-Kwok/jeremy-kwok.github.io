@@ -1,12 +1,12 @@
 {
   "slug": "eoat-supplier-change-qualification",
-  "order": 3,
+  "order": 2,
   "title": "Vacuum Cup Validation for a Robot Gripper",
-  "oneLiner": "Qualified a replacement vacuum cup for a 63-cup robot gripper: bench tests on a force/vacuum jig, then a field A/B I led at a 24/7 distribution center. The plan’s pre-set criteria caught a durability failure and called a no-swap before any fleet-wide rollout.",
-  "timeframe": "Jan 2026 – Apr 2026",
+  "cardSummary": "Two-phase bench and field test plan for a 63-cup gripper's replacement cup",
+  "oneLiner": "Planned and ran the qualification of a replacement vacuum cup for a 63-cup robot gripper: bench tests on a force/vacuum jig, then a field A/B I led at a 24/7 distribution center. The plan’s pre-set criteria caught a durability failure and called a no-swap before any fleet-wide rollout.",
+  "timeframe": "Jan – Apr 2026",
   "role": "Test plan author and test lead",
   "organization": "Mujin",
-  "teamSize": 1,
   "heroImage": "/evidence/eoat-supplier-change-qualification/methodology.png",
   "cardImage": "/evidence/eoat-supplier-change-qualification/card.png",
   "tags": [
@@ -26,7 +26,7 @@
     {
       "stage": "Decision gate",
       "decision": "Fixed a two-condition gate before data collection: piece loss rate must not worsen against the incumbent, and the candidate must win on at least one of four pre-specified metrics.",
-      "why": "So the result could be called adopt, reject, or limited deployment without negotiating vendor preference against data.",
+      "why": "So the result could be called adopt, reject, or limited deployment without arguing about vendors.",
       "evidenceIds": ["methodology-diagram"]
     },
     {
@@ -89,18 +89,18 @@
         "triage-decision-tree",
         "methodology-diagram"
       ],
-      "limitations": "The System Configurations table includes intentional placeholders for the candidate vendor's specifications (lip style, diameter, filter pairing). The candidate vendor was expected to populate those fields, but it leaves the issued plan structurally incomplete on its own. Some procedure refinements emerged during execution (extended weight envelope on tight stretch-wrap during Phase 1) and aren't reflected in the issued document. The plan specifies decision logic and metric set but doesn't name the analyst or analysis tooling; in practice that role was filled informally by the team owning post-test analysis.\nPhase 1 was short-duration static testing with no cyclic wear test, so the cracking and wear first appeared in the field.\nSource clean incumbent baseline cups for direct Phase 1 bench A/B in the next iteration, and add a cyclic wear test to Phase 1. Tighten must-win thresholds with priors from the incumbent's historical wear and intervention data once that baseline is compiled."
+      "limitations": "The System Configurations table includes intentional placeholders for the candidate vendor's specifications (lip style, diameter, filter pairing). The candidate vendor was expected to populate those fields, but it leaves the issued plan structurally incomplete on its own. Some procedure refinements emerged during execution (extended weight envelope on tight stretch-wrap during Phase 1) and aren't reflected in the issued document. The plan specifies decision logic and metric set but doesn't name the analyst or analysis tooling; in practice that role was filled informally by the team owning post-test analysis.\nPhase 1 was short-duration static testing with no cyclic wear test, so the cracking and wear first appeared in the field.\nNext: source clean incumbent baseline cups for direct Phase 1 bench A/B in the next iteration, and add a cyclic wear test to Phase 1. Tighten must-win thresholds with priors from the incumbent's historical wear and intervention data once that baseline is compiled."
     },
     {
-      "title": "Specified risk-proportionate decision logic and acceptance gates",
+      "title": "Set the decision rule before any data came in",
       "ownedScope": "",
       "requirementOrConstraint": "A 90-day Phase 2 evaluation needs a non-political, auditable rule for translating outcomes into a decision. Without a pre-specified gate, comparable performance can lead to indefinite deferral or vendor-relationship-driven adoption rather than data-driven adoption. The rule needed to handle clean-win, clean-loss, and mixed cases, with thresholds chosen before data collection and metrics that capture both safety and productivity dimensions.",
       "method": "I designed the gate as a two-condition rule: a must-not-worsen condition on the customer-facing safety metric (piece loss rate, normalized to picks) against the incumbent baseline, plus a must-win condition requiring the candidate to demonstrate a pre-specified improvement threshold on at least one of four metrics (pick issues rate, order cycle issues rate, direct robot throughput, downtime per intervention). I defined the mixed-result case (candidate better on some, worse on others) as a fallback to limited deployment under explicitly defined conditions, which avoids forcing a binary decision when the data doesn't support one. Two of the four must-win metrics didn't yet exist as standard outputs in the fleet monitoring pipeline when I scoped the plan, so I added them. The metric set co-evolved between the qualification protocol and the monitoring pipeline underneath it.",
-      "resultMetric": "A defensible decision rule the team could apply without subjective negotiation between vendor preference and data. In the field run, the rule called the candidate a no-swap after its cups cracked and wore down within about two weeks. Two metrics defined in the plan were added to fleet monitoring as standard outputs and remain available for future qualification work, not just this one.",
+      "resultMetric": "A defensible decision rule the team could apply without arguing about vendors. In the field run, the candidate cups cracked and wore down within about two weeks, and the rule led to the decision not to switch. Two metrics defined in the plan were added to fleet monitoring as standard outputs and remain available for future qualification work, not just this one.",
       "evidenceRefs": [
         "methodology-diagram"
       ],
-      "limitations": "The must-win threshold was chosen on engineering judgment, not derived from incumbent baseline variance. In practice, \"meaningful improvement\" should probably be calibrated to the noise floor in the incumbent's natural per-window metric variance, which would require pre-trial baseline data collection. The must-win rule is OR-gated across four metrics, so a single metric crossing the threshold can justify adoption even if other metrics are flat or marginally worse. This is a design choice, but it's a real edge case of the rule structure. Cost-of-vendor-switch isn't represented in the gates; the rule is performance-only.\nCalibrate the must-win threshold against the incumbent's natural per-window variance once a pre-trial baseline window is collected. Consider an AND condition or a weighted score across the four must-win metrics if OR-gating produces ambiguous adoption recommendations in future qualifications. Add a cost-of-switch dimension if the rule is reused for higher-cost component swaps."
+      "limitations": "The must-win threshold was chosen on engineering judgment, not derived from incumbent baseline variance. In practice, \"meaningful improvement\" should probably be calibrated to the noise floor in the incumbent's natural per-window metric variance, which would require pre-trial baseline data collection. The must-win rule is OR-gated across four metrics, so a single metric crossing the threshold can justify adoption even if other metrics are flat or marginally worse. This is a design choice, but it's a real edge case of the rule structure. Cost-of-vendor-switch isn't represented in the gates; the rule is performance-only.\nNext: calibrate the must-win threshold against the incumbent's natural per-window variance once a pre-trial baseline window is collected. Consider an AND condition or a weighted score across the four must-win metrics if OR-gating produces ambiguous adoption recommendations in future qualifications. Add a cost-of-switch dimension if the rule is reused for higher-cost component swaps."
     },
     {
       "title": "Designed the failure-mode triage and intervention protocol",
@@ -112,7 +112,7 @@
         "triage-decision-tree",
         "methodology-diagram"
       ],
-      "limitations": "The blow-off cadence parameters were chosen on engineering judgment and informal priors from the incumbent's wear patterns, not back-tested rigorously against historical Service Log data. The blow-off diagnostic itself wasn't validated against a known-fault gripper before deployment; design intent is sound but field calibration is a next step. The decision tree assumes failure modes are observable on scheduled inspection; intermittent failures (e.g., partial seals under specific surface conditions) may not present at inspection windows.\nValidate the blow-off diagnostic against known-fault grippers (intentionally torn cup, intentionally clogged filter) to characterize false-negative and false-positive rates. Calibrate cadence parameters against real field wear data. Add intermittent-failure detection (per-cup vacuum-trace anomaly detection) if telemetry resolution supports it."
+      "limitations": "The blow-off cadence parameters were chosen on engineering judgment and informal priors from the incumbent's wear patterns, not back-tested rigorously against historical Service Log data. The blow-off diagnostic itself wasn't validated against a known-fault gripper before deployment; design intent is sound but field calibration is a next step. The decision tree assumes failure modes are observable on scheduled inspection; intermittent failures (e.g., partial seals under specific surface conditions) may not present at inspection windows.\nNext: validate the blow-off diagnostic against known-fault grippers (intentionally torn cup, intentionally clogged filter) to characterize false-negative and false-positive rates. Calibrate cadence parameters against real field wear data. Add intermittent-failure detection (per-cup vacuum-trace anomaly detection) if telemetry resolution supports it."
     },
     {
       "title": "Executed Phase 1 single-cup characterization; surfaced a surface-conditional failure mode",
@@ -123,10 +123,10 @@
       "evidenceRefs": [
         "methodology-diagram"
       ],
-      "limitations": "Incumbent baseline cup wasn't bench-tested due to clean-cup unavailability. Comparative bench inference was reserved for Phase 2 by design (Phase 1 characterizes the candidate against absolute acceptance criteria; the A/B happens at the system level), but a clean baseline would have made the loose-stretch-wrap finding interpretable as a regression vs. shared property. Single-cup static testing doesn't replicate multi-cup load sharing or robot motion dynamics; the issued plan acknowledges this scope boundary explicitly.\nRe-run Phase 1 with a clean incumbent baseline cup for direct A/B at the bench level. Run partial-zone multi-cup characterization on a gripper before any future field deployment to determine whether the loose-stretch-wrap failure mode is masked by adjacent cups."
+      "limitations": "Incumbent baseline cup wasn't bench-tested due to clean-cup unavailability. Comparative bench inference was reserved for Phase 2 by design (Phase 1 characterizes the candidate against absolute acceptance criteria; the A/B happens at the system level), but a clean baseline would have made the loose-stretch-wrap finding interpretable as a regression vs. shared property. Single-cup static testing doesn't replicate multi-cup load sharing or robot motion dynamics; the issued plan acknowledges this scope boundary explicitly.\nNext: re-run Phase 1 with a clean incumbent baseline cup for direct A/B at the bench level. Run partial-zone multi-cup characterization on a gripper before any future field deployment to determine whether the loose-stretch-wrap failure mode is masked by adjacent cups."
     }
   ],
-  "outcome": "I led the field A/B at a 24/7 customer distribution center. Within about two weeks the candidate cups cracked and wore down. After my internship ended, Mujin's on-site team applied the plan, and its pre-set decision criteria called it a no-swap. Two metrics from the plan were added to fleet monitoring. The staged plan caught a durability failure at one site before a fleet-wide swap.",
+  "outcome": "I led the field A/B at a 24/7 customer distribution center. Within about two weeks the candidate cups cracked and wore down. After my internship ended, Mujin's on-site team applied the plan's pre-set decision criteria and decided not to switch. Two metrics from the plan were added to fleet monitoring. The staged plan caught a durability failure at one site before a fleet-wide swap.",
   "interfaces": [
     {
       "from": "Phase 1 bench rig",
@@ -166,7 +166,7 @@
       "type": "diagram",
       "url": "/evidence/eoat-supplier-change-qualification/methodology.png",
       "mimeType": "image/png",
-      "note": "Bench characterization (Phase 1) feeds envelope failure modes into the team running Phase 2 (warehouse A/B observation across 30, 60, and 90-day checkpoints). The decision gate applies the pre-specified rule structure."
+      "note": "Bench characterization (Phase 1) feeds envelope failure modes into the team running Phase 2 (warehouse A/B observation across 30, 60, and 90-day checkpoints). The decision gate applies the pre-specified rule structure. Phase 2 is observational and the customer controls the SKU mix, so the stratification by weight and surface happens in the analysis, where results are binned, not in the test design."
     },
     {
       "id": "triage-decision-tree",
@@ -190,15 +190,14 @@
     }
   ],
   "projectRisks": [
-    "Phase 1 was candidate-only, static, and short-duration against absolute acceptance criteria. It could not show durability; the cracking and wear surfaced only in the field.",
+    "Phase 1 was candidate-only, static, and short-duration against absolute acceptance criteria. It could not show durability; the cracking and wear surfaced only in the field. Comparative bench inference requires a clean baseline cup, which wasn't sourced in this iteration.",
     "Plan was authored without baseline historical data on the incumbent supplier; thresholds were chosen on engineering judgment, which is acceptable for a v1 protocol but should be tightened in v2 with actual baseline variance data.",
     "Plan deliberately leaves vendor specifications as placeholders for the candidate vendor to populate. Intentional, but creates reproducibility gaps for someone reading the plan in isolation.",
-    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the fleet monitoring expansion.",
-    "Bench characterization was candidate-only against absolute acceptance criteria. Comparative bench inference requires a clean baseline cup, which wasn't sourced in this iteration."
+    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the fleet monitoring expansion."
   ],
   "lessons": [
     {
-      "text": "The staged plan caught a durability failure at one site before a fleet-wide swap. A bench-then-field structure with criteria fixed in advance turns a bad candidate into a contained, documented no-swap instead of a fleet problem."
+      "text": "The staged plan caught a durability failure at one site before a fleet-wide swap. A bench-then-field structure with criteria fixed in advance turns a bad candidate into a contained, documented decision not to switch instead of a fleet problem."
     },
     {
       "text": "Source clean baseline cups during plan authorship, not during execution. Phase 1 would have been more interpretable as a regression detector with a paired baseline run rather than a candidate-only characterization."

@@ -109,6 +109,8 @@ export const ProjectSchema = z
     order: z.number().int(),
     title: NonBlank,
     oneLiner: NonBlank,
+    // A one-line plain description of what the project is, shown on the homepage card under the title.
+    cardSummary: z.string().trim().min(1).max(90).optional(),
     timeframe: z.string().optional(),
     role: NonBlank,
     organization: z.string().optional(),

@@ -6,7 +6,7 @@ export default function SiteHeader() {
   return (
     <header className="border-b border-zinc-200 px-4 max-[359px]:px-3 sm:px-8">
       <div className="max-w-(--page-max) mx-auto flex items-center justify-between h-14 gap-3 max-[359px]:gap-2">
-        <Link href="/" className="font-display text-lg max-[359px]:text-base sm:text-xl text-zinc-900 whitespace-nowrap">
+        <Link href="/" prefetch={false} className="font-display text-lg max-[359px]:text-base sm:text-xl text-zinc-900 whitespace-nowrap">
           {SITE_NAME}
         </Link>
         <nav className="flex items-center gap-3.5 max-[359px]:gap-2 sm:gap-6 font-label text-[15px] max-[359px]:text-[14px] font-semibold text-zinc-500">

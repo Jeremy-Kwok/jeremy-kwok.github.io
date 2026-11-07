@@ -89,7 +89,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Bloom Energy, repair & overhaul / engineering intern',
     dates: 'Jun – Aug 2026',
     description:
-      'Designed and built IRIS, Bloom’s first machine vision inspection station for returned fuel cell columns: five cameras capture burns and field damage before teardown, and each image is checked for focus and exposure and filed under the unit serial. I came up with several possible designs, presented them to my manager with a recommendation, and priced the hardware in three tiers. From there I owned the optics, mechanical design, capture software, procurement and testing, and handed the station off to operations eight weeks after starting.',
+      'Designed and built IRIS, Bloom’s first machine vision inspection station for returned fuel cell columns. Its five cameras are meant to capture burns and field damage before teardown, with each image checked for focus and exposure and filed under the unit serial. I came up with several possible designs, presented them to my manager with a recommendation, and priced the hardware in three tiers. From there I owned the optics, mechanical design, capture software, procurement and testing, and handed the station off to operations eight weeks after starting.',
     links: [{ text: 'Read about IRIS', href: '/projects/iris-integrated-reliability-imaging-system/' }],
   },
 
@@ -114,7 +114,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Develop for Good, engineering and product manager',
     dates: 'Apr 2023 – Mar 2024',
     description:
-      'Led two project teams. On the first, I co-led a team of ten that brought Readeezy Literacy’s digital library for struggling teen and older readers to smartphones: redesigned the pages, made the reading activities work on mobile, and cut duplicate code by 28%.',
+      'Managed two project teams. I co-led one of them, a team of ten that brought Readeezy Literacy’s digital library for struggling teen and older readers to smartphones: we redesigned the pages, made the reading activities work on mobile, and cut duplicate code by 28%.',
     quote: {
       text: '“…outstanding in keeping everyone on task and maintaining a positive and supportive environment.”',
       by: 'Maria Cleary, President of Readeezy Literacy, in Develop for Good’s March 2024 newsletter',
@@ -159,8 +159,8 @@ export const ITEMS: TimelineItem[] = [
     title: 'Sulchek Lab, undergraduate research',
     dates: 'Jun 2025 – Dec 2026',
     description:
-      'Now: I own the damage analysis for a 397-indentation AFM dataset (102 T cells over four post-thaw days). Achieved indentation load and rate, not the commanded setpoints, explain several times more stiffness variance than the day measured, and my cell-detection pipeline lifted one day’s target detection from 62% to 96%. Before that, in fall 2025, I built an AFM tip-cell segmentation pipeline that reaches 0.813 mean Dice on held-out data.',
-    links: [{ text: 'Read about the segmentation pipeline', href: '/projects/afm-cell-segmentation/' }],
+      'Now: I own the damage analysis for a 397-indentation atomic force microscopy (AFM) dataset, 102 T cells over four days after thaw. I built the imaging pipeline that follows each indented cell frame by frame; finding the cantilever per session lifted detection of the indented cell on the hardest day from 62% to 96% of frames. The analysis uses the load the instrument actually delivered, not the commanded setpoint. Before that, in fall 2025, I built a pipeline that finds and outlines the indented cell; on frames it never trained on, its outlines match hand tracing at 0.813 mean Dice (1 is a perfect match).',
+    links: [{ text: 'Read about the research', href: '/projects/afm-research/' }],
   },
 
   // Building
@@ -172,7 +172,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'FRC robotics, StuyPulse',
     dates: '2022 – Jun 2023',
     description:
-      'Director of Pneumatics on Stuyvesant’s FRC team through high school graduation: designed and maintained the pneumatic systems on two robots, Excelsior and Jim. I was also second in command on the swerve drivetrain: some of the CAD, building swerve modules and one-piece bumpers, fabrication, and teaching rookies to build the rest.',
+      'Director of Pneumatics on Stuyvesant’s FIRST Robotics Competition (FRC) team through high school graduation: designed and maintained the pneumatic systems on two robots, Excelsior and Jim. I was also second in command on the swerve drivetrain: some of the CAD, building swerve modules and one-piece bumpers, fabrication, and teaching rookies to build the rest.',
     links: [{ text: 'Read about the mechanical builds', href: '/projects/mechanical-builds/' }],
   },
   {
