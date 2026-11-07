@@ -18,7 +18,8 @@ const root = process.cwd();
 const target = path.resolve(root, process.argv[2] ?? ".");
 // cad-source/ is the gitignored drop folder for STEP files (npm run cad); it never
 // reaches git or the site, and the scan of out/ still catches anything that leaks.
-const SKIP_DIRS = new Set(["node_modules", ".git", ".next", "out", "cad-source"]);
+// .cad-venv/ is the gitignored Python install that `npm run cad` uses for big assemblies.
+const SKIP_DIRS = new Set(["node_modules", ".git", ".next", "out", "cad-source", ".cad-venv"]);
 const SELF = path.join(root, "scripts", "check-public-safety.ts");
 const TEXT_EXT = new Set([
   ".ts", ".tsx", ".js", ".mjs", ".cjs", ".json", ".md", ".css", ".html",
