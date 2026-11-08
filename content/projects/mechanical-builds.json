@@ -7,7 +7,7 @@
   "metaDescription": "I helped build BlockParty, the autonomous robot that won ME 2110’s Best Design Award at Georgia Tech, and owned the pneumatics on two FIRST robots.",
   "timeframe": "2022 – 2025",
   "role": "Team member (BlockParty); Director of Pneumatics (FRC)",
-  "heroImage": "/evidence/mechanical-builds/excelsior.jpg",
+  "cad": "blockparty",
   "cardImage": "/evidence/mechanical-builds/card.jpg",
   "tags": [
     "Mechanical Design",
@@ -58,6 +58,21 @@
   "outcome": "BlockParty won the Best Design Award in ME 2110 and ran fully autonomously. On FRC, I owned the pneumatics on both robots and trained rookies to build the rest of the swerve modules.",
   "evidence": [
     {
+      "id": "blockparty-poster",
+      "label": "ME 2110 final poster",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-poster.jpg",
+      "mimeType": "image/jpeg",
+      "note": "ME 2110 final poster from our four-person team: mechanisms, design approach, and fabrication."
+    },
+    {
+      "id": "blockparty-walkthrough",
+      "label": "BlockParty mechanism walkthrough",
+      "type": "other",
+      "url": "https://jeremy-kwok.github.io/about/#walkthrough",
+      "note": "The same model on my About page, with notes on each of the four mechanisms."
+    },
+    {
       "id": "excelsior",
       "label": "Excelsior (2022)",
       "type": "photo",
@@ -72,21 +87,6 @@
       "url": "/evidence/mechanical-builds/jim.jpg",
       "mimeType": "image/jpeg",
       "note": "Jim (2023) in competition."
-    },
-    {
-      "id": "blockparty-poster",
-      "label": "ME 2110 final poster",
-      "type": "photo",
-      "url": "/evidence/mechanical-builds/blockparty-poster.jpg",
-      "mimeType": "image/jpeg",
-      "note": "ME 2110 final poster from our four-person team: mechanisms, design approach, and fabrication."
-    },
-    {
-      "id": "blockparty-walkthrough",
-      "label": "BlockParty 3D design walkthrough",
-      "type": "other",
-      "url": "https://jeremy-kwok.github.io/about/#walkthrough",
-      "note": "Interactive model of the robot on my About page, stepping through each mechanism."
     }
   ],
   "workType": [

@@ -2,7 +2,7 @@
   "slug": "iris-integrated-reliability-imaging-system",
   "order": 1,
   "title": "IRIS: Integrated Reliability Imaging System",
-  "oneLiner": "A five-camera inspection station designed to photograph every returned fuel cell column before teardown destroys the evidence of its field condition. I designed and built it, then handed it off to operations; the resolution, framing and coverage numbers here are the design targets it was built to hit.",
+  "oneLiner": "A five-camera inspection station designed to photograph every returned fuel cell column before teardown destroys the evidence of its field condition. I designed and built it, then handed it off to operations to commission.",
   "cardSummary": "Five-camera station designed to photograph returned fuel cell columns before teardown",
   "metaDescription": "I designed and built IRIS at Bloom Energy: a five-camera inspection station for returned fuel cell columns, concept to handoff, solo, in 8 weeks.",
   "timeframe": "Jun – Aug 2026",
@@ -62,7 +62,7 @@
       "unit": "µm/px"
     },
     {
-      "label": "Framing budget, no fixturing (design)",
+      "label": "Framing budget, no fixturing (design target)",
       "value": "±2.9",
       "unit": "mm"
     },
@@ -103,7 +103,7 @@
       "evidenceRefs": [
         "showcase-poster"
       ],
-      "limitations": "A budget from the coverage geometry, with the registration designed around my cart measurements. Nobody had positioned a loaded cart at the station before handoff, so it is not a spread measured on the line. By-eye rotation was not characterized across multiple operators before handoff.\nHave several operators each position the same unit and measure the spread, to confirm the by-eye references hold across people rather than one person."
+      "limitations": "A budget from the coverage geometry, not a spread measured on the line. The registration was designed around my cart measurements, and by-eye rotation hasn't been characterized across operators.\nHave several operators each position the same unit and measure the spread, to confirm the by-eye references hold across people rather than one person."
     },
     {
       "title": "Built the capture software end to end, gating every image on focus and exposure",
@@ -114,7 +114,7 @@
       "evidenceRefs": [
         "showcase-poster"
       ],
-      "limitations": "Gate thresholds shipped as placeholders; the calibration tool exists, but calibration against real captures had not been done at handoff. Verified on simulated cameras only; no real camera, production or USB, had taken an image through it.\nTime a full unit against takt with a real operator, which is the constraint the design was built around and the most important thing never measured."
+      "limitations": "Verified on simulated cameras only. Gate thresholds are placeholders until they are calibrated on real captures; the calibration tool exists.\nTime a full unit against takt with a real operator, which is the constraint the design was built around and the most important thing never measured."
     },
     {
       "title": "Made camera count configuration-driven and handed off a full commissioning package",
@@ -125,10 +125,10 @@
       "evidenceRefs": [
         "commissioning-package"
       ],
-      "limitations": "The handoff had not been exercised when I left. Nobody had brought the station up using only the documentation, so gaps in it are unknown.\nHave the new owner do a dry run from the runbook alone and record every point where they get stuck."
+      "limitations": "Nobody had brought the station up from the documentation alone when I left, so its gaps are unknown.\nHave the new owner do a dry run from the runbook alone and record every point where they get stuck."
     }
   ],
-  "outcome": "Built and handed off to operations eight weeks after the project started. At handoff the tower was built, all 407 components had arrived, and the five cameras were powered and linked to the network, but no image had been taken. The capture software runs end to end on simulated cameras: a full unit goes from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. Commissioning on the line was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced it to the packet level, found that the exception had to be applied centrally by IT, and reproduced it on a second, freshly imaged laptop with IT watching. That shows the firewall alone is enough to stop discovery, not that it is the only fault. I delivered the exception package and runbook before handoff, so the resolution, framing and coverage figures above remain design targets rather than measurements from the line.",
+  "outcome": "Built and handed off to operations eight weeks after the project started. At handoff the tower was built, all 407 components had arrived, and the five cameras were powered and linked to the network. The capture software ran end to end on simulated cameras: a full unit, from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. The station had not taken a real image yet. Commissioning was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced the drop at the packet level to the specific firewall rule and blocked process, reproduced it on a second, freshly imaged laptop with IT watching, and delivered the exception package IT needed to apply centrally, along with a commissioning runbook. That shows the firewall alone is enough to stop discovery, not that it is the only fault. Until the station runs on the line, the resolution, framing and coverage figures on this page are design targets.",
   "interfaces": [
     {
       "from": "Camera (x5)",
@@ -174,7 +174,7 @@
       "type": "photo",
       "url": "/evidence/iris-integrated-reliability-imaging-system/showcase-poster.png",
       "mimeType": "image/png",
-      "note": "Intern showcase poster, August 2026, made before commissioning: requirements, optical derivation chain, five-camera coverage comparison, station CAD render, and the operator console. Three lines on it describe the plan rather than results: no unit had been imaged yet, so the 'complete evidence stream' is the intent; registration had not been checked with a loaded cart; and filing images to the MES was the next integration step."
+      "note": "Intern showcase poster, August 2026: requirements, optical derivation chain, five-camera coverage comparison, station CAD render, and the operator console. It was made before commissioning, so three of its lines describe the plan rather than results: the 'complete evidence stream', registration with a loaded cart, and filing images to the MES."
     },
     {
       "id": "commissioning-package",
@@ -184,10 +184,8 @@
     }
   ],
   "projectRisks": [
-    "Commissioning was not completed before handoff. Camera discovery was blocked at handoff by the host firewall on the corporate-managed laptops, and the fix needed a centrally applied exception under IT security review. I traced it to the specific rule and blocked process and delivered the exception package and runbook. I showed the block is enough on its own to stop discovery; whether anything else is wrong won't be known until the exception is applied. Ticket ownership transferred to my manager before I left.",
-    "The production camera driver was never exercised against real hardware. I built a simulator backend to verify the full pipeline end to end, a USB-webcam backend for demos and operator training, and a readiness script that isolates which layer is failing at bring-up.",
+    "The firewall exception still had to be applied centrally by IT, under security review, when I left, and ownership of the ticket passed to my manager.",
     "Focus and exposure thresholds shipped as placeholders, since real values depend on real optics and lighting. The calibration tool and procedure are built and documented in the runbook; running it on real captures was left for commissioning.",
-    "Optical resolution and framing budget are design values, not measurements taken with the system running on the line. The framing budget comes from the coverage geometry, and the registration was designed around measured cart dimensions and how far carts sink under a loaded unit.",
     "Phase 1 images the outward face only, a scope decision to hit the timeline. The software should support the extension unmodified (tested to five cameras), so adding it is a fixturing problem rather than a redesign."
   ],
   "lessons": [

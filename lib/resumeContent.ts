@@ -17,6 +17,7 @@ export function loadResumeImage(): ResumeImage | null {
   const sha = crypto.createHash('sha256').update(fs.readFileSync(pdfFile)).digest('hex');
   const problems: string[] = [];
   if (sha !== image.sha256) problems.push(`public${RESUME_PATH} changed since its image was made. Run: npm run images`);
+  if (!Array.isArray(image.links)) problems.push(`${RESUME_IMAGE_PATH} has no links (made by an older script). Run: npm run images`);
   for (const v of image.variants) {
     if (!fs.existsSync(path.join(root, 'public', v.src))) problems.push(`public${v.src}: missing. Run: npm run images`);
   }
