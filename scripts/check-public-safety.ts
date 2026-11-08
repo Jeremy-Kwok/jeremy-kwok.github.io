@@ -38,7 +38,8 @@ const RULES: { name: string; pattern: RegExp }[] = [
   { name: "secret env var name", pattern: /SERVICE_ROLE|SUPABASE_[A-Z_]*KEY|RESEND_API_KEY|ANTHROPIC_API_KEY/ },
   { name: "Supabase host (Enport storage/database)", pattern: /supabase\.co\b/i },
   { name: "Mujin repository link", pattern: /(github|gitlab|bitbucket)\.[a-z.]+\/mujin|mujin[a-z0-9.-]*\/[a-z0-9_.-]+\.git\b|git\.mujin/i },
-  { name: "retired AFM metric (use 0.813 Dice / 0.723 IoU)", pattern: /0\.889/ },
+  // Standalone only: the StatsMonitor demo's data has numbers like 79710.8898.
+  { name: "retired AFM metric (use 0.813 Dice / 0.723 IoU)", pattern: /(?<![\d.])0\.889(?!\d)/ },
 ];
 
 // Source CAD never ships: the site gets renders made by `npm run cad`

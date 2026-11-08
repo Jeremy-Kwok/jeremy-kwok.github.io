@@ -168,7 +168,7 @@
       "id": "report-demo",
       "label": "Report demo: illustrative UI, synthetic data, simplified logic",
       "type": "other",
-      "url": "https://jeremy-statsmonitor-demo.netlify.app",
+      "url": "/evidence/statsmonitor/report-demo.html",
       "note": "A public stand-in for the report and its analysis panel. Not the production report and not real fleet data."
     }
   ],

@@ -18,6 +18,10 @@ function hrefFor(item: EvidenceItem): string | null {
   return item.url.startsWith("/") ? item.url : safeExternalUrl(item.url);
 }
 
+function isSitePage(href: string): boolean {
+  return href.startsWith("/") && /\.html?$/i.test(href);
+}
+
 export default function EvidenceList({ evidence }: EvidenceListProps) {
   const images = evidence.filter((e) => hrefFor(e) && detectFormatKind(e) === "image");
   const rows = evidence.filter((e) => !images.includes(e));
@@ -69,8 +73,9 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
                   {href ? (
                     <a
                       href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      // A page hosted on this site (the StatsMonitor report
+                      // demo) opens in place, so Back returns to the project.
+                      {...(isSitePage(href) ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                       className="-my-[5px] py-[5px] text-xs text-blue-600 hover:underline flex-shrink-0"
                     >
                       {detectFormatKind(item) === "cad" ? "Download" : "Open"}
