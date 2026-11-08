@@ -8,7 +8,7 @@
   "timeframe": "2022 – 2025",
   "role": "Team member (BlockParty); Director of Pneumatics (FRC)",
   "cad": "blockparty",
-  "cardImage": "/evidence/mechanical-builds/card.jpg",
+  "cardImage": "/evidence/mechanical-builds/blockparty-field.jpg",
   "tags": [
     "Mechanical Design",
     "Pneumatics",
@@ -33,7 +33,12 @@
       "requirementOrConstraint": "Three judged sprints building toward a fully autonomous robot.",
       "method": "We generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, we designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
       "resultMetric": "The robot ran fully autonomously in competition.",
-      "evidenceRefs": ["blockparty-poster", "blockparty-walkthrough"],
+      "evidenceRefs": [
+        "ore-arms-run",
+        "carriage-run",
+        "blockparty-poster",
+        "blockparty-walkthrough"
+      ],
       "limitations": ""
     },
     {
@@ -42,7 +47,9 @@
       "requirementOrConstraint": "",
       "method": "Installed the compressors, set pressure and flow regulators so each mechanism got the right force and piston extension speed, added manual and automatic release valves for safety, and routed the tubing so every mechanism got the supply it needed.",
       "resultMetric": "Owned the pneumatic systems on two robots end to end, and kept them working through each season: patching leaks at the tank, and recutting tubing that had been cut at an angle so the fittings sealed.",
-      "evidenceRefs": ["excelsior"],
+      "evidenceRefs": [
+        "excelsior"
+      ],
       "limitations": ""
     },
     {
@@ -51,12 +58,48 @@
       "requirementOrConstraint": "",
       "method": "Did some of the drivetrain CAD, built and tested some of the swerve modules, built the one-piece bumpers, and fabricated parts.",
       "resultMetric": "Trained rookies to build the rest of the swerve modules. At competitions I kept the modules running, repairing any that were damaged in a match.",
-      "evidenceRefs": ["jim"],
+      "evidenceRefs": [
+        "jim"
+      ],
       "limitations": ""
     }
   ],
   "outcome": "BlockParty won the Best Design Award in ME 2110 and ran fully autonomously. On FRC, I owned the pneumatics on both robots and trained rookies to build the rest of the swerve modules.",
   "evidence": [
+    {
+      "id": "ore-arms-run",
+      "label": "Ore arms opening on the game field",
+      "type": "video",
+      "url": "/evidence/mechanical-builds/ore-arms.mp4",
+      "mimeType": "video/mp4",
+      "poster": "/evidence/mechanical-builds/ore-arms.jpg",
+      "note": "Phone video, April 2025: one piston swings both arms open across the field."
+    },
+    {
+      "id": "carriage-run",
+      "label": "Carriage launching to the end tower",
+      "type": "video",
+      "url": "/evidence/mechanical-builds/carriage.mp4",
+      "mimeType": "video/mp4",
+      "poster": "/evidence/mechanical-builds/carriage.jpg",
+      "note": "Phone video, April 2025: the carriage rides out on the telescoping drawer slides to the end tower."
+    },
+    {
+      "id": "blockparty-field",
+      "label": "BlockParty on the game field",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-field.jpg",
+      "mimeType": "image/jpeg",
+      "note": "April 2025, with both ore arms open."
+    },
+    {
+      "id": "blockparty-robot",
+      "label": "The finished robot",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-robot.jpg",
+      "mimeType": "image/jpeg",
+      "note": "April 2025: the air tank and pressure gauge, a pneumatic cylinder, and the drawer slides the carriage rides out on."
+    },
     {
       "id": "blockparty-poster",
       "label": "ME 2110 final poster",

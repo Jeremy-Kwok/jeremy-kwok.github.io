@@ -37,6 +37,7 @@ function localFileProblems(project: Project): string[] {
     project.heroImage,
     project.cardImage,
     ...project.evidence.map((e) => e.url),
+    ...project.evidence.map((e) => e.poster),
   ].filter((u): u is string => !!u && u.startsWith('/'));
   return urls
     .filter((u) => !fs.existsSync(path.join(publicDir, u)))

@@ -52,6 +52,8 @@ export const EvidenceItemSchema = z.strictObject({
   url: EvidenceUrl.optional(),
   note: z.string().optional(),
   mimeType: z.string().optional(),
+  // A still shown before a video plays (a local .jpg); videos without one stay in the list.
+  poster: EvidenceUrl.optional(),
 });
 
 export const InterfaceSchema = z.strictObject({

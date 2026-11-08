@@ -143,6 +143,25 @@
       }
     ]
   },
+  "/evidence/mechanical-builds/blockparty-field.jpg": {
+    "sha256": "9022c2dd5d145df9d180b4f067d6045650d5e228f04716fcaf251a3659773ce0",
+    "width": 1600,
+    "height": 833,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/mechanical-builds/_w/blockparty-field-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/mechanical-builds/_w/blockparty-field-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/mechanical-builds/_w/blockparty-field-1600.webp"
+      }
+    ]
+  },
   "/evidence/mechanical-builds/blockparty-poster.jpg": {
     "sha256": "cf8523872d9c48f4cbe61b3edc32f16927ba0c82b606afa4b96432ca85380c7b",
     "width": 1600,
@@ -162,18 +181,22 @@
       }
     ]
   },
-  "/evidence/mechanical-builds/card.jpg": {
-    "sha256": "677b8f798636d318450154cffee9f0b868c3db977842b4ebaed2e314ffdeb411",
-    "width": 768,
-    "height": 400,
+  "/evidence/mechanical-builds/blockparty-robot.jpg": {
+    "sha256": "286b65d07cab72d65b5d9f54111ef8142cbf163fb07f1fc1a2e40e274d09d935",
+    "width": 1200,
+    "height": 1600,
     "variants": [
       {
         "w": 480,
-        "src": "/evidence/mechanical-builds/_w/card-480.webp"
+        "src": "/evidence/mechanical-builds/_w/blockparty-robot-480.webp"
       },
       {
-        "w": 768,
-        "src": "/evidence/mechanical-builds/_w/card-768.webp"
+        "w": 960,
+        "src": "/evidence/mechanical-builds/_w/blockparty-robot-960.webp"
+      },
+      {
+        "w": 1200,
+        "src": "/evidence/mechanical-builds/_w/blockparty-robot-1200.webp"
       }
     ]
   },
