@@ -16,8 +16,8 @@ export const MonthSchema = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'months a
 // change; external links are absolute http(s).
 const Href = z
   .string()
-  .refine((v) => /^https:\/\/\S+$/.test(v) || /^\/[a-z0-9/-]*$/.test(v), {
-    message: 'must be an https URL or a root-relative path like /projects/x/',
+  .refine((v) => /^https:\/\/\S+$/.test(v) || /^\/[a-z0-9/-]*(#[a-z0-9-]+)?$/.test(v), {
+    message: 'must be an https URL or a root-relative path like /projects/x/ (optionally with #anchor)',
   });
 
 export const LaneIdSchema = z.enum(['school', 'work', 'nonprofit', 'research', 'building']);

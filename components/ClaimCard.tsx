@@ -29,7 +29,7 @@ export default function ClaimCard({ claim, index, evidenceById }: ClaimCardProps
     claim.limitations.trim() !== "";
 
   return (
-    <div id={`claim-${index + 1}`} className="border border-hairline bg-panel p-4 sm:p-5">
+    <div id={claim.anchor ?? `claim-${index + 1}`} className="border border-hairline bg-panel p-4 sm:p-5">
       <h3 className="font-display text-lg leading-snug text-ink">{claim.title}</h3>
 
       <div className="mt-3">

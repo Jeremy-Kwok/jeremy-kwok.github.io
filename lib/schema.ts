@@ -72,6 +72,8 @@ export const ClaimSchema = z.strictObject({
   evidenceRefs: z.array(z.string()),
   limitations: z.string(),
   interfacesTouched: z.array(z.string()).optional(),
+  // A fixed id for links into the page (e.g. #frc), so reordering cards can't break them.
+  anchor: z.string().regex(/^[a-z][a-z0-9-]*$/, 'claim anchors are kebab-case').optional(),
 });
 
 // One step of a project's decision path: what was decided at each stage, in

@@ -173,7 +173,7 @@ export const ITEMS: TimelineItem[] = [
     dates: '2022 – Jun 2023',
     description:
       'Director of Pneumatics on Stuyvesant’s FIRST Robotics Competition (FRC) team through high school graduation: designed and maintained the pneumatic systems on two robots, Excelsior and Jim. I was also second in command on the swerve drivetrain: some of the CAD, building some of the swerve modules and the one-piece bumpers, fabrication, and teaching rookies to build the rest.',
-    links: [{ text: 'Read about the mechanical builds', href: '/projects/mechanical-builds/' }],
+    links: [{ text: 'Read about the mechanical builds', href: '/projects/mechanical-builds/#frc' }],
   },
   {
     id: 'enport',
