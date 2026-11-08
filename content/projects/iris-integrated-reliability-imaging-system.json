@@ -3,7 +3,8 @@
   "order": 1,
   "title": "IRIS: Integrated Reliability Imaging System",
   "oneLiner": "A five-camera inspection station designed to photograph every returned fuel cell column before teardown destroys the evidence of its field condition. I designed and built it, then handed it off to operations; the resolution, framing and coverage numbers here are the design targets it was built to hit.",
-  "cardSummary": "Five-camera station that photographs returned fuel cell columns before teardown",
+  "cardSummary": "Five-camera station designed to photograph returned fuel cell columns before teardown",
+  "metaDescription": "I designed and built IRIS at Bloom Energy: a five-camera inspection station for returned fuel cell columns, concept to handoff, solo, in 8 weeks.",
   "timeframe": "Jun – Aug 2026",
   "role": "Project owner",
   "organization": "Bloom Energy",
@@ -15,7 +16,7 @@
     "Mechanical Design",
     "Python"
   ],
-  "whatIOwnedSummary": "I owned all of it. I set the optical specification and coverage geometry, designed the mechanics and registration scheme, built the capture software and operator console, ran procurement and vendor selection, traced the network fault, and wrote the handoff documentation set.",
+  "whatIOwnedSummary": "I owned all of it. I set the optical specification and coverage geometry, designed the mechanics and registration scheme, built the capture software and operator console, ran procurement and vendor selection (407 components from seven suppliers), traced the camera-discovery failure, and wrote the handoff documentation set.",
   "path": [
     {
       "stage": "Need discovery",
@@ -23,8 +24,8 @@
     },
     {
       "stage": "Scope tradeoff",
-      "decision": "Captured the front face only.",
-      "why": "Reliability wanted every face captured (front, back, and sides) and Operations wanted as little delay as possible; the front face is the most accessible and carries the most critical information."
+      "decision": "Imaged the outward face of all eight stacks on each column, one pedal press per face as the column is turned, and left the back faces for a later phase.",
+      "why": "Reliability wanted complete evidence, back faces included, and Operations wanted as little delay as possible. One fixed tower can image the outward faces as the column turns; the back faces need a second, mirrored tower, which I left in the handoff as an open decision."
     },
     {
       "stage": "Requirement to optics",
@@ -33,7 +34,7 @@
     {
       "stage": "Architecture",
       "decision": "Chose five fixed cameras over one motorized camera.",
-      "why": "Captures the column in one shot with no added time per unit, no drift, and no single point of failure."
+      "why": "Each face is captured in one pedal press with no moving parts in the image chain: no added time per unit, no drift, and no single point of failure."
     },
     {
       "stage": "Environment and mechanical",
@@ -41,11 +42,11 @@
     },
     {
       "stage": "Software and verification",
-      "decision": "Built the capture app with automated focus and exposure checks and per-unit override logs; verified gap-free five-camera coverage by script and tracked open items in the V&V record."
+      "decision": "Built the capture app with automated focus and exposure checks and per-unit override logs; verified gap-free five-camera coverage by script and tracked open items in the verification record."
     },
     {
       "stage": "Commissioning and handoff",
-      "decision": "Traced a camera-discovery failure to a single corporate firewall rule and delivered the exception package and commissioning runbook.",
+      "decision": "Traced the camera-discovery failure to Windows Firewall on the managed laptops and delivered an exception package for IT and a commissioning runbook.",
       "why": "The fix needed a centrally applied exception under IT security review, and someone else would commission the station after my internship."
     }
   ],
@@ -66,9 +67,8 @@
       "unit": "mm"
     },
     {
-      "label": "Coverage gaps across 5 cameras (design)",
-      "value": "0",
-      "unit": "gaps"
+      "label": "Handoff documents, including a verification record and a 19-decision design log",
+      "value": "7"
     }
   ],
   "claims": [
@@ -88,7 +88,7 @@
       "ownedScope": "",
       "requirementOrConstraint": "Every region of the outward face imaged head-on with no gaps, despite protruding features that shadow the regions Reliability cares about most. Had to fit within teardown takt time.",
       "method": "Generated candidate layouts by script rather than laying them out by hand, and compared coverage for a single camera, for cameras centered on the protrusions, and for cameras with the protrusions at frame boundaries. Also evaluated a single camera on a motorized vertical stage.",
-      "resultMetric": "Boundary placement moves the hardest regions to mid-frame, where lighting and resolution are best, with overlap at every seam. Centering on the protrusions is the intuitive approach and leaves those regions shadowed. The motorized single-camera option was rejected on cycle time and on drift, since a moving stage on a dusty floor is both a repeatability risk and a single point of failure.",
+      "resultMetric": "In the coverage script, putting the protrusions at frame boundaries instead of frame centers took coverage from about 90% to 100%. Boundary placement moves the hardest regions to mid-frame, where lighting and resolution are best, with overlap at every seam. Centering on the protrusions is the intuitive approach and leaves those regions shadowed. The motorized single-camera option was rejected on cycle time and on drift, since a moving stage on a dusty floor is both a repeatability risk and a single point of failure.",
       "evidenceRefs": [
         "showcase-poster"
       ],
@@ -98,12 +98,12 @@
       "title": "Designed the registration to hold framing within ±2.9 mm with no contact to production tooling",
       "ownedScope": "",
       "requirementOrConstraint": "Framing had to stay inside the ±13 mm standoff window set by the optics, across carts that vary unit to unit, without adding fixturing or slowing teardown.",
-      "method": "Since a station that touches production tooling risks being shifted or damaged in daily use, I designed the registration to be entirely workpiece-referenced. Vertical position comes from a live-view band on a self-locking crank, depth from a projected laser gap cue, and rotation is set by eye to a band. I measured position variation across production carts and stacked the contributions into a worst-case framing budget.",
+      "method": "Since a station that touches production tooling risks being shifted or damaged in daily use, I designed the registration to be entirely workpiece-referenced. Vertical position comes from a live-view band on a self-locking crank, depth from a projected laser gap cue, and rotation is set by eye to a band. I measured production carts (length, width, height, and how far each one sinks under a loaded unit, since the units are very heavy) so the crank and live-view band could absorb that variation. The coverage geometry sets the framing budget: ±2.9 mm before the overlap between neighboring camera views runs out.",
       "resultMetric": "Roughly four times margin inside the optical standoff window. The cart is never clamped, docked, or modified, so teardown flow is unchanged and the station can be relocated without recalibration.",
       "evidenceRefs": [
         "showcase-poster"
       ],
-      "limitations": "A budget computed from measured cart variation, not a spread measured with the station operating on the line. By-eye rotation was not characterized across multiple operators before handoff.\nHave several operators each position the same unit and measure the spread, to confirm the by-eye references hold across people rather than one person."
+      "limitations": "A budget from the coverage geometry, with the registration designed around my cart measurements. Nobody had positioned a loaded cart at the station before handoff, so it is not a spread measured on the line. By-eye rotation was not characterized across multiple operators before handoff.\nHave several operators each position the same unit and measure the spread, to confirm the by-eye references hold across people rather than one person."
     },
     {
       "title": "Built the capture software end to end, gating every image on focus and exposure",
@@ -114,21 +114,21 @@
       "evidenceRefs": [
         "showcase-poster"
       ],
-      "limitations": "Gate thresholds shipped as placeholders; the calibration tool exists, but calibration against real captures had not been done at handoff. Verified against simulated and USB cameras only, never production cameras.\nTime a full unit against takt with a real operator, which is the constraint the design was built around and the most important thing never measured."
+      "limitations": "Gate thresholds shipped as placeholders; the calibration tool exists, but calibration against real captures had not been done at handoff. Verified on simulated cameras only; no real camera, production or USB, had taken an image through it.\nTime a full unit against takt with a real operator, which is the constraint the design was built around and the most important thing never measured."
     },
     {
       "title": "Made camera count configuration-driven and handed off a full commissioning package",
       "ownedScope": "",
-      "requirementOrConstraint": "Someone else would commission and own the station after my internship. A two-column expansion considered as a potential upgrade to reduce takt time. Vendor software versions change, so anything version-specific would go stale.",
+      "requirementOrConstraint": "Someone else would commission and own the station after my internship. A two-column expansion, imaging two columns at once to double throughput, was under consideration. Vendor software versions change, so anything version-specific would go stale.",
       "method": "Moved camera count, backend selection, and network tuning into a configuration file, and built three interchangeable camera backends covering production hardware, any USB camera, and a hardware-free simulator. Wrote a readiness script that tests the actual constraint rather than assuming a software version.",
-      "resultMetric": "End-to-end runs verified at one, two, and five cameras, so the two-column expansion to ten cameras should need no software changes. Testing stopped at five cameras. The handoff was seven documents: a handoff memo with status and ownership, a commissioning runbook, the firewall exception package for IT, a decision log of 19 locked design choices, a verification record with 13 open items (each naming the event that closes it), a code guide written for a non-programmer working with an AI assistant, and an asset inventory.",
+      "resultMetric": "End-to-end runs on simulated cameras verified at one, two, and five cameras, so the two-column expansion to ten cameras should need no software changes. Testing stopped at five cameras. I also wrote the six-point pass/fail test that closes commissioning, including ten five-camera bursts in a row with no incomplete images, every image at full sensor resolution, a deliberately defocused lens caught by the focus gate and fixed with a single-camera retake, and a full unit run through the console by foot pedal. The handoff was seven documents: a handoff memo with status and ownership, a commissioning runbook, the firewall exception package for IT, a decision log of 19 locked design choices, a verification record with 13 open items (each naming the event that closes it), a code guide written for a non-programmer working with an AI assistant, and an asset inventory.",
       "evidenceRefs": [
         "commissioning-package"
       ],
       "limitations": "The handoff had not been exercised when I left. Nobody had brought the station up using only the documentation, so gaps in it are unknown.\nHave the new owner do a dry run from the runbook alone and record every point where they get stuck."
     }
   ],
-  "outcome": "Built and handed off to operations eight weeks after the project started. The capture software runs end to end: a full unit goes from serial entry to a focus- and exposure-gated capture in a browser, verified at one, two, and five cameras on simulated and USB camera backends. Commissioning on the line was blocked by a corporate firewall rule on the managed station PC that stopped camera discovery. I traced it to the specific rule and delivered an exception package and runbook before handoff, so the resolution, framing and coverage figures above remain design targets rather than measurements from the line.",
+  "outcome": "Built and handed off to operations eight weeks after the project started. The capture software runs end to end on simulated cameras: a full unit goes from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. Commissioning on the line was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced it to the packet level, found that the exception had to be applied centrally by IT, and reproduced it on a second, freshly imaged laptop with IT watching. That shows the firewall alone is enough to stop discovery, not that it is the only fault. I delivered the exception package and runbook before handoff, so the resolution, framing and coverage figures above remain design targets rather than measurements from the line.",
   "interfaces": [
     {
       "from": "Camera (x5)",
@@ -140,7 +140,7 @@
       "from": "PoE Switch",
       "to": "Station PC",
       "type": "data",
-      "notes": "GigE Vision on an isolated subnet with no gateway and no route to the corporate network. Corporate connectivity uses a separate adapter on the same machine. This is the boundary where discovery failed."
+      "notes": "GigE Vision on an isolated subnet with no gateway and no route to the corporate network. Corporate connectivity uses a separate adapter on the same machine. Discovery replies crossed this link and were dropped by the PC's own firewall after they arrived."
     },
     {
       "from": "Foot Pedal",
@@ -174,7 +174,7 @@
       "type": "photo",
       "url": "/evidence/iris-integrated-reliability-imaging-system/showcase-poster.png",
       "mimeType": "image/png",
-      "note": "Intern showcase poster, August 2026: requirements, optical derivation chain, five-camera coverage comparison, station CAD render, and the operator console."
+      "note": "Intern showcase poster, August 2026, made before commissioning: requirements, optical derivation chain, five-camera coverage comparison, station CAD render, and the operator console. Three lines on it describe the plan rather than results: no unit had been imaged yet, so the 'complete evidence stream' is the intent; registration had not been checked with a loaded cart; and filing images to the MES was the next integration step."
     },
     {
       "id": "commissioning-package",
@@ -184,21 +184,21 @@
     }
   ],
   "projectRisks": [
-    "Commissioning was not completed before handoff. Camera discovery was blocked at handoff by a host firewall rule on the corporate-managed PC, and the fix needed a centrally applied exception under IT security review. I traced it to the specific rule and blocked process and delivered the exception package and runbook. Ticket ownership transferred to my manager before I left.",
-    "The production camera driver was never exercised against real hardware. I built simulator and USB camera backends to verify the full pipeline end to end, and a readiness script that isolates which layer is failing at bring-up.",
-    "Focus and exposure thresholds shipped as placeholders, since real values depend on real optics and lighting. The calibration tool and procedure are built and documented; the step takes about ten minutes once cameras are live.",
-    "Optical resolution and framing budget are design values, not measurements taken with the system running on the line. The framing budget was sized against measured variation across production carts.",
+    "Commissioning was not completed before handoff. Camera discovery was blocked at handoff by the host firewall on the corporate-managed laptops, and the fix needed a centrally applied exception under IT security review. I traced it to the specific rule and blocked process and delivered the exception package and runbook. I showed the block is enough on its own to stop discovery; whether anything else is wrong won't be known until the exception is applied. Ticket ownership transferred to my manager before I left.",
+    "The production camera driver was never exercised against real hardware. I built a simulator backend to verify the full pipeline end to end, a USB-webcam backend for demos and operator training, and a readiness script that isolates which layer is failing at bring-up.",
+    "Focus and exposure thresholds shipped as placeholders, since real values depend on real optics and lighting. The calibration tool and procedure are built and documented in the runbook; running it on real captures was left for commissioning.",
+    "Optical resolution and framing budget are design values, not measurements taken with the system running on the line. The framing budget comes from the coverage geometry, and the registration was designed around measured cart dimensions and how far carts sink under a loaded unit.",
     "Phase 1 images the outward face only, a scope decision to hit the timeline. The software should support the extension unmodified (tested to five cameras), so adding it is a fixturing problem rather than a redesign."
   ],
   "lessons": [
     {
-      "text": "I was product owner, mechanical designer, software engineer, and network debugger at once, so every trade-off went through me. Choosing an aperture for depth of field was also choosing how precisely an operator would have to position a cart. Owning both ends made those couplings visible in a way a specialist role would not have."
+      "text": "I was project owner, mechanical designer, software engineer, and network debugger at once, so every trade-off went through me. Choosing an aperture for depth of field was also choosing how precisely an operator would have to position a cart. Owning both ends made those couplings visible in a way a specialist role would not have."
     },
     {
       "text": "Reliability and Operations each set constraints that shaped the design fundamentally. Reliability needing every region imaged is what drove the five-camera layout. I learned to find the binding constraint from each group early rather than designing and then seeking approval."
     },
     {
-      "text": "Lead times drove more decisions than any technical analysis. Component availability shaped the camera and lens selection, and the station PC not arriving on schedule forced the software to become host-agnostic. Treating procurement as an engineering input rather than an administrative step would have changed my sequencing from the start."
+      "text": "Procurement shaped the build as much as the analysis did. The requirement picked the camera and lens, but supplier onboarding decided where the lens came from, and the station PC's lead time forced the software to run on any host. Treating procurement as an engineering input rather than an administrative step would have changed my sequencing from the start."
     },
     {
       "text": "Designing the handoff early changed what I built. Knowing I would not be the one commissioning the station is why camera count is set in a configuration file (as opposed to being hard-coded), and why the readiness check prints fixes rather than error codes."

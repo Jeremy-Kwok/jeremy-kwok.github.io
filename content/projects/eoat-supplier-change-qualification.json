@@ -3,7 +3,8 @@
   "order": 2,
   "title": "Vacuum Cup Validation for a Robot Gripper",
   "cardSummary": "Two-phase bench and field test plan for a 63-cup gripper's replacement cup",
-  "oneLiner": "Planned and ran the qualification of a replacement vacuum cup for a 63-cup robot gripper: bench tests on a force/vacuum jig, then a field A/B I led at a 24/7 distribution center. The plan’s pre-set criteria caught a durability failure and called a no-swap before any fleet-wide rollout.",
+  "metaDescription": "At Mujin I wrote the plan to qualify a replacement vacuum cup for a robot gripper and led the field trial, which caught a failure the bench tests missed.",
+  "oneLiner": "Planned and ran the qualification of a replacement vacuum cup for a 63-cup robot gripper, from bench tests to a field A/B I led at a 24/7 distribution center. The field test caught a durability failure the bench missed, and the plan’s pre-set criteria called a no-swap before any fleet-wide rollout.",
   "timeframe": "Jan – Apr 2026",
   "role": "Test plan author and test lead",
   "organization": "Mujin",
@@ -15,7 +16,7 @@
     "Failure Analysis",
     "Robotics"
   ],
-  "whatIOwnedSummary": "I wrote the 13-page qualification plan on my own and designed every test in both phases; my manager and a senior technical writer reviewed and approved it. I ran the Phase 1 bench tests on a force/vacuum jig with KEYENCE pressure sensing, across five surface conditions and an extended weight envelope. I designed the decision logic and acceptance gates, the failure-mode triage protocol and the Service Log, and added two new metrics to fleet monitoring as part of the qualification. I led the Phase 2 field test at a 24/7 customer distribution center; after my internship ended, Mujin's on-site team carried it to the decision. The vendor relationship and sample procurement were outside my scope.",
+  "whatIOwnedSummary": "I wrote the 13-page qualification plan on my own and designed every test in both phases; my manager and a senior technical writer reviewed and approved it. I ran the Phase 1 bench tests on a force/vacuum jig with KEYENCE pressure sensing, across five surface conditions and an extended weight envelope. I designed the decision logic and acceptance gates, the failure-mode triage protocol and the Service Log, and added two new metrics to StatsMonitor, the fleet monitoring pipeline I built, as part of the qualification. I led the Phase 2 field test at a 24/7 customer distribution center; after my internship ended, Mujin's on-site team carried it to the decision. The vendor relationship and sample procurement were outside my scope.",
   "path": [
     {
       "stage": "Protocol structure",
@@ -31,7 +32,7 @@
     },
     {
       "stage": "Metrics",
-      "decision": "Added two of the four must-win metrics to the fleet monitoring pipeline as standard outputs.",
+      "decision": "Added two of the four must-win metrics to StatsMonitor as standard outputs.",
       "why": "They didn't exist yet when the plan was scoped."
     },
     {
@@ -59,7 +60,7 @@
   ],
   "topMetrics": [
     {
-      "label": "Field call, before any fleet rollout",
+      "label": "Kept the current cup: the field test caught cracking before any fleet rollout",
       "value": "No-swap"
     },
     {
@@ -95,8 +96,8 @@
       "title": "Set the decision rule before any data came in",
       "ownedScope": "",
       "requirementOrConstraint": "A 90-day Phase 2 evaluation needs a non-political, auditable rule for translating outcomes into a decision. Without a pre-specified gate, comparable performance can lead to indefinite deferral or vendor-relationship-driven adoption rather than data-driven adoption. The rule needed to handle clean-win, clean-loss, and mixed cases, with thresholds chosen before data collection and metrics that capture both safety and productivity dimensions.",
-      "method": "I designed the gate as a two-condition rule: a must-not-worsen condition on the customer-facing safety metric (piece loss rate, normalized to picks) against the incumbent baseline, plus a must-win condition requiring the candidate to demonstrate a pre-specified improvement threshold on at least one of four metrics (pick issues rate, order cycle issues rate, direct robot throughput, downtime per intervention). I defined the mixed-result case (candidate better on some, worse on others) as a fallback to limited deployment under explicitly defined conditions, which avoids forcing a binary decision when the data doesn't support one. Two of the four must-win metrics didn't yet exist as standard outputs in the fleet monitoring pipeline when I scoped the plan, so I added them. The metric set co-evolved between the qualification protocol and the monitoring pipeline underneath it.",
-      "resultMetric": "A defensible decision rule the team could apply without arguing about vendors. In the field run, the candidate cups cracked and wore down within about two weeks, and the rule led to the decision not to switch. Two metrics defined in the plan were added to fleet monitoring as standard outputs and remain available for future qualification work, not just this one.",
+      "method": "I designed the gate as a two-condition rule: a must-not-worsen condition on the customer-facing safety metric (piece loss rate, normalized to picks) against the incumbent baseline, plus a must-win condition requiring the candidate to demonstrate a pre-specified improvement threshold on at least one of four metrics (pick issues rate, order cycle issues rate, direct robot throughput, downtime per intervention). I defined the mixed-result case (candidate better on some, worse on others) as a fallback to limited deployment under explicitly defined conditions, which avoids forcing a binary decision when the data doesn't support one. Two of the four must-win metrics didn't yet exist as standard outputs in StatsMonitor when I scoped the plan, so I added them. The metric set co-evolved between the qualification protocol and the monitoring pipeline underneath it.",
+      "resultMetric": "A defensible decision rule the team could apply without arguing about vendors. In the field run, the candidate cups cracked and wore down within about two weeks, and the rule led to the decision not to switch. Two metrics defined in the plan were added to StatsMonitor as standard outputs and remain available for future qualification work, not just this one.",
       "evidenceRefs": [
         "methodology-diagram"
       ],
@@ -126,7 +127,7 @@
       "limitations": "Incumbent baseline cup wasn't bench-tested due to clean-cup unavailability. Comparative bench inference was reserved for Phase 2 by design (Phase 1 characterizes the candidate against absolute acceptance criteria; the A/B happens at the system level), but a clean baseline would have made the loose-stretch-wrap finding interpretable as a regression vs. shared property. Single-cup static testing doesn't replicate multi-cup load sharing or robot motion dynamics; the issued plan acknowledges this scope boundary explicitly.\nNext: re-run Phase 1 with a clean incumbent baseline cup for direct A/B at the bench level. Run partial-zone multi-cup characterization on a gripper before any future field deployment to determine whether the loose-stretch-wrap failure mode is masked by adjacent cups."
     }
   ],
-  "outcome": "I led the field A/B at a 24/7 customer distribution center. Within about two weeks the candidate cups cracked and wore down. After my internship ended, Mujin's on-site team applied the plan's pre-set decision criteria and decided not to switch. Two metrics from the plan were added to fleet monitoring. The staged plan caught a durability failure at one site before a fleet-wide swap.",
+  "outcome": "I led the field A/B at a 24/7 customer distribution center. Within about two weeks the candidate cups cracked and wore down. After my internship ended, Mujin's on-site team applied the plan's pre-set decision criteria and decided not to switch. Two metrics from the plan were added to StatsMonitor, my fleet monitoring pipeline. The staged plan caught a durability failure at one site before a fleet-wide swap.",
   "interfaces": [
     {
       "from": "Phase 1 bench rig",
@@ -142,9 +143,9 @@
     },
     {
       "from": "Phase 2 grippers",
-      "to": "Fleet monitoring",
+      "to": "StatsMonitor (fleet monitoring)",
       "type": "data",
-      "notes": "Per-pick-normalized fault metrics and throughput; two metrics defined in the plan were added to fleet monitoring"
+      "notes": "Per-pick-normalized fault metrics and throughput; two metrics defined in the plan were added to StatsMonitor"
     },
     {
       "from": "Customer site Service Log",
@@ -193,7 +194,7 @@
     "Phase 1 was candidate-only, static, and short-duration against absolute acceptance criteria. It could not show durability; the cracking and wear surfaced only in the field. Comparative bench inference requires a clean baseline cup, which wasn't sourced in this iteration.",
     "Plan was authored without baseline historical data on the incumbent supplier; thresholds were chosen on engineering judgment, which is acceptable for a v1 protocol but should be tightened in v2 with actual baseline variance data.",
     "Plan deliberately leaves vendor specifications as placeholders for the candidate vendor to populate. Intentional, but creates reproducibility gaps for someone reading the plan in isolation.",
-    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the fleet monitoring expansion."
+    "I handed off on the last day of my internship; no formal transition document was created to walk a successor through the plan's implicit design decisions, including the relationship between the test plan's metric set and the StatsMonitor expansion."
   ],
   "lessons": [
     {
@@ -206,10 +207,10 @@
       "text": "Validate bespoke diagnostics (the blow-off backpressure check) against known-fault hardware before deploying them as production protocols. The procedure is sound in principle but field calibration would catch false-negative modes early."
     },
     {
-      "text": "Specify the analyst and analysis tooling explicitly in the plan, not just the metrics. The Stats API export path was implicit in this iteration; a successor inheriting the plan wouldn't know that the fleet monitoring pipeline is the intended consumer."
+      "text": "Specify the analyst and analysis tooling explicitly in the plan, not just the metrics. How field data would reach StatsMonitor was implicit in this iteration; a successor inheriting the plan wouldn't know the pipeline is the intended consumer."
     },
     {
-      "text": "The metric-set co-evolution between this plan and the fleet monitoring pipeline is a leverage pattern worth replicating: define qualification metrics that survive a single trial and become permanent infrastructure, rather than throwaway one-offs."
+      "text": "The metric-set co-evolution between this plan and StatsMonitor is a leverage pattern worth replicating: define qualification metrics that survive a single trial and become permanent infrastructure, rather than throwaway one-offs."
     },
     {
       "text": "For v2: add a cyclic wear test, add partial-zone multi-cup characterization (catches load-sharing-masked failures before Phase 2), and convert the open-ended Section 6 vendor-input section into a structured vendor feedback loop with documented input."

@@ -111,6 +111,8 @@ export const ProjectSchema = z
     oneLiner: NonBlank,
     // A one-line plain description of what the project is, shown on the homepage card under the title.
     cardSummary: z.string().trim().min(1).max(90).optional(),
+    // Search and link-preview text; falls back to the start of oneLiner. Says what I did, not just what it is.
+    metaDescription: z.string().trim().min(1).max(155).optional(),
     timeframe: z.string().optional(),
     role: NonBlank,
     organization: z.string().optional(),

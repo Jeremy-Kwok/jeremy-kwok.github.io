@@ -13,7 +13,7 @@ import { useHydrated } from "@/lib/useHydrated";
 // showcase and each mechanism plays its chapter of the animation, in the video
 // or the 3D view; a swatch in the subsystem's color ties the row to the model.
 // Without it, the frame cross-fades the four images. The page prints every
-// mechanism in <noscript>, so neither is required.
+// mechanism in a closed <details>, so neither is required.
 
 interface DesignWalkthroughProps {
   mechanisms: Mechanism[];
@@ -116,7 +116,7 @@ export default function DesignWalkthrough({ mechanisms, teamLine, imageSizes, ca
             <Balloon n={index + 1} filled />
             {selected.name}
           </p>
-          <h3 className="mt-2 font-display text-xl font-extrabold leading-tight text-ink">{selected.title}</h3>
+          <h3 className="mt-2 font-display text-xl font-[800] leading-tight text-ink">{selected.title}</h3>
           <p className="mt-2 text-ink">{selected.text}</p>
           {selected.myPart && (
             <p className="mt-2 text-ink">

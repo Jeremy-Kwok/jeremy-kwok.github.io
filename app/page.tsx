@@ -3,10 +3,12 @@ import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
 import ContactLinks from "@/components/ContactLinks";
 import { loadProjects } from "@/lib/content";
-import { INTRO, TARGET_ROLES } from "@/lib/site";
+import { INTRO, TARGET_ROLES, TOOLS } from "@/lib/site";
 
-// Title, description and link preview come from the root layout.
+// Description and link preview come from the root layout; the tab and search
+// title says what I am, not just my name.
 export const metadata: Metadata = {
+  title: { absolute: "Jeremy Kwok — Mechanical Engineer (Georgia Tech, Dec 2026)" },
   alternates: { canonical: "/" },
 };
 
@@ -25,6 +27,9 @@ export default function HomePage() {
           <h1 className="font-display text-[clamp(30px,6vw,44px)] leading-[1.05] text-ink">{INTRO}</h1>
           <p className="mt-4 max-w-[680px] text-[17px] leading-relaxed text-ink-2">
             <span className="font-semibold text-ink">Looking for:</span> {TARGET_ROLES}
+          </p>
+          <p className="mt-2 max-w-[680px] text-[15px] leading-relaxed text-ink-2">
+            <span className="font-semibold text-ink">Tools:</span> {TOOLS}
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
             <Link
@@ -58,7 +63,7 @@ export default function HomePage() {
         <section className="mt-16">
           <SectionHeading>Outside work</SectionHeading>
           <p className="max-w-[680px] text-base text-zinc-600">
-            I&rsquo;m learning to fly, working toward my private pilot license a few times a week. I
+            I&rsquo;m learning to fly, with lessons a few times a week toward my private pilot license. I
             also wrote a small Python script to grab open lesson slots, because lining up my schedule,
             the planes and my instructor&rsquo;s is a lot of bookkeeping.{" "}
             <Link href="/about/#outside-work" className="text-link underline underline-offset-[3px]">

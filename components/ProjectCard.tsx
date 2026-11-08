@@ -57,11 +57,11 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
   const metric = project.topMetrics[0];
   const tags = pickDisplayTags(project.tags);
 
+  // The link is on the title and stretched over the whole card (after:inset-0), so
+  // the card is one click target while its text stays ordinary text: reader-mode
+  // extractors drop a block that is one big link, and the link's name is the title.
   return (
-    <Link
-      href={`/projects/${project.slug}/`}
-      className="group block border border-hairline bg-panel transition-colors duration-150 hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
-    >
+    <div className="group relative border border-hairline bg-panel transition-colors duration-150 hover:border-ink has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-link">
       {thumb ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -80,7 +80,11 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
       )}
       <div className="p-5">
         <WorkTypeBadges value={project.workType} className="mb-1.5" />
-        <h3 className="font-display text-lg leading-snug text-ink group-hover:underline">{project.title}</h3>
+        <h3 className="font-display text-lg leading-snug text-ink group-hover:underline">
+          <Link href={`/projects/${project.slug}/`} className="after:absolute after:inset-0 focus-visible:outline-none">
+            {project.title}
+          </Link>
+        </h3>
         {project.cardSummary && <p className="text-sm text-ink-2 mt-1 leading-snug">{project.cardSummary}</p>}
         <p className="text-sm text-zinc-500 mt-1">{project.role}</p>
         {(project.organization || project.timeframe) && (
@@ -109,6 +113,6 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
           </div>
         )}
       </div>
-    </Link>
+    </div>
   );
 }

@@ -9,7 +9,7 @@ import { useHydrated } from "@/lib/useHydrated";
 // The /about Gantt chart: filter chips, the chart, a detail card and a legend.
 // The server renders it with the build date's "Now"; on the client the date
 // is re-read, so the Now line stays right between rebuilds. Every bar is a
-// <button aria-pressed>, and the full list is also printed in <noscript> by
+// <button aria-pressed>, and the full list is also printed in a closed <details> by
 // the page, so nothing here is required to read the content.
 
 const ROW_H = 40; // label + gap + 14px bar + breathing room
@@ -63,6 +63,58 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
     const el = scrollRef.current;
     if (el && el.scrollWidth > el.clientWidth) el.scrollLeft = el.scrollWidth;
   }, []);
+
+  // A sticky label slides only to the end of its track, so near the lane column it
+  // can sit half under it and show a stray fragment (a lone "ting"). After every
+  // scroll and resize: hide the label of a bar that has gone under the lane column,
+  // and shorten a stuck label that no longer fits its track, with an ellipsis.
+  // Runs after the effect above, so it sees the opening scroll position.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    let frame = 0;
+    const fit = () => {
+      frame = 0;
+      const edge = el.getBoundingClientRect().left + (parseFloat(getComputedStyle(el).getPropertyValue("--lane-col")) || 0);
+      el.querySelectorAll<HTMLElement>("[data-tl-label]").forEach((label) => {
+        const s = label.style;
+        s.visibility = s.maxWidth = s.overflow = s.textOverflow = "";
+        const track = label.parentElement!.getBoundingClientRect();
+        const bar = label.parentElement!.nextElementSibling?.getBoundingClientRect();
+        if (bar && bar.right <= edge + 2) {
+          s.visibility = "hidden";
+          return;
+        }
+        if (track.left >= edge + 6) return; // not stuck: resting beside its own bar
+        const room = track.right - (edge + 6);
+        if (room >= label.scrollWidth) return;
+        if (room < 28) {
+          s.visibility = "hidden";
+          return;
+        }
+        s.maxWidth = `${room}px`;
+        s.overflow = "hidden";
+        s.textOverflow = "ellipsis";
+      });
+      // Year labels on the axis: hide one once its text (past the 6px padding) reaches the lane column.
+      el.querySelectorAll<HTMLElement>("[data-tl-axis]").forEach((a) => {
+        a.style.visibility = "";
+        if (a.getBoundingClientRect().left + parseFloat(getComputedStyle(a).paddingLeft) < edge + 1) a.style.visibility = "hidden";
+      });
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(fit);
+    };
+    fit();
+    el.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    document.fonts?.ready.then(schedule);
+    return () => {
+      el.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [selectedId]);
 
   const laneHeight = (rows: number) => LANE_PAD * 2 + rows * ROW_H;
 
@@ -132,6 +184,7 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
                 />
                 {t.label && t.pct <= 96 && (
                   <span
+                    data-tl-axis
                     className="absolute top-1 pl-1.5 font-label text-[13px] font-bold tabular-nums text-ink-2"
                     style={{ left: `${t.pct}%` }}
                   >
@@ -206,8 +259,9 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
                           style={{ width: `${(roomPct / p.width) * 100}%` }}
                         >
                           <span
+                            data-tl-label
                             className={`pointer-events-auto sticky left-[calc(var(--lane-col)+6px)] block w-fit whitespace-nowrap font-label text-[13px] leading-4 text-ink transition-opacity duration-150 motion-reduce:transition-none ${
-                              isSel ? "font-extrabold underline underline-offset-2" : "font-semibold group-hover:underline"
+                              isSel ? "font-[800] underline underline-offset-2" : "font-semibold group-hover:underline"
                             } ${dimLane ? "opacity-60" : ""} group-focus-visible:underline group-focus-visible:decoration-link group-focus-visible:decoration-2`}
                           >
                             {p.item.label}
@@ -263,7 +317,7 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
           <span aria-hidden="true">·</span>
           <span className="font-semibold tabular-nums">{selected.dates}</span>
         </p>
-        <h3 className="mt-2 font-display text-2xl font-extrabold leading-tight text-ink">{selected.title}</h3>
+        <h3 className="mt-2 font-display text-2xl font-[800] leading-tight text-ink">{selected.title}</h3>
         <p className="mt-2 text-ink">{selected.description}</p>
         {selected.quote && (
           <figure className="mt-4 px-4 py-3" style={{ background: tint(selectedLane.color, 0.1) }}>

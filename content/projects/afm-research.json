@@ -3,7 +3,8 @@
   "order": 6,
   "title": "AFM Measurement & Damage Characterization",
   "oneLiner": "Imaging and analysis tools for a Sulchek Lab study of T-cell damage under atomic force microscope (AFM) indentation. This fall I own the damage analysis for 397 indentations on 102 cells, including an imaging pipeline that outlines the indented cell on about 90% of all frames from three days it was never tuned on. Before that, in fall 2025, I built a pipeline that picks out and outlines the indented cell in each frame.",
-  "cardSummary": "Imaging and analysis pipelines for a lab study of T-cell damage under AFM indentation",
+  "cardSummary": "Tools for a lab study of T-cell damage from atomic force microscope (AFM) indentation",
+  "metaDescription": "I build imaging and analysis tools for a Sulchek Lab (Georgia Tech) study of T-cell damage under atomic force microscope (AFM) indentation.",
   "timeframe": "Jun 2025 – present",
   "role": "Undergraduate researcher",
   "organization": "Sulchek Lab, Georgia Tech",
@@ -77,7 +78,7 @@
   ],
   "topMetrics": [
     {
-      "label": "Indented-cell (target) detection on the hardest day",
+      "label": "Detection of the indented cell on the hardest day",
       "value": "62% → 96%"
     },
     {
@@ -209,7 +210,7 @@
   ],
   "lessons": [
     {
-      "text": "Rescoring my first published segmentation results on frames the model never trained on cost the headline number and was still the right call. It's also why every number in this fall's report comes from a script, with a fixed set of numbers that must reproduce after every change. I wrote this fall's code with Claude Code, an AI coding assistant, so that check catches its mistakes as well as mine."
+      "text": "Rescoring my first published segmentation results on frames the model never trained on cost the headline number and was still the right call. It's also why every number in this fall's report comes from a script, with a fixed set of numbers that must reproduce after every change. I wrote this fall's code with Claude Code, an AI coding assistant, and that check catches its mistakes as well as mine."
     },
     {
       "text": "A rule that caught most damage on the indentations it was built from caught one in eight on new days. Writing it down before running it on those days is the only reason I know that, instead of tuning it until it looked good."
