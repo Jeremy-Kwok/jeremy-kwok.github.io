@@ -20,7 +20,7 @@
   "whatIOwnedSummary": "All of it: telemetry ingestion, the layered data store, the KPI definitions, coverage tracking and evidence gating, the risk score and watchlist logic, the daily report and its analysis panel, and the operating guide the service team adopted. Internal details are left out of this page.",
   "topMetrics": [
     {
-      "label": "Controllers across 6 customer sites",
+      "label": "Robot controllers across 6 customer sites",
       "value": "13"
     },
     {

@@ -120,7 +120,7 @@
       "ownedScope": "",
       "requirementOrConstraint": "Phase 2 commits the customer site to a long observational window with the candidate cup on a production gripper. Bench characterization needs to surface envelope failure modes (surface-conditional retention loss, weight-envelope limits) before the customer site is exposed to them, or Phase 2 risks discovering failure modes the rig should have caught.",
       "method": "I ran the Phase 1 bench tests over roughly 2 days on a force/vacuum jig with a KEYENCE digital pressure sensor. For each surface and each weight from 2 to 10 lb, I sealed the cup on the package, recorded the steady vacuum and the pull-off force, then lifted the vacuum module, cup and package for a 10-second airborne hold, recording vacuum at 5 and 10 seconds and noting any slip, seal break, or drop. A pass meant a continuous seal with no more than 10% vacuum decay from the initial steady level. I ran 2 to 3 trials per cell on the standard surfaces. For the tight stretch-wrap surface, I extended the weight envelope past the planned cap because I wanted to characterize the failure mode rather than stop at a procedural boundary. Manufactured-weight packages weren't available at the higher weights, so I used real product samples in the target weight range, which preserves real-surface conditions at the cost of slightly off-grid weight points.",
-      "resultMetric": "Clean pass on corrugate (new and damaged) and slip sheet across the standard envelope. Documented surface-conditional failure on loose stretch-wrap: vacuum decay outside the acceptance threshold and drop events observed. Marginal performance on tight stretch-wrap above the planned weight cap, with lift failure at the highest tested weight. Finding was communicated to the team running Phase 2 at the customer site. The team monitored for the failure mode during field testing, though Phase 2 is observational and the customer controls SKU mix, so the finding didn't drive an operational change at the customer site.",
+      "resultMetric": "Clean pass on corrugate (new and damaged) and slip sheet across the standard envelope. Documented surface-conditional failure on loose stretch-wrap: vacuum decay outside the acceptance threshold and drop events observed. Marginal performance on tight stretch-wrap above the planned weight cap, with lift failure at the highest tested weight. Finding was documented as a known risk going into Phase 2 at the customer site, and the on-site team and I monitored for the failure mode during field testing, though Phase 2 is observational and the customer controls SKU mix, so the finding didn't drive an operational change at the customer site.",
       "evidenceRefs": [
         "methodology-diagram"
       ],
@@ -137,9 +137,9 @@
     },
     {
       "from": "Test Plan",
-      "to": "Customer-site Phase 2 team",
+      "to": "Phase 2 field test (on-site team)",
       "type": "process",
-      "notes": "Plan, Service Log template, and inspection cadence shipped together as the deployment package"
+      "notes": "Plan, Service Log template, and inspection cadence shipped to the site together as the deployment package for the field A/B I led"
     },
     {
       "from": "Phase 2 grippers",
@@ -155,9 +155,9 @@
     },
     {
       "from": "Phase 1 finding (loose stretch-wrap failure mode)",
-      "to": "Phase 2 monitoring team",
+      "to": "Phase 2 field test (on-site team)",
       "type": "process",
-      "notes": "Communicated as known risk; team monitored during field testing without operational change at the customer site"
+      "notes": "Documented as a known risk; monitored during the field A/B I led, without operational change at the customer site"
     }
   ],
   "evidence": [
@@ -167,7 +167,7 @@
       "type": "diagram",
       "url": "/evidence/eoat-supplier-change-qualification/methodology.png",
       "mimeType": "image/png",
-      "note": "Bench characterization (Phase 1) feeds envelope failure modes into the team running Phase 2 (warehouse A/B observation across 30, 60, and 90-day checkpoints). The decision gate applies the pre-specified rule structure. Phase 2 is observational and the customer controls the SKU mix, so the stratification by weight and surface happens in the analysis, where results are binned, not in the test design."
+      "note": "Bench characterization (Phase 1) feeds envelope failure modes into Phase 2 (warehouse A/B observation across 30, 60, and 90-day checkpoints). The decision gate applies the pre-specified rule structure. Phase 2 is observational and the customer controls the SKU mix, so the stratification by weight and surface happens in the analysis, where results are binned, not in the test design."
     },
     {
       "id": "triage-decision-tree",

@@ -241,7 +241,7 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
                             e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
                           }
                         }}
-                        className="group absolute z-10 block text-left cursor-pointer outline-none"
+                        className="group absolute z-10 focus-visible:z-[15] block text-left cursor-pointer outline-none"
                         style={{
                           left: `${p.left}%`,
                           width: `${p.width}%`,
@@ -260,7 +260,7 @@ export default function Timeline({ axis, lanes, items, defaultSelected, buildNow
                         >
                           <span
                             data-tl-label
-                            className={`pointer-events-auto sticky left-[calc(var(--lane-col)+6px)] block w-fit whitespace-nowrap font-label text-[13px] leading-4 text-ink transition-opacity duration-150 motion-reduce:transition-none ${
+                            className={`pointer-events-auto sticky left-[calc(var(--lane-col)+6px)] block w-fit whitespace-nowrap bg-panel font-label text-[13px] leading-4 text-ink transition-opacity duration-150 motion-reduce:transition-none ${
                               isSel ? "font-[800] underline underline-offset-2" : "font-semibold group-hover:underline"
                             } ${dimLane ? "opacity-60" : ""} group-focus-visible:underline group-focus-visible:decoration-link group-focus-visible:decoration-2`}
                           >

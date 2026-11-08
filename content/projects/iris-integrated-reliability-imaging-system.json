@@ -11,9 +11,9 @@
   "teamSize": 1,
   "heroImage": "/evidence/iris-integrated-reliability-imaging-system/station-and-camera-layout.png",
   "tags": [
+    "Mechanical Design",
     "Machine Vision",
     "Optics",
-    "Mechanical Design",
     "Python"
   ],
   "whatIOwnedSummary": "I owned all of it. I set the optical specification and coverage geometry, designed the mechanics and registration scheme, built the capture software and operator console, ran procurement and vendor selection (407 components from seven suppliers), traced the camera-discovery failure, and wrote the handoff documentation set.",
@@ -128,7 +128,7 @@
       "limitations": "The handoff had not been exercised when I left. Nobody had brought the station up using only the documentation, so gaps in it are unknown.\nHave the new owner do a dry run from the runbook alone and record every point where they get stuck."
     }
   ],
-  "outcome": "Built and handed off to operations eight weeks after the project started. The capture software runs end to end on simulated cameras: a full unit goes from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. Commissioning on the line was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced it to the packet level, found that the exception had to be applied centrally by IT, and reproduced it on a second, freshly imaged laptop with IT watching. That shows the firewall alone is enough to stop discovery, not that it is the only fault. I delivered the exception package and runbook before handoff, so the resolution, framing and coverage figures above remain design targets rather than measurements from the line.",
+  "outcome": "Built and handed off to operations eight weeks after the project started. At handoff the tower was built, all 407 components had arrived, and the five cameras were powered and linked to the network, but no image had been taken. The capture software runs end to end on simulated cameras: a full unit goes from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. Commissioning on the line was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced it to the packet level, found that the exception had to be applied centrally by IT, and reproduced it on a second, freshly imaged laptop with IT watching. That shows the firewall alone is enough to stop discovery, not that it is the only fault. I delivered the exception package and runbook before handoff, so the resolution, framing and coverage figures above remain design targets rather than measurements from the line.",
   "interfaces": [
     {
       "from": "Camera (x5)",

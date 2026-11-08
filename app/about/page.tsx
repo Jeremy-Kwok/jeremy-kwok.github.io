@@ -179,6 +179,8 @@ export default function AboutPage() {
                     width={blockparty.imageSizes[m.image]?.width}
                     height={blockparty.imageSizes[m.image]?.height}
                     loading="lazy"
+                    // The source crops are only ~406px wide; don't enlarge them past that.
+                    style={{ maxWidth: (blockparty.imageSizes[m.image]?.width ?? 0) + 2 || undefined }}
                     className="w-full h-auto border border-rule bg-panel"
                   />
                   <p className="mt-2 flex items-center gap-2 font-label text-[13px] font-bold text-ink-2">

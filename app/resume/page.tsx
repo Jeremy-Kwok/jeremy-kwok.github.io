@@ -3,6 +3,7 @@ import PageShell from "@/components/PageShell";
 import { RESUME_PATH, SITE_NAME } from "@/lib/site";
 import { loadResumeImage } from "@/lib/resumeContent";
 import { ogImage } from "@/lib/ogCard";
+import PriorityImg from "@/components/PriorityImg";
 
 const description = `Resume of ${SITE_NAME}: B.S. Mechanical Engineering, Georgia Tech, December 2026. Engineering internships at Bloom Energy and Mujin; AFM research.`;
 
@@ -45,8 +46,7 @@ export default function ResumePage() {
       {image && largest && (
         <>
           <a href={RESUME_PATH} className="mt-6 block max-w-[850px] border border-hairline bg-white">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <PriorityImg
               src={largest.src}
               srcSet={image.variants.map((v) => `${v.src} ${v.w}w`).join(", ")}
               sizes="(min-width: 960px) 850px, 100vw"

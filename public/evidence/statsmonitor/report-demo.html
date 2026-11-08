@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,6 +123,7 @@
 </head>
 <body>
 <nav class="site-bar"><a href="/projects/statsmonitor/">&larr; StatsMonitor project page</a><a href="/">Jeremy Kwok</a></nav>
+<main>
 
 <h1>EOAT Reliability Watchlist</h1>
 <div style="background:#fff8e1;border:1px solid #ffe08a;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#5b4b00;"><b>Sample / sanitized demo.</b> All company names, controller IDs and metrics on this page are randomly generated for portfolio purposes. No real customer data is shown.</div>
@@ -136,27 +137,27 @@
 
         <div>
             <div style="font-size:12px;color:#666;">Controller A</div>
-            <select id="controllerA"></select>
+            <select id="controllerA" aria-label="Controller A"></select>
         </div>
 
         <div>
             <div style="font-size:12px;color:#666;">Controller B</div>
-            <select id="controllerB"></select>
+            <select id="controllerB" aria-label="Controller B"></select>
         </div>
 
         <div>
             <div style="font-size:12px;color:#666;">Start Date</div>
-            <input type="date" id="startA">
+            <input type="date" id="startA" aria-label="Start date">
         </div>
 
         <div>
             <div style="font-size:12px;color:#666;">End Date</div>
-            <input type="date" id="endA">
+            <input type="date" id="endA" aria-label="End date">
         </div>
 
         <div>
             <div style="font-size:12px;color:#666;">Chart Type</div>
-            <select id="chartTypeSelect">
+            <select id="chartTypeSelect" aria-label="Chart type">
                 <option value="line">Line</option>
                 <option value="bar">Bar</option>
             </select>
@@ -164,7 +165,7 @@
 
         <div>
             <div style="font-size:12px;color:#666;">Granularity</div>
-            <select id="granularitySelect" style="font-size:13px;padding:2px 4px;">
+            <select id="granularitySelect" aria-label="Granularity" style="font-size:13px;padding:2px 4px;">
                 <option value="daily" selected>Daily</option>
                 <option value="weekly">Weekly</option>
             </select>
@@ -2719,6 +2720,7 @@
         </div>
         
 
+</main>
 <script src="chart-4.6.1.umd.min.js"></script>
 <script>
 // Injected by render_report.py — category config for zero-filling
