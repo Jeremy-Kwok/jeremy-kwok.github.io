@@ -2,6 +2,7 @@ import { responsiveImage } from "@/lib/images";
 import type { EvidenceItem } from "@/lib/schema";
 import { detectFormatKind } from "@/lib/evidenceRender";
 import { safeExternalUrl } from "@/lib/externalUrl";
+import { SITE_URL } from "@/lib/site";
 import EvidenceTypeChip from "@/components/EvidenceTypeChip";
 
 // Read-only adaptation of Enport's ArtifactsSection: images in a grid,
@@ -11,6 +12,10 @@ import EvidenceTypeChip from "@/components/EvidenceTypeChip";
 
 interface EvidenceListProps {
   evidence: EvidenceItem[];
+  // The page's hero image and its `sizes`: that item's thumbnail uses the same
+  // `sizes`, so the browser picks the file it already downloaded for the hero.
+  heroImage?: string;
+  heroSizes?: string;
 }
 
 function hrefFor(item: EvidenceItem): string | null {
@@ -18,11 +23,28 @@ function hrefFor(item: EvidenceItem): string | null {
   return item.url.startsWith("/") ? item.url : safeExternalUrl(item.url);
 }
 
+// A page on this site (the StatsMonitor report demo, the About walkthrough)
+// opens in place, so Back returns to the project. Files open in a new tab.
 function isSitePage(href: string): boolean {
-  return href.startsWith("/") && /\.html?$/i.test(href);
+  try {
+    const url = new URL(href, SITE_URL);
+    if (url.origin.toLowerCase() !== new URL(SITE_URL).origin.toLowerCase()) return false;
+    return url.pathname.endsWith("/") || /\.html?$/i.test(url.pathname);
+  } catch {
+    return false;
+  }
 }
 
-export default function EvidenceList({ evidence }: EvidenceListProps) {
+// Thumbnails are drawn object-contain in a 16:9 box, so a tall image (a robot
+// photo) is shown much narrower than the box. Scale `sizes` by that so the
+// browser doesn't fetch a variant three times wider than it draws.
+function thumbSizes(width?: number, height?: number): string {
+  const f = width && height ? Math.min(1, width / height / (16 / 9)) : 1;
+  const r = (n: number) => Math.ceil(n * f);
+  return `(min-width: 960px) ${r(430)}px, (min-width: 640px) ${r(50)}vw, ${r(100)}vw`;
+}
+
+export default function EvidenceList({ evidence, heroImage, heroSizes }: EvidenceListProps) {
   const images = evidence.filter((e) => hrefFor(e) && detectFormatKind(e) === "image");
   const rows = evidence.filter((e) => !images.includes(e));
 
@@ -32,6 +54,7 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           {images.map((item) => {
             const href = hrefFor(item)!;
+            const img = responsiveImage(href);
             return (
               <figure
                 key={item.id}
@@ -41,8 +64,8 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
                 <a href={href} target="_blank" rel="noopener noreferrer" className="block bg-panel">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    {...responsiveImage(href)}
-                    sizes="(min-width: 960px) 430px, (min-width: 640px) 50vw, 100vw"
+                    {...img}
+                    sizes={item.url === heroImage && heroSizes ? heroSizes : thumbSizes(img.width, img.height)}
                     alt={item.label}
                     loading="lazy"
                     className="w-full aspect-video object-contain"
@@ -73,8 +96,6 @@ export default function EvidenceList({ evidence }: EvidenceListProps) {
                   {href ? (
                     <a
                       href={href}
-                      // A page hosted on this site (the StatsMonitor report
-                      // demo) opens in place, so Back returns to the project.
                       {...(isSitePage(href) ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                       className="-my-[5px] py-[5px] text-xs text-blue-600 hover:underline flex-shrink-0"
                     >

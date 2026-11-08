@@ -78,7 +78,7 @@
   ],
   "topMetrics": [
     {
-      "label": "Detection of the indented cell on the hardest day",
+      "label": "Frames where the tool found the cell being indented, on the hardest day",
       "value": "62% → 96%"
     },
     {

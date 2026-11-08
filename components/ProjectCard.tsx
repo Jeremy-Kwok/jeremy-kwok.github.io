@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Project } from "@/lib/schema";
 import { WorkTypeBadges } from "@/components/WorkTypeBadge";
 import { aspectRatio, projectThumbnail, responsiveImage } from "@/lib/images";
+import PriorityImg from "@/components/PriorityImg";
 
 // Adapted from Enport's ProjectCard: no owner byline, no crop-box thumbnail
 // math. The thumbnail is the card image, else the hero image, else the first
@@ -63,8 +64,7 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
   return (
     <div className="group relative border border-hairline bg-panel transition-colors duration-150 hover:border-ink has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-link">
       {thumb ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <PriorityImg
           src={thumb.src}
           srcSet={thumb.srcSet}
           sizes="(min-width: 960px) 430px, (min-width: 640px) 50vw, 100vw"

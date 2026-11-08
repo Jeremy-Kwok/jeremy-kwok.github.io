@@ -7,6 +7,7 @@ import ClaimCard from "@/components/ClaimCard";
 import DecisionPath from "@/components/DecisionPath";
 import InterfacesTable from "@/components/InterfacesTable";
 import EvidenceList from "@/components/EvidenceList";
+import PriorityImg from "@/components/PriorityImg";
 
 // The read-only half of Enport's ProjectPreview: same section order and the
 // same Tailwind classes, with every edit, roster, highlight and upload
@@ -61,8 +62,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
             className="block"
             aria-label={`${project.evidence.find((e) => e.url === project.heroImage)?.label ?? project.title}, full size (opens in a new tab)`}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <PriorityImg
               {...hero}
               sizes={heroSizes}
               alt=""
@@ -156,7 +156,7 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
       {project.evidence.length > 0 && (
         <section id="evidence" className="mt-12">
           <h2 className="font-display text-2xl leading-tight text-ink mb-4">Evidence</h2>
-          <EvidenceList evidence={project.evidence} />
+          <EvidenceList evidence={project.evidence} heroImage={!cad && hero ? project.heroImage : undefined} heroSizes={heroSizes} />
         </section>
       )}
 
