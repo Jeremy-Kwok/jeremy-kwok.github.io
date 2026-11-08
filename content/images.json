@@ -162,6 +162,21 @@
       }
     ]
   },
+  "/evidence/mechanical-builds/card.jpg": {
+    "sha256": "677b8f798636d318450154cffee9f0b868c3db977842b4ebaed2e314ffdeb411",
+    "width": 768,
+    "height": 400,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/mechanical-builds/_w/card-480.webp"
+      },
+      {
+        "w": 768,
+        "src": "/evidence/mechanical-builds/_w/card-768.webp"
+      }
+    ]
+  },
   "/evidence/mechanical-builds/excelsior.jpg": {
     "sha256": "ecdb707ed6404c951a15e31bd62d612532bb9a8be08af884ab6cf7709a6742c0",
     "width": 1600,

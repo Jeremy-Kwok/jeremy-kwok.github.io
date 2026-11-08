@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Python with native OpenCascade for `npm run cad` (gitignored).
     ".cad-venv/**",
+    // Vendored, minified libraries (Chart.js for the StatsMonitor demo).
+    "public/**/*.min.js",
   ]),
 ]);
 

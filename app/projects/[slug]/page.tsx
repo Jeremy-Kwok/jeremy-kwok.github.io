@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = getProject(slug);
   if (!project) return { title: 'Project not found' };
 
-  const description = shareDescription(project.oneLiner);
+  const description = project.metaDescription ?? shareDescription(project.oneLiner);
   const url = `/projects/${slug}/`;
   const image = ogImage(slug, project.title);
 

@@ -73,8 +73,8 @@ export default function ProjectBody({ project }: ProjectBodyProps) {
         </div>
       )}
 
-      {/* Header */}
-      <div id="header">
+      {/* Overview (not id="header": reader-mode extractors drop anything named header) */}
+      <div id="overview">
         <WorkTypeBadges value={project.workType} className="mb-1.5" />
         <h1 className="font-display text-[clamp(30px,6vw,44px)] leading-[1.05] text-ink">{project.title}</h1>
         <p className="text-base text-zinc-500 mt-2 leading-relaxed">{project.oneLiner}</p>

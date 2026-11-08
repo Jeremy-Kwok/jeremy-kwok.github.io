@@ -4,6 +4,7 @@
   "title": "MedLock: A Guided Prep Station for IVF Injections",
   "oneLiner": "A tabletop station that walks IVF patients through preparing an injection at home, then images the syringe to check the volume and air before they inject. I do all of the CAD on a team of six. The first prototype (Rev0) is being fabricated and assembled now, so the figures here are design targets, not measurements.",
   "cardSummary": "Tabletop station that guides IVF injection prep and checks the syringe by camera",
+  "metaDescription": "I do all of the CAD for MedLock, a Georgia Tech capstone: a tabletop station that guides IVF injection prep and checks the syringe by camera.",
   "timeframe": "Aug – Dec 2026",
   "role": "Mechanical design (all CAD)",
   "organization": "Georgia Tech CREATE-X Capstone",
@@ -75,11 +76,11 @@
       "ownedScope": "Station CAD and layout",
       "requirementOrConstraint": "Fit the supply tray, the imaging dock and the control unit on one baseplate, in the order a patient works through a preparation. Hold three custom PCBs, a Raspberry Pi 3B, a Pi camera, a 2.8\" display and a rotary encoder. Every printed part fits a common FDM printer, and the prototype costs at most $300.",
       "method": "Built the station in Onshape around the parts that couldn't change: the PCB outlines from KiCad, the Pi, the camera module and the display. The main PCB sits on M2 standoffs inside the control unit, with the display and knob on its sloped face toward the user. A cable cover runs from the control unit to the imaging dock. The baseplate is laser-cut plywood because it's too big to print.",
-      "resultMetric": "Rev0 was complete in CAD and fabrication-ready by the end of October. The parts list comes to $270.88 with a 10% reserve, against the $300 target and the $1,000 course budget.",
+      "resultMetric": "Rev0 was complete in CAD and fabrication-ready by the end of October. The parts list comes to $270.88 with a 10% reserve, against the $300 target and the $1,000 course budget. That total doesn't yet include the main and seat-sensor PCBs, which were ordered separately.",
       "evidenceRefs": [
         "rev0-cad"
       ],
-      "limitations": "The cost doesn't yet include the main PCB or the seat-sensor PCB, and nothing has been assembled and tested yet."
+      "limitations": "Nothing has been assembled and tested yet."
     },
     {
       "title": "Designed the imaging dock so the syringe loads in one motion and is only imaged when seated",
@@ -117,7 +118,7 @@
       "limitations": "The sample is small, with one fertility clinic among the interviews, and the survey results aren't in yet."
     }
   ],
-  "outcome": "In progress. Rev0 was complete in CAD and fabrication-ready at the end of October, and fabrication and assembly are under way. The three PCBs passed KiCad's electrical and design rule checks, and the interface runs against a simulated backend. Next come bench tests: volume accuracy on a 0.01 g balance at five volumes with 20 placements each, more than 100 randomized air cases, and 50 seat loads. Usability sessions with clinicians and patients follow. I'll replace the design targets above with measurements as they come in.",
+  "outcome": "In progress. Rev0 was complete in CAD and fabrication-ready at the end of October, and fabrication and assembly are under way. The three PCBs passed KiCad's electrical and design rule checks, and the interface runs against a simulated backend. Next is design verification against the eight specifications, including volume accuracy on a 0.01 g balance at five volumes with 20 placements each, air detection on at least 100 randomized preparations with air below, at and above 0.10 mL, false passes on a blinded test set, 50 seat loads and time to result. Usability sessions with clinicians and patients follow, which also check that users understand the result. I'll replace the design targets above with measurements as they come in.",
   "interfaces": [
     {
       "from": "Syringe flange",

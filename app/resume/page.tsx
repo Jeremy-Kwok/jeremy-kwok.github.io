@@ -4,7 +4,7 @@ import { RESUME_PATH, SITE_NAME } from "@/lib/site";
 import { loadResumeImage } from "@/lib/resumeContent";
 import { ogImage } from "@/lib/ogCard";
 
-const description = `Resume of ${SITE_NAME}, mechanical engineer.`;
+const description = `Resume of ${SITE_NAME}: B.S. Mechanical Engineering, Georgia Tech, December 2026. Engineering internships at Bloom Energy and Mujin; AFM research.`;
 
 export const metadata: Metadata = {
   title: "Resume",

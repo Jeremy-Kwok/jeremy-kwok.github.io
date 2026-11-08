@@ -3,17 +3,19 @@
   "order": 4,
   "title": "Mechanical builds",
   "oneLiner": "BlockParty, a fully autonomous robot my team built that won the Best Design Award in ME 2110, Georgia Tech’s sophomore design course. Plus high school FIRST Robotics Competition (FRC): the pneumatics on two robots, and second in command on the swerve drivetrain.",
-  "cardSummary": "Autonomous robot that won ME 2110’s Best Design Award, plus FRC robot pneumatics",
+  "cardSummary": "Autonomous robot that won ME 2110’s Best Design Award, plus high school robot pneumatics",
+  "metaDescription": "I helped build BlockParty, the autonomous robot that won ME 2110’s Best Design Award at Georgia Tech, and owned the pneumatics on two FIRST robots.",
   "timeframe": "2022 – 2025",
   "role": "Team member (BlockParty); Director of Pneumatics (FRC)",
   "heroImage": "/evidence/mechanical-builds/excelsior.jpg",
+  "cardImage": "/evidence/mechanical-builds/card.jpg",
   "tags": [
     "Mechanical Design",
     "Pneumatics",
     "Fabrication",
     "Robotics"
   ],
-  "whatIOwnedSummary": "BlockParty: a team project, so these were team decisions. My part: prototyping and fabricating our first mechanism, laser-cutting parts for another, ideation and testing on the bag arm, and the code for our first sprint. FRC: I owned the pneumatics on both robots, and was second in command on the swerve drivetrain: some of the CAD, building swerve modules and one-piece bumpers, fabrication, and training rookies to build the rest.",
+  "whatIOwnedSummary": "BlockParty: a team project, so these were team decisions. My part: prototyping and fabricating our first mechanism, laser-cutting parts for another, ideation and testing on the bag arm, and the code for our first sprint. FRC: I owned the pneumatics on both robots, and was second in command on the swerve drivetrain: some of the CAD, building some of the swerve modules and the one-piece bumpers, fabrication, and training rookies to build the rest.",
   "topMetrics": [
     {
       "label": "BlockParty",
@@ -31,7 +33,7 @@
       "requirementOrConstraint": "Three judged sprints building toward a fully autonomous robot.",
       "method": "We generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, we designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
       "resultMetric": "The robot ran fully autonomously in competition.",
-      "evidenceRefs": ["blockparty-poster"],
+      "evidenceRefs": ["blockparty-poster", "blockparty-walkthrough"],
       "limitations": ""
     },
     {
@@ -47,7 +49,7 @@
       "title": "FRC drivetrain, Excelsior and Jim (High school, 2022–2023): second in command on the swerve drivetrain",
       "ownedScope": "",
       "requirementOrConstraint": "",
-      "method": "Did some of the drivetrain CAD, built and tested swerve modules, built the one-piece bumpers, and fabricated parts.",
+      "method": "Did some of the drivetrain CAD, built and tested some of the swerve modules, built the one-piece bumpers, and fabricated parts.",
       "resultMetric": "Trained rookies to build the rest of the swerve modules.",
       "evidenceRefs": ["jim"],
       "limitations": ""
@@ -78,6 +80,13 @@
       "url": "/evidence/mechanical-builds/blockparty-poster.jpg",
       "mimeType": "image/jpeg",
       "note": "ME 2110 final poster from our four-person team: mechanisms, design approach, and fabrication."
+    },
+    {
+      "id": "blockparty-walkthrough",
+      "label": "BlockParty 3D design walkthrough",
+      "type": "other",
+      "url": "https://jeremy-kwok.github.io/about/#walkthrough",
+      "note": "Interactive model of the robot on my About page, stepping through each mechanism."
     }
   ],
   "workType": [

@@ -14,6 +14,10 @@ export const INTRO =
 export const TARGET_ROLES =
   'Full-time mechanical, mechatronics or test engineering roles in robotics and medical devices, after I graduate in December 2026. Open to relocating.';
 
+// The homepage's one-line tool list, from the resume's Skills section.
+export const TOOLS =
+  'SolidWorks (CSWA), Onshape, MATLAB, Python, machine shop tools, 3D printing, laser cutting and soldering.';
+
 // Public copy (no phone number). The build warns if it is missing.
 export const RESUME_PATH = '/Jeremy-Kwok-Resume.pdf';
 
