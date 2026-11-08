@@ -41,7 +41,7 @@
       "ownedScope": "",
       "requirementOrConstraint": "",
       "method": "Installed the compressors, set pressure and flow regulators so each mechanism got the right force and piston extension speed, added manual and automatic release valves for safety, and routed the tubing so every mechanism got the supply it needed.",
-      "resultMetric": "Owned the pneumatic systems on two robots end to end.",
+      "resultMetric": "Owned the pneumatic systems on two robots end to end, and kept them working through each season: patching leaks at the tank, and recutting tubing that had been cut at an angle so the fittings sealed.",
       "evidenceRefs": ["excelsior"],
       "limitations": ""
     },
@@ -50,7 +50,7 @@
       "ownedScope": "",
       "requirementOrConstraint": "",
       "method": "Did some of the drivetrain CAD, built and tested some of the swerve modules, built the one-piece bumpers, and fabricated parts.",
-      "resultMetric": "Trained rookies to build the rest of the swerve modules.",
+      "resultMetric": "Trained rookies to build the rest of the swerve modules. At competitions I kept the modules running, repairing any that were damaged in a match.",
       "evidenceRefs": ["jim"],
       "limitations": ""
     }

@@ -16,7 +16,7 @@
     "Optics",
     "Python"
   ],
-  "whatIOwnedSummary": "I owned all of it. I set the optical specification and coverage geometry, designed the mechanics and registration scheme, built the capture software and operator console, ran procurement and vendor selection (407 components from seven suppliers), traced the camera-discovery failure, and wrote the handoff documentation set.",
+  "whatIOwnedSummary": "I owned all of it. I set the optical specification and coverage geometry, designed the mechanics and registration scheme, built the tower myself (the frame, the 3D-printed camera mounts, the camera plate and all the wiring), built the capture software and operator console, ran procurement and vendor selection (407 components from seven suppliers), traced the camera-discovery failure, and wrote the handoff documentation set.",
   "path": [
     {
       "stage": "Need discovery",
@@ -128,7 +128,7 @@
       "limitations": "Nobody had brought the station up from the documentation alone when I left, so its gaps are unknown.\nHave the new owner do a dry run from the runbook alone and record every point where they get stuck."
     }
   ],
-  "outcome": "Built and handed off to operations eight weeks after the project started. At handoff the tower was built, all 407 components had arrived, and the five cameras were powered and linked to the network. The capture software ran end to end on simulated cameras: a full unit, from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. The station had not taken a real image yet. Commissioning was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced the drop at the packet level to the specific firewall rule and blocked process, reproduced it on a second, freshly imaged laptop with IT watching, and delivered the exception package IT needed to apply centrally, along with a commissioning runbook. That shows the firewall alone is enough to stop discovery, not that it is the only fault. Until the station runs on the line, the resolution, framing and coverage figures on this page are design targets.",
+  "outcome": "Built and handed off to operations eight weeks after the project started. At handoff I had built the tower, all 407 components had arrived, and the five cameras were powered and linked to the network. The capture software ran end to end on simulated cameras: a full unit, from serial entry through focus- and exposure-gated capture in a browser, at one, two and five cameras. The station had not taken a real image yet. Commissioning was blocked because Bloom's managed Windows laptops dropped the cameras' discovery replies. I traced the drop at the packet level to the specific firewall rule and blocked process, reproduced it on a second, freshly imaged laptop with IT watching, and delivered the exception package IT needed to apply centrally, along with a commissioning runbook. That shows the firewall alone is enough to stop discovery, not that it is the only fault. Until the station runs on the line, the resolution, framing and coverage figures on this page are design targets.",
   "interfaces": [
     {
       "from": "Camera (x5)",
@@ -193,13 +193,7 @@
       "text": "I was project owner, mechanical designer, software engineer, and network debugger at once, so every trade-off went through me. Choosing an aperture for depth of field was also choosing how precisely an operator would have to position a cart. Owning both ends made those couplings visible in a way a specialist role would not have."
     },
     {
-      "text": "Reliability and Operations each set constraints that shaped the design fundamentally. Reliability needing every region imaged is what drove the five-camera layout. I learned to find the binding constraint from each group early rather than designing and then seeking approval."
-    },
-    {
       "text": "Procurement shaped the build as much as the analysis did. The requirement picked the camera and lens, but supplier onboarding decided where the lens came from, and the station PC's lead time forced the software to run on any host. Treating procurement as an engineering input rather than an administrative step would have changed my sequencing from the start."
-    },
-    {
-      "text": "Designing the handoff early changed what I built. Knowing I would not be the one commissioning the station is why camera count is set in a configuration file (as opposed to being hard-coded), and why the readiness check prints fixes rather than error codes."
     },
     {
       "text": "IT was the stakeholder I did not think to consult. Reliability and Operations were obvious sources of requirements; the corporate network was infrastructure I assumed would just work. It became the binding constraint. On any project touching managed IT systems, I would have a meeting with them outlining the requirements of the project in week one."

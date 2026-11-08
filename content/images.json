@@ -49,7 +49,7 @@
     ]
   },
   "/evidence/eoat-supplier-change-qualification/card.png": {
-    "sha256": "a57110a244a099b650893e76f470fb01552edc26e29743374f3ace7eea490a44",
+    "sha256": "161762698393a293a73cc4b2c44edf46f16ba423d3daddf6caec6ad19902f73d",
     "width": 1600,
     "height": 833,
     "variants": [
@@ -234,25 +234,6 @@
       }
     ]
   },
-  "/evidence/statsmonitor/card.png": {
-    "sha256": "e24c84d3ee8524654cb31c1359b5032db87c0e4f8c993042950affafe20f5247",
-    "width": 1428,
-    "height": 744,
-    "variants": [
-      {
-        "w": 480,
-        "src": "/evidence/statsmonitor/_w/card-480.webp"
-      },
-      {
-        "w": 960,
-        "src": "/evidence/statsmonitor/_w/card-960.webp"
-      },
-      {
-        "w": 1428,
-        "src": "/evidence/statsmonitor/_w/card-1428.webp"
-      }
-    ]
-  },
   "/evidence/statsmonitor/system-context.png": {
     "sha256": "06dbce42e1e756dc848ee5760466ec120bf2435bad483777ed23f4d5f712aa53",
     "width": 2800,
@@ -269,6 +250,25 @@
       {
         "w": 1600,
         "src": "/evidence/statsmonitor/_w/system-context-1600.webp"
+      }
+    ]
+  },
+  "/evidence/statsmonitor/watchlist-card.png": {
+    "sha256": "4dac6a6780f9a9dbf1590716bbf30ae1c90277aaee89c4ffb12adbd5b28b7048",
+    "width": 1600,
+    "height": 843,
+    "variants": [
+      {
+        "w": 480,
+        "src": "/evidence/statsmonitor/_w/watchlist-card-480.webp"
+      },
+      {
+        "w": 960,
+        "src": "/evidence/statsmonitor/_w/watchlist-card-960.webp"
+      },
+      {
+        "w": 1600,
+        "src": "/evidence/statsmonitor/_w/watchlist-card-1600.webp"
       }
     ]
   }
