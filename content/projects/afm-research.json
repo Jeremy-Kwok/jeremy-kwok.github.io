@@ -192,7 +192,7 @@
       "label": "Fall 2025 segmentation repo",
       "type": "repo",
       "url": "https://github.com/Jeremy-Kwok/afm-segmentation-pipeline",
-      "note": "Fine-tuning, inference with the selection rule, and the held-out evaluation. Image data and weights aren't included: they come from unpublished lab data."
+      "note": "Fine-tuning, inference with the selection rule, and the held-out evaluation. The training data and model weights aren't included. The notebook's outputs and two figures show example frames."
     },
     {
       "id": "annotation-repo",

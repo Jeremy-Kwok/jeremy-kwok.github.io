@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
-import { RESUME_PATH, SITE_NAME } from "@/lib/site";
+import { RESUME_PATH, SITE_NAME, SITE_URL } from "@/lib/site";
 import { loadResumeImage } from "@/lib/resumeContent";
 import { ogImage } from "@/lib/ogCard";
 import PriorityImg from "@/components/PriorityImg";
@@ -20,6 +20,20 @@ export const metadata: Metadata = {
     images: [ogImage("site", SITE_NAME)],
   },
 };
+
+// A link to this site becomes a path, so it opens in the same tab (and works
+// on a local build). Google Docs writes a typed link as http://, so either
+// scheme counts. Other web links open in a new tab.
+function sitePath(url: string): string | null {
+  try {
+    const u = new URL(url);
+    return /^https?:$/.test(u.protocol) && u.hostname === new URL(SITE_URL).hostname ? `${u.pathname}${u.search}${u.hash}` : null;
+  } catch {
+    return null;
+  }
+}
+
+const pct = (n: number) => `${(n * 100).toFixed(3)}%`;
 
 // The resume itself, as an image rendered from the PDF (`npm run images`), so
 // it's on screen the moment the page opens, on any phone. The PDF is one tap
@@ -45,18 +59,41 @@ export default function ResumePage() {
 
       {image && largest && (
         <>
-          <a href={RESUME_PATH} className="mt-6 block max-w-[850px] border border-hairline bg-white">
-            <PriorityImg
-              src={largest.src}
-              srcSet={image.variants.map((v) => `${v.src} ${v.w}w`).join(", ")}
-              sizes="(min-width: 960px) 850px, 100vw"
-              width={image.width}
-              height={image.height}
-              alt="Jeremy Kwok’s resume. The full text is below, under Text version."
-              fetchPriority="high"
-              className="block h-auto w-full"
-            />
-          </a>
+          <div className="relative mt-6 max-w-[850px] border border-hairline bg-white">
+            <a href={RESUME_PATH} className="block">
+              <PriorityImg
+                src={largest.src}
+                srcSet={image.variants.map((v) => `${v.src} ${v.w}w`).join(", ")}
+                sizes="(min-width: 960px) 850px, 100vw"
+                width={image.width}
+                height={image.height}
+                alt="Jeremy Kwok’s resume. The full text is below, under Text version."
+                fetchPriority="high"
+                className="block h-auto w-full"
+              />
+            </a>
+            {/* The PDF's own links, laid over the picture of it so they work here too.
+                Each is 3px taller above and below than the words, for a phone tap. */}
+            {image.links.map((link) => {
+              const path = sitePath(link.url);
+              const external = !path && /^https?:/i.test(link.url);
+              return (
+                <a
+                  key={`${link.url}@${link.x},${link.y}`}
+                  href={path ?? link.url}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  aria-label={link.text}
+                  className="absolute hover:bg-link/15 focus-visible:outline-2 focus-visible:outline-link"
+                  style={{
+                    left: pct(link.x),
+                    top: `calc(${pct(link.y)} - 3px)`,
+                    width: pct(link.w),
+                    height: `calc(${pct(link.h)} + 6px)`,
+                  }}
+                />
+              );
+            })}
+          </div>
           <details className="mt-4 max-w-[850px] border border-hairline bg-panel">
             <summary className="cursor-pointer px-4 py-2.5 font-label text-[15px] font-semibold text-ink">Text version</summary>
             <div className="whitespace-pre-line border-t border-hairline px-4 py-3 text-[15px] leading-relaxed text-ink">{image.text}</div>

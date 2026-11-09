@@ -45,7 +45,9 @@ function thumbSizes(width?: number, height?: number): string {
 }
 
 export default function EvidenceList({ evidence, heroImage, heroSizes }: EvidenceListProps) {
-  const images = evidence.filter((e) => hrefFor(e) && detectFormatKind(e) === "image");
+  // Clips hosted here, with a poster, play in the grid beside the photos.
+  const isClip = (e: EvidenceItem) => detectFormatKind(e) === "video" && !!e.poster && !!e.url?.startsWith("/");
+  const images = evidence.filter((e) => hrefFor(e) && (detectFormatKind(e) === "image" || isClip(e)));
   const rows = evidence.filter((e) => !images.includes(e));
 
   return (
@@ -54,13 +56,25 @@ export default function EvidenceList({ evidence, heroImage, heroSizes }: Evidenc
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           {images.map((item) => {
             const href = hrefFor(item)!;
-            const img = responsiveImage(href);
+            const img = isClip(item) ? null : responsiveImage(href);
             return (
               <figure
                 key={item.id}
                 id={`evidence-${item.id}`}
                 className="border border-hairline overflow-hidden bg-panel scroll-mt-20"
               >
+                {!img ? (
+                  // preload="none": nothing downloads until someone presses play.
+                  <video
+                    src={href}
+                    poster={item.poster}
+                    controls
+                    playsInline
+                    preload="none"
+                    aria-label={item.label}
+                    className="block w-full aspect-video bg-black object-contain"
+                  />
+                ) : (
                 <a href={href} target="_blank" rel="noopener noreferrer" className="block bg-panel">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -71,6 +85,7 @@ export default function EvidenceList({ evidence, heroImage, heroSizes }: Evidenc
                     className="w-full aspect-video object-contain"
                   />
                 </a>
+                )}
                 <figcaption className="border-t border-zinc-200 px-3 py-2">
                   <div className="flex items-center gap-2">
                     <EvidenceTypeChip type={item.type} />

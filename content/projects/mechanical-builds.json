@@ -7,15 +7,15 @@
   "metaDescription": "I helped build BlockParty, the autonomous robot that won ME 2110’s Best Design Award at Georgia Tech, and owned the pneumatics on two FIRST robots.",
   "timeframe": "2022 – 2025",
   "role": "Team member (BlockParty); Director of Pneumatics (FRC)",
-  "heroImage": "/evidence/mechanical-builds/excelsior.jpg",
-  "cardImage": "/evidence/mechanical-builds/card.jpg",
+  "cad": "blockparty",
+  "cardImage": "/evidence/mechanical-builds/blockparty-field.jpg",
   "tags": [
     "Mechanical Design",
     "Pneumatics",
     "Fabrication",
     "Robotics"
   ],
-  "whatIOwnedSummary": "BlockParty: a team project, so these were team decisions. My part: prototyping and fabricating our first mechanism, laser-cutting parts for another, ideation and testing on the bag arm, and the code for our first sprint. FRC: I owned the pneumatics on both robots, and was second in command on the swerve drivetrain: some of the CAD, building some of the swerve modules and the one-piece bumpers, fabrication, and training rookies to build the rest.",
+  "whatIOwnedSummary": "BlockParty: a team project, so these were team decisions. My part: prototyping and fabricating our first mechanism (the sprint 1 ore intake), laser-cutting parts for another, ideation and testing on the bag arm, and the code for our first sprint. FRC: I owned the pneumatics on both robots, and was second in command on the swerve drivetrain: some of the CAD, building some of the swerve modules and the one-piece bumpers, fabrication, and training rookies to build the rest.",
   "topMetrics": [
     {
       "label": "BlockParty",
@@ -33,30 +33,120 @@
       "requirementOrConstraint": "Three judged sprints building toward a fully autonomous robot.",
       "method": "We generated concepts with a morph chart and chose among them with a weighted evaluation matrix. Over the three sprints, we designed, fabricated, and tested the mechanisms: pneumatic pistons, solenoids, motors, and mouse-trap actuators, under Arduino control.",
       "resultMetric": "The robot ran fully autonomously in competition.",
-      "evidenceRefs": ["blockparty-poster", "blockparty-walkthrough"],
+      "evidenceRefs": [
+        "ore-arms-run",
+        "carriage-run",
+        "blockparty-poster",
+        "blockparty-walkthrough"
+      ],
       "limitations": ""
+    },
+    {
+      "title": "BlockParty sprint 1 (Feb 2025): prototyped and built the ore intake, a static ramp first, then a motor",
+      "ownedScope": "",
+      "requirementOrConstraint": "Sprint 1: get to the rotating tower and sweep its ore onto our side of the field.",
+      "method": "Our first version had no moving parts: a static ramp shaped like a /, so the rotating tower would carry the ore onto it and down into our field. Testing showed the ore could ride the tower without ever sliding off, so we added a motor that sweeps it off instead of waiting for it to fall. The clips show the motor version being tested on the tower's top in February, and the sprint 1 carriage parked against the rotating tower.",
+      "resultMetric": "The ramp alone didn't always work: sometimes the ore just slipped along the tower as it rotated and never slid off. We switched to a motor that sweeps the ore off. I prototyped and fabricated the mechanism.",
+      "evidenceRefs": [
+        "sweeper-test",
+        "sprint1-tower"
+      ],
+      "limitations": "",
+      "anchor": "sprint-1"
     },
     {
       "title": "FRC pneumatics, Excelsior and Jim (High school, 2022–2023): Director of Pneumatics",
       "ownedScope": "",
       "requirementOrConstraint": "",
       "method": "Installed the compressors, set pressure and flow regulators so each mechanism got the right force and piston extension speed, added manual and automatic release valves for safety, and routed the tubing so every mechanism got the supply it needed.",
-      "resultMetric": "Owned the pneumatic systems on two robots end to end.",
-      "evidenceRefs": ["excelsior"],
-      "limitations": ""
+      "resultMetric": "Owned the pneumatic systems on two robots end to end, and kept them working through each season: patching leaks at the tank, and recutting tubing that had been cut at an angle so the fittings sealed.",
+      "evidenceRefs": [
+        "excelsior"
+      ],
+      "limitations": "",
+      "anchor": "frc"
     },
     {
       "title": "FRC drivetrain, Excelsior and Jim (High school, 2022–2023): second in command on the swerve drivetrain",
       "ownedScope": "",
       "requirementOrConstraint": "",
       "method": "Did some of the drivetrain CAD, built and tested some of the swerve modules, built the one-piece bumpers, and fabricated parts.",
-      "resultMetric": "Trained rookies to build the rest of the swerve modules.",
-      "evidenceRefs": ["jim"],
+      "resultMetric": "Trained rookies to build the rest of the swerve modules. At competitions I kept the modules running, repairing any that were damaged in a match.",
+      "evidenceRefs": [
+        "jim"
+      ],
       "limitations": ""
     }
   ],
   "outcome": "BlockParty won the Best Design Award in ME 2110 and ran fully autonomously. On FRC, I owned the pneumatics on both robots and trained rookies to build the rest of the swerve modules.",
   "evidence": [
+    {
+      "id": "ore-arms-run",
+      "label": "Ore arms opening on the game field",
+      "type": "video",
+      "url": "/evidence/mechanical-builds/ore-arms.mp4",
+      "mimeType": "video/mp4",
+      "poster": "/evidence/mechanical-builds/ore-arms.jpg",
+      "note": "Phone video from an April 2025 practice session on the competition field: one piston swings both arms open."
+    },
+    {
+      "id": "carriage-run",
+      "label": "Carriage launching to the end tower",
+      "type": "video",
+      "url": "/evidence/mechanical-builds/carriage.mp4",
+      "mimeType": "video/mp4",
+      "poster": "/evidence/mechanical-builds/carriage.jpg",
+      "note": "Phone video from an April 2025 practice session on the competition field: the carriage rides out on the telescoping drawer slides to the end tower."
+    },
+    {
+      "id": "sweeper-test",
+      "label": "Testing the motor-driven ore sweeper",
+      "type": "video",
+      "url": "/evidence/mechanical-builds/sweeper-test.mp4",
+      "mimeType": "video/mp4",
+      "poster": "/evidence/mechanical-builds/sweeper-test.jpg",
+      "note": "Phone video, February 2025: the sprint 1 sweeper pushing ore blocks off the tower's top."
+    },
+    {
+      "id": "sprint1-tower",
+      "label": "The sprint 1 carriage at the tower",
+      "type": "video",
+      "url": "/evidence/mechanical-builds/sprint1.mp4",
+      "mimeType": "video/mp4",
+      "poster": "/evidence/mechanical-builds/sprint1.jpg",
+      "note": "Phone video, February 2025: the carriage rides out on its drawer slides and parks against the rotating tower, with the motor-driven sweeper mounted on top."
+    },
+    {
+      "id": "blockparty-field",
+      "label": "BlockParty on the competition field",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-field.jpg",
+      "mimeType": "image/jpeg",
+      "note": "April 2025 practice session, with both ore arms open."
+    },
+    {
+      "id": "blockparty-robot",
+      "label": "The finished robot",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-robot.jpg",
+      "mimeType": "image/jpeg",
+      "note": "April 2025: the air tank and pressure gauge, a pneumatic cylinder, and the drawer slides the carriage rides out on."
+    },
+    {
+      "id": "blockparty-poster",
+      "label": "ME 2110 final poster",
+      "type": "photo",
+      "url": "/evidence/mechanical-builds/blockparty-poster.jpg",
+      "mimeType": "image/jpeg",
+      "note": "ME 2110 final poster from our four-person team: mechanisms, design approach, and fabrication."
+    },
+    {
+      "id": "blockparty-walkthrough",
+      "label": "BlockParty mechanism walkthrough",
+      "type": "other",
+      "url": "https://jeremy-kwok.github.io/about/#walkthrough",
+      "note": "The same model on my About page, with notes on each of the four mechanisms."
+    },
     {
       "id": "excelsior",
       "label": "Excelsior (2022)",
@@ -72,21 +162,6 @@
       "url": "/evidence/mechanical-builds/jim.jpg",
       "mimeType": "image/jpeg",
       "note": "Jim (2023) in competition."
-    },
-    {
-      "id": "blockparty-poster",
-      "label": "ME 2110 final poster",
-      "type": "photo",
-      "url": "/evidence/mechanical-builds/blockparty-poster.jpg",
-      "mimeType": "image/jpeg",
-      "note": "ME 2110 final poster from our four-person team: mechanisms, design approach, and fabrication."
-    },
-    {
-      "id": "blockparty-walkthrough",
-      "label": "BlockParty 3D design walkthrough",
-      "type": "other",
-      "url": "https://jeremy-kwok.github.io/about/#walkthrough",
-      "note": "Interactive model of the robot on my About page, stepping through each mechanism."
     }
   ],
   "workType": [

@@ -114,7 +114,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Develop for Good, engineering and product manager',
     dates: 'Apr 2023 – Mar 2024',
     description:
-      'Managed two project teams for Readeezy Literacy. Both times I started as engineering manager, and when the product manager dropped out I took on that role too. The winter 2024 team brought Readeezy’s digital library for struggling teen and older readers to smartphones: we redesigned the pages, made the reading activities work on mobile, and cut duplicate code by 28%.',
+      'Managed two project teams for Readeezy Literacy. Both times I started as engineering manager, and when the product manager dropped out I took on that role too. The winter 2024 team brought Readeezy’s digital library for struggling teen and older readers to smartphones: we redesigned the pages, made the reading activities work on mobile, and cut duplicate code by 28%. I also co-built one of the activities, Character Match, with one of our engineers: if I was going to ask the team to build something, I wanted to show I’d do it too.',
     quote: {
       text: '“…outstanding in keeping everyone on task and maintaining a positive and supportive environment.”',
       by: 'Maria Cleary, President of Readeezy Literacy, in Develop for Good’s March 2024 newsletter',
@@ -147,7 +147,7 @@ export const ITEMS: TimelineItem[] = [
     title: 'Develop for Good, product lead',
     dates: 'Apr 2024 – Dec 2025',
     description:
-      'Directed 7 project teams building software for nonprofits, including two more Readeezy projects: an AI reading companion prototype and a single reading-settings toggle. Assessed 600+ program applications and trained 150+ student managers in product management.',
+      'Directed 7 more project teams building software for nonprofits (9 in all, counting the two I managed), including two more Readeezy projects: an AI reading companion prototype and a single reading-settings toggle. Assessed 600+ program applications and trained 150+ student managers in product management.',
   },
 
   // Research
@@ -173,7 +173,7 @@ export const ITEMS: TimelineItem[] = [
     dates: '2022 – Jun 2023',
     description:
       'Director of Pneumatics on Stuyvesant’s FIRST Robotics Competition (FRC) team through high school graduation: designed and maintained the pneumatic systems on two robots, Excelsior and Jim. I was also second in command on the swerve drivetrain: some of the CAD, building some of the swerve modules and the one-piece bumpers, fabrication, and teaching rookies to build the rest.',
-    links: [{ text: 'Read about the mechanical builds', href: '/projects/mechanical-builds/' }],
+    links: [{ text: 'Read about the mechanical builds', href: '/projects/mechanical-builds/#frc' }],
   },
   {
     id: 'enport',
