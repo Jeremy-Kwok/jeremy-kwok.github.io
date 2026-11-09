@@ -35,7 +35,7 @@ const LATELY: { lead: string; text: string; link?: { text: string; href: string 
   },
   {
     lead: "Looking for.",
-    text: "Full-time mechanical, mechatronics or test engineering work in robotics or medical devices after I graduate in December, especially a role where I own a system from the first requirement to how it holds up in the field. Open to relocating for the right role, ideally to a city like New York or Boston.",
+    text: "Full-time mechanical, mechatronics or test engineering work after I graduate in December, especially a role where I own a system from the first requirement to how it holds up in the field. Open to relocating for the right role, ideally to a city like New York or Boston.",
   },
 ];
 

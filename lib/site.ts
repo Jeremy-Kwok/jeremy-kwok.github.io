@@ -12,7 +12,7 @@ export const INTRO =
 
 // The short version, for the homepage. The full one is "Looking for" on /about.
 export const TARGET_ROLES =
-  'Full-time mechanical, mechatronics or test engineering roles in robotics and medical devices, after I graduate in December 2026. Open to relocating.';
+  'Full-time mechanical, mechatronics or test engineering roles, starting after I graduate in December 2026. Open to relocating.';
 
 // The homepage's one-line tool list, from the resume's Skills section.
 export const TOOLS =
